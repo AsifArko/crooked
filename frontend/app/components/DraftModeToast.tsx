@@ -1,55 +1,29 @@
 "use client";
 
-import {
-  useDraftModeEnvironment,
-  useIsPresentationTool,
-} from "next-sanity/hooks";
-import { useRouter } from "next/navigation";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { disableDraftMode } from "@/app/actions";
 
 export default function DraftModeToast() {
-  const isPresentationTool = useIsPresentationTool();
-  const env = useDraftModeEnvironment();
-  const router = useRouter();
-  const [pending, startTransition] = useTransition();
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (isPresentationTool === false) {
-      /**
-       * We delay the toast in case we're inside Presentation Tool
-       */
-      const toastId = toast("Draft Mode Enabled", {
-        description:
-          env === "live"
-            ? "Content is live, refreshing automatically"
-            : "Refresh manually to see changes",
-        duration: Infinity,
-        action: {
-          label: "Disable",
-          onClick: async () => {
-            await disableDraftMode();
-            startTransition(() => {
-              router.refresh();
-            });
-          },
-        },
-      });
-      return () => {
-        toast.dismiss(toastId);
-      };
-    }
-  }, [env, router, isPresentationTool]);
+    setIsVisible(true);
+    toast.success("Draft mode enabled", {
+      description: "You are viewing the site in draft mode.",
+      duration: 5000,
+    });
+  }, []);
 
-  useEffect(() => {
-    if (pending) {
-      const toastId = toast.loading("Disabling draft mode...");
-      return () => {
-        toast.dismiss(toastId);
-      };
-    }
-  }, [pending]);
+  if (!isVisible) return null;
 
-  return null;
+  return (
+    <div className="fixed top-4 right-4 z-50">
+      <div className="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-lg">
+        <p className="text-sm font-medium">Draft Mode</p>
+        <p className="text-xs opacity-90">
+          You are viewing unpublished content
+        </p>
+      </div>
+    </div>
+  );
 }

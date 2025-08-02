@@ -1,85 +1,86 @@
-import { Suspense } from "react";
-import Link from "next/link";
-import { PortableText } from "@portabletext/react";
+import { Suspense } from 'react'
+import { Hero } from '@/components/hero/Hero'
+import { SourceCodeGrid } from '@/components/source-code/SourceCodeGrid'
+import { DocumentGrid } from '@/components/documents/DocumentGrid'
+import { GitHubContributions } from '@/components/github/GitHubContributions'
+import { Loading } from '@/components/layout/Loading'
 
-import { AllPosts } from "@/app/components/Posts";
-import GetStartedCode from "@/app/components/GetStartedCode";
-import SideBySideIcons from "@/app/components/SideBySideIcons";
-import { settingsQuery } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/live";
+// Mock data for development
+const mockSourceCodes = [
+  {
+    _id: '1',
+    title: 'E-Commerce Platform',
+    slug: 'ecommerce-platform',
+    description: 'A full-stack e-commerce platform built with Next.js, TypeScript, and Stripe integration.',
+    githubUrl: 'https://github.com/example/ecommerce',
+    demoUrl: 'https://demo-ecommerce.vercel.app',
+    price: 99,
+    technologies: ['Next.js', 'TypeScript', 'Stripe', 'Tailwind CSS'],
+    features: ['User authentication', 'Payment processing', 'Admin dashboard', 'Responsive design'],
+    isPublished: true,
+  },
+  {
+    _id: '2',
+    title: 'Task Management App',
+    slug: 'task-management-app',
+    description: 'A collaborative task management application with real-time updates and team features.',
+    githubUrl: 'https://github.com/example/task-app',
+    demoUrl: 'https://task-app-demo.vercel.app',
+    price: 79,
+    technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
+    features: ['Real-time collaboration', 'Task assignments', 'Progress tracking', 'Team management'],
+    isPublished: true,
+  },
+]
 
-export default async function Page() {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-  });
+const mockDocuments = [
+  {
+    _id: '1',
+    name: 'Asif Arko - Resume',
+    category: 'resume',
+    description: 'My latest resume with skills, experience, and projects.',
+    file: {
+      asset: {
+        url: '/api/documents/resume.pdf'
+      }
+    },
+    isPublic: true,
+    uploadedAt: '2024-01-15T10:00:00Z',
+  },
+  {
+    _id: '2',
+    name: 'Research Paper - AI in Web Development',
+    category: 'research',
+    description: 'A comprehensive research paper on the impact of AI in modern web development.',
+    file: {
+      asset: {
+        url: '/api/documents/research-ai.pdf'
+      }
+    },
+    isPublic: true,
+    uploadedAt: '2024-01-10T14:30:00Z',
+  },
+]
 
+export default function HomePage() {
   return (
-    <>
-      <div className="relative">
-        <div className="relative bg-[url(/images/tile-1-black.png)] bg-size-[5px]">
-          <div className="bg-gradient-to-b from-white w-full h-full absolute top-0"></div>
-          <div className="container">
-            <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
-              <div className="flex flex-col gap-4 items-center">
-                <div className="text-md leading-6 prose uppercase py-1 px-3 bg-white font-mono italic">
-                  A starter template for
-                </div>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
-                  <Link
-                    className="underline decoration-brand hover:text-brand underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://sanity.io/"
-                  >
-                    Sanity
-                  </Link>
-                  +
-                  <Link
-                    className="underline decoration-black text-framework underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://nextjs.org/"
-                  >
-                    Next.js
-                  </Link>
-                </h1>
-              </div>
-            </div>
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <Suspense fallback={<Loading />}>
+        <Hero />
+        
+        {/* GitHub Contributions Section */}
+        <section className="py-16 px-4 bg-white dark:bg-slate-900">
+          <div className="max-w-4xl mx-auto">
+            <GitHubContributions username="asifarko" />
           </div>
-        </div>
-        <div className=" flex flex-col items-center">
-          <SideBySideIcons />
-          <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center">
-            <div className="prose sm:prose-lg md:prose-xl xl:prose-2xl text-gray-700 prose-a:text-gray-700 font-light text-center">
-              {settings?.description && (
-                <PortableText value={settings.description} />
-              )}
-              <div className="flex items-center flex-col gap-4">
-                <GetStartedCode />
-                <Link
-                  href="https://www.sanity.io/docs"
-                  className="inline-flex text-brand text-xs md:text-sm underline hover:text-gray-900"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Sanity Documentation
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 ml-1 inline"
-                    fill="currentColor"
-                  >
-                    <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V12L17.206 8.207L11.2071 14.2071L9.79289 12.7929L15.792 6.793L12 3H21Z"></path>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="border-t border-gray-100 bg-gray-50">
-        <div className="container">
-          <aside className="py-12 sm:py-20">
-            <Suspense>{await AllPosts()}</Suspense>
-          </aside>
-        </div>
-      </div>
-    </>
-  );
+        </section>
+
+        {/* Source Code Projects Section */}
+        <SourceCodeGrid sourceCodes={mockSourceCodes} />
+        
+        {/* Documents Section */}
+        <DocumentGrid documents={mockDocuments} />
+      </Suspense>
+    </main>
+  )
 }

@@ -1,25 +1,44 @@
-import { stegaClean } from "@sanity/client/stega";
-import { Image } from "next-sanity/image";
-import { getImageDimensions } from "@sanity/asset-utils";
-import { urlForImage } from "@/sanity/lib/utils";
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface CoverImageProps {
-  image: any;
+  image: {
+    asset?: {
+      url?: string;
+      _ref?: string;
+    };
+  };
   priority?: boolean;
+  className?: string;
 }
 
-export default function CoverImage(props: CoverImageProps) {
-  const { image: source, priority } = props;
-  const image = source?.asset?._ref ? (
-    <Image
-      className="object-cover"
-      width={getImageDimensions(source).width}
-      height={getImageDimensions(source).height}
-      alt={stegaClean(source?.alt) || ""}
-      src={urlForImage(source)?.url() as string}
-      priority={priority}
-    />
-  ) : null;
+export default function CoverImage({
+  image,
+  priority,
+  className,
+}: CoverImageProps) {
+  if (!image?.asset?.url) {
+    return null;
+  }
 
-  return <div className="relative">{image}</div>;
+  return (
+    <motion.div
+      className={cn("relative overflow-hidden rounded-lg", className)}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Image
+        src={image.asset.url}
+        alt="Cover"
+        width={800}
+        height={400}
+        className="w-full h-auto object-cover"
+        priority={priority}
+      />
+    </motion.div>
+  );
 }
