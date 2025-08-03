@@ -1,4 +1,4 @@
-import { GitHubContributionsAdvanced } from "./components/github/GitHubContributionsAdvanced";
+import { GitHubContributions } from "./components/github/components/GitHubContributions";
 
 export default function TestGitHubComponent() {
   return (
@@ -8,22 +8,22 @@ export default function TestGitHubComponent() {
       <div className="space-y-8">
         <div>
           <h2 className="text-lg font-semibold mb-4">Full Version</h2>
-          <GitHubContributionsAdvanced username="asifarko" />
+          <GitHubContributions username="asifarko" />
         </div>
 
         <div>
           <h2 className="text-lg font-semibold mb-4">Compact Version</h2>
-          <GitHubContributionsAdvanced username="asifarko" compact={true} />
+          <GitHubContributions username="asifarko" compact={true} />
         </div>
 
         <div>
           <h2 className="text-lg font-semibold mb-4">Without Header</h2>
-          <GitHubContributionsAdvanced username="asifarko" showHeader={false} />
+          <GitHubContributions username="asifarko" showHeader={false} />
         </div>
 
         <div>
-          <h2 className="text-lg font-semibold mb-4">Without Streak</h2>
-          <GitHubContributionsAdvanced username="asifarko" showStreak={false} />
+          <h2 className="text-lg font-semibold mb-4">Without Legend</h2>
+          <GitHubContributions username="asifarko" showLegend={false} />
         </div>
       </div>
     </div>

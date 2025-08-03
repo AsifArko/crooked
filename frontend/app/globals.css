@@ -145,6 +145,9 @@
 }
 
 @layer base {
+  html {
+    zoom: 0.9;
+  }
   * {
     @apply border-border outline-ring/50;
   }

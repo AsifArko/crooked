@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import { Hero } from "@/components/hero/Hero";
-import { SourceCodeGrid } from "@/components/source-code/SourceCodeGrid";
-import { DocumentGrid } from "@/components/documents/DocumentGrid";
 import { Loading } from "@/components/layout/Loading";
+import { GithubActivity } from "@/components/github/components/GithubActivity";
 
 // Mock data for development
 const mockSourceCodes = [
@@ -79,6 +78,9 @@ export default function HomePage() {
     <main className="min-h-screen bg-background">
       <Suspense fallback={<Loading />}>
         <Hero />
+
+        {/* GitHub Contributions Section */}
+        <GithubActivity />
 
         {/* Source Code Projects Section */}
         {/* <SourceCodeGrid sourceCodes={mockSourceCodes} /> */}

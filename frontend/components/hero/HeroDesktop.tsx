@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GitHubContributionsAdvanced } from "@/components/github/GitHubContributionsAdvanced";
+import { GitHubContributions } from "@/components/github/components/GitHubContributions";
 import { Mail, Linkedin, Github, FileText } from "lucide-react";
 
 export function HeroDesktop() {
@@ -112,31 +112,10 @@ export function HeroDesktop() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="space-y-2"
               >
-                {/* Professional header */}
-                <span className="text-xs text-muted-foreground/60 block">
-                  @asifarko
-                </span>
-
                 {/* GitHub Contributions */}
                 <div className="flex justify-center">
-                  <GitHubContributionsAdvanced
-                    username="asifarko"
-                    showHeader={false}
-                  />
+                  <GitHubContributions username="asifarko" showHeader={false} />
                 </div>
-
-                {/* Professional footer */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                  className="text-center pt-4 border-t border-slate-200/50 dark:border-slate-700/50"
-                >
-                  <p className="text-xs text-muted-foreground">
-                    Each square represents a day of coding, learning, and
-                    building
-                  </p>
-                </motion.div>
               </motion.div>
             </div>
           </motion.div>
