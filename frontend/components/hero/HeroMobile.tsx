@@ -1,129 +1,154 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
-import { GitHubContributions } from "@/components/github/GitHubContributions";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+import { GitHubContributionsAdvanced } from "@/components/github/GitHubContributionsAdvanced";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
 
 export function HeroMobile() {
   return (
-    <section className="relative overflow-hidden bg-background py-12 px-6">
-      <div className="grid grid-cols-1 gap-8">
-        {/* Main Hero Content */}
+    <section className="relative overflow-hidden bg-background py-8 px-4 mx-auto max-w-7xl">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]" />
+
+      {/* Professional gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-muted/30" />
+
+      <div className="relative z-10">
         <motion.div
-          className="w-full max-w-md mx-auto"
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-md mx-auto space-y-8"
         >
-          <motion.div className="text-center mb-8" variants={fadeInUp}>
-            <Badge
-              variant="secondary"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-black/5 to-white/10 border-black/20 text-foreground/70 backdrop-blur-sm !rounded-sm font-normal mb-6"
+          {/* Professional header section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center space-y-6"
+          >
+            {/* Professional badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-primary/5 border border-primary/10 rounded-md text-xs font-medium text-primary"
             >
-              <Sparkles className="mr-2 h-4 w-4 text-foreground/50" />
-              Full Stack Developer
-            </Badge>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+              Software Engineer
+            </motion.div>
 
-            <motion.h1
-              className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text mb-4"
-              variants={fadeInUp}
+            {/* Main heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="space-y-4"
             >
-              Asif Arko
-            </motion.h1>
+              <h1 className="text-2xl font-bold text-foreground leading-tight">
+                Asif{" "}
+                <span className="bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
+                  Imtiyaz Chowdhury
+                </span>
+              </h1>
 
-            <motion.p
-              className="text-sm text-primary font-medium mb-4"
-              variants={fadeInUp}
-            >
-              Building modern web applications with cutting-edge technologies
-            </motion.p>
+              <p className="text-xs text-muted-foreground/70 leading-relaxed font-light">
+                Crafting modern web experiences with passion and precision.
+                Every contribution tells a story of continuous learning and
+                growth.
+              </p>
+            </motion.div>
 
-            <motion.p
-              className="text-xs leading-relaxed text-muted-foreground/80 font-light tracking-wide"
-              variants={fadeInUp}
+            {/* Social icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex justify-center items-center gap-3"
             >
-              Passionate about creating elegant, scalable solutions with clean
-              code and modern design. Specialized in React, Next.js, TypeScript,
-              and full-stack development.
-            </motion.p>
+              <a
+                href="mailto:asif@example.com"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="https://linkedin.com/in/asifarko"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="https://github.com/asifarko"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="Resume"
+              >
+                <FileText className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+            </motion.div>
           </motion.div>
 
-          <motion.div className="space-y-4" variants={fadeInUp}>
-            <div className="flex flex-col gap-4">
-              <Button
-                size="lg"
-                className="group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full h-12"
-              >
-                View Projects
-              </Button>
+          {/* Professional GitHub Contributions Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-lg p-6 shadow-sm"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="space-y-4"
+            >
+              {/* Professional header */}
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">
+                  GitHub Activity
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  A year of consistent contributions and growth
+                </p>
+              </div>
 
-              <Button
-                variant="outline"
-                size="lg"
-                className="group border-border/50 hover:bg-background/50 transition-all duration-300 w-full h-12"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
-              </Button>
-            </div>
+              {/* GitHub Contributions */}
+              <div className="flex justify-center">
+                <GitHubContributionsAdvanced
+                  username="asifarko"
+                  compact={true}
+                  showHeader={false}
+                />
+              </div>
 
-            <div className="flex justify-center space-x-4 pt-4">
-              <Button
-                variant="ghost"
-                size="lg"
-                className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
+              {/* Professional footer */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                className="text-center pt-4 border-t border-slate-200/50 dark:border-slate-700/50"
               >
-                <Github className="w-6 h-6" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="lg"
-                className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
-              >
-                <Linkedin className="w-6 h-6" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="lg"
-                className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
-              >
-                <Mail className="w-6 h-6" />
-              </Button>
-            </div>
+                <p className="text-xs text-muted-foreground">
+                  Each square represents a day of coding, learning, and building
+                </p>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* GitHub Contributions */}
-        <div className="w-full flex justify-center">
-          <GitHubContributions username="asifarko" />
-        </div>
-      </div>
-
-      {/* Enhanced Background decoration */}
-      <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/30 to-secondary/30 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
-      </div>
-      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-        <div className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-secondary/30 to-primary/30 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" />
       </div>
     </section>
   );

@@ -12,6 +12,18 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Check if GitHub token is configured
+    const githubToken = process.env.GITHUB_TOKEN
+    if (!githubToken) {
+      return NextResponse.json(
+        { 
+          error: 'GitHub token not configured',
+          message: 'Please configure GITHUB_TOKEN environment variable'
+        },
+        { status: 500 }
+      )
+    }
+
     // GitHub GraphQL query for contributions
     const query = `
       query($username: String!) {
@@ -35,7 +47,8 @@ export async function GET(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'Authorization': `Bearer ${githubToken}`,
+        'User-Agent': 'crooked-app',
       },
       body: JSON.stringify({
         query,
@@ -44,13 +57,40 @@ export async function GET(request: NextRequest) {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to fetch GitHub data')
+      const errorText = await response.text()
+      console.error('GitHub API error:', response.status, errorText)
+      
+      if (response.status === 401) {
+        return NextResponse.json(
+          { error: 'Invalid GitHub token' },
+          { status: 401 }
+        )
+      }
+      
+      if (response.status === 403) {
+        return NextResponse.json(
+          { error: 'Rate limit exceeded or insufficient permissions' },
+          { status: 403 }
+        )
+      }
+      
+      throw new Error(`GitHub API error: ${response.status}`)
     }
 
     const data = await response.json()
 
     if (data.errors) {
-      throw new Error(data.errors[0].message)
+      const error = data.errors[0]
+      console.error('GraphQL error:', error)
+      
+      if (error.message.includes('Could not resolve to a User')) {
+        return NextResponse.json(
+          { error: 'GitHub user not found' },
+          { status: 404 }
+        )
+      }
+      
+      throw new Error(error.message)
     }
 
     const user = data.data.user
@@ -74,7 +114,14 @@ export async function GET(request: NextRequest) {
       })
     })
 
-    return NextResponse.json({ contributions })
+    // Sort contributions by date to ensure proper order
+    contributions.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+    return NextResponse.json({ 
+      contributions,
+      totalContributions: user.contributionsCollection.contributionCalendar.totalContributions,
+      username
+    })
   } catch (error) {
     console.error('Error fetching GitHub contributions:', error)
     return NextResponse.json(

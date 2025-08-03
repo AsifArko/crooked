@@ -1,121 +1,146 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Download,
-  Github,
-  Linkedin,
-  Mail,
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
-import { GitHubContributions } from "@/components/github/GitHubContributions";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
+import { GitHubContributionsAdvanced } from "@/components/github/GitHubContributionsAdvanced";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
 
 export function HeroDesktop() {
   return (
     <section className="relative overflow-hidden bg-background py-12 sm:py-16 mx-auto max-w-7xl px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        {/* Left Column - Main Content */}
-        <div className="lg:col-span-1 space-y-6">
-          <Badge
-            variant="secondary"
-            className="inline-flex items-center justify-center bg-gradient-to-r from-black/5 to-white/10 border-black/20 text-foreground/70 backdrop-blur-sm !rounded-sm font-normal"
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]" />
+
+      {/* Professional gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-bl from-background via-background/95 to-muted/30" />
+
+      <div className="relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left side - Professional content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
           >
-            <Sparkles className="mr-2 h-4 w-4 text-foreground/50" />
-            Full Stack Developer & Open Source Contributor
-          </Badge>
+            {/* Professional badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-primary/5 border border-primary/10 rounded-md text-xs font-medium text-primary"
+            >
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+              Software Engineer
+            </motion.div>
 
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-              Asif Arko
-            </h1>
-            <p className="text-sm text-primary font-medium">
-              Building modern web applications with cutting-edge technologies
-            </p>
-          </div>
+            {/* Main heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+                Asif{" "}
+                <span className="bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
+                  Imtiyaz Chowdhury
+                </span>
+              </h1>
 
-          <p className="text-xs leading-relaxed text-muted-foreground/80 sm:text-sm max-w-lg font-light tracking-wide">
-            Passionate about creating elegant, scalable solutions with clean
-            code and modern design. Specialized in React, Next.js, TypeScript,
-            and full-stack development with a focus on user experience and
-            performance.
-          </p>
+              <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-lg font-light">
+                Crafting modern web experiences with passion and precision.
+                Every contribution tells a story of continuous learning and
+                growth.
+              </p>
+            </motion.div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Button
-                size="lg"
-                className="group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto min-w-[200px] h-12"
+            {/* Social icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex items-center gap-4"
+            >
+              <a
+                href="mailto:asif@example.com"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="Email"
               >
-                View Projects
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="group border-border/50 hover:bg-background/50 transition-all duration-300 w-full sm:w-auto min-w-[200px] h-12"
+                <Mail className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="https://linkedin.com/in/asifarko"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="LinkedIn"
               >
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
-              </Button>
+                <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="https://github.com/asifarko"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors"
+                aria-label="Resume"
+              >
+                <FileText className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* Right side - GitHub Contributions */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex justify-center lg:justify-end"
+          >
+            <div className="w-full max-w-lg bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-lg p-8 shadow-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="space-y-2"
+              >
+                {/* Professional header */}
+                <span className="text-xs text-muted-foreground/60 block">
+                  @asifarko
+                </span>
+
+                {/* GitHub Contributions */}
+                <div className="flex justify-center">
+                  <GitHubContributionsAdvanced
+                    username="asifarko"
+                    showHeader={false}
+                  />
+                </div>
+
+                {/* Professional footer */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  className="text-center pt-4 border-t border-slate-200/50 dark:border-slate-700/50"
+                >
+                  <p className="text-xs text-muted-foreground">
+                    Each square represents a day of coding, learning, and
+                    building
+                  </p>
+                </motion.div>
+              </motion.div>
             </div>
-          </div>
-
-          <div className="flex space-x-4">
-            <Button
-              variant="ghost"
-              size="lg"
-              className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
-            >
-              <Github className="w-6 h-6" />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="lg"
-              className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
-            >
-              <Linkedin className="w-6 h-6" />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="lg"
-              className="w-12 h-12 p-0 hover:bg-muted/50 transition-colors"
-            >
-              <Mail className="w-6 h-6" />
-            </Button>
-          </div>
+          </motion.div>
         </div>
-
-        {/* Right Column - GitHub Contributions */}
-        <div className="lg:col-span-1 flex justify-center lg:justify-end">
-          <GitHubContributions username="asifarko" />
-        </div>
-      </div>
-
-      {/* Enhanced Background decoration */}
-      <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/30 to-secondary/30 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
-      </div>
-      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-        <div className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-secondary/30 to-primary/30 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" />
       </div>
     </section>
   );

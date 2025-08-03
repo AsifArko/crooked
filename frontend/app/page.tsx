@@ -81,10 +81,10 @@ export default function HomePage() {
         <Hero />
 
         {/* Source Code Projects Section */}
-        <SourceCodeGrid sourceCodes={mockSourceCodes} />
+        {/* <SourceCodeGrid sourceCodes={mockSourceCodes} /> */}
 
         {/* Documents Section */}
-        <DocumentGrid documents={mockDocuments} />
+        {/* <DocumentGrid documents={mockDocuments} /> */}
       </Suspense>
     </main>
   );

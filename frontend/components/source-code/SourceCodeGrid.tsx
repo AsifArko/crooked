@@ -56,7 +56,7 @@ export function SourceCodeGrid({ sourceCodes }: SourceCodeGridProps) {
 
   return (
     <section className="py-8 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>

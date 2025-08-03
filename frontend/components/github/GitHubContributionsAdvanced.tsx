@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Contribution {
@@ -8,19 +8,19 @@ interface Contribution {
   contributionCount: number;
 }
 
-interface GitHubContributionsProps {
+interface GitHubContributionsAdvancedProps {
   username?: string;
   className?: string;
   compact?: boolean;
   showHeader?: boolean;
 }
 
-export function GitHubContributions({
+export function GitHubContributionsAdvanced({
   username = "asifarko",
   className = "",
   compact = false,
   showHeader = true,
-}: GitHubContributionsProps) {
+}: GitHubContributionsAdvancedProps) {
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -95,6 +95,7 @@ export function GitHubContributions({
     contributionCount: number;
     month: number;
     day: number;
+    year: number;
   }> = [];
   const current = new Date(startDate);
 
@@ -106,6 +107,7 @@ export function GitHubContributions({
       contributionCount,
       month: current.getMonth(),
       day: current.getDate(),
+      year: current.getFullYear(),
     });
     current.setDate(current.getDate() + 1);
   }
@@ -117,6 +119,7 @@ export function GitHubContributions({
       contributionCount: number;
       month: number;
       day: number;
+      year: number;
     }>
   > = [];
 
@@ -133,6 +136,7 @@ export function GitHubContributions({
       contributionCount: number;
       month: number;
       day: number;
+      year: number;
     }> = [];
 
     for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
@@ -143,6 +147,7 @@ export function GitHubContributions({
         contributionCount,
         month: currentWeek.getMonth(),
         day: currentWeek.getDate(),
+        year: currentWeek.getFullYear(),
       });
       currentWeek.setDate(currentWeek.getDate() + 1);
     }
@@ -181,19 +186,30 @@ export function GitHubContributions({
   const handleMouseEnter = (day: Contribution, event: React.MouseEvent) => {
     setHoveredDay(day);
     const rect = event.currentTarget.getBoundingClientRect();
-    setTooltipPosition({
-      x: rect.left + rect.width / 2,
-      y: rect.top,
-    });
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Calculate tooltip position
+    let x = rect.left + rect.width / 2;
+    let y = rect.top - 40;
+
+    // Ensure tooltip doesn't go off-screen horizontally
+    if (x < 100) x = 100;
+    if (x > viewportWidth - 100) x = viewportWidth - 100;
+
+    // Ensure tooltip doesn't go off-screen vertically
+    if (y < 50) y = rect.bottom + 10;
+
+    setTooltipPosition({ x, y });
   };
 
-  const squareSize = compact ? "w-1.5 h-1.5" : "w-2 h-2";
-  const gapSize = compact ? "gap-0.5" : "gap-0.5";
+  const squareSize = compact ? "w-1 h-1" : "w-1.5 h-1.5";
+  const gapSize = compact ? "gap-1.5" : "gap-1.5";
 
   return (
     <div className={`${className}`}>
       {/* Header - Only show if not compact and showHeader is true */}
-      {!compact && showHeader && (
+      {showHeader && (
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center space-x-2">
             <span className="text-xs text-muted-foreground">@{username}</span>
@@ -212,35 +228,62 @@ export function GitHubContributions({
         {!compact && (
           <div className="hidden md:flex justify-between mb-1 px-0.5">
             {(() => {
-              // Get all unique months that appear in the weeks data
-              const allMonths = new Set<number>();
+              // Get all unique month-year combinations that appear in the weeks data
+              const allMonthYears = new Set<string>();
               weeks.forEach((week) => {
                 week.forEach((day) => {
-                  allMonths.add(day.month);
+                  allMonthYears.add(`${day.year}-${day.month}`);
                 });
               });
 
-              // Convert to array and sort by month number
-              const monthNumbers = Array.from(allMonths).sort((a, b) => a - b);
+              // Convert to array and sort by year, then month
+              const monthYearNumbers = Array.from(allMonthYears)
+                .map((my) => {
+                  const [year, month] = my.split("-").map(Number);
+                  return { year, month };
+                })
+                .sort((a, b) => {
+                  if (a.year !== b.year) return a.year - b.year;
+                  return a.month - b.month;
+                })
+                .filter(({ year, month }, index, array) => {
+                  // Only remove last year's July if we're currently in July or later
+                  const currentYear = new Date().getFullYear();
+                  const currentMonth = new Date().getMonth();
+
+                  // If it's last year's July (month 6) and we're currently in July or later, skip it
+                  if (
+                    year === currentYear - 1 &&
+                    month === 6 &&
+                    currentMonth >= 6
+                  ) {
+                    return false;
+                  }
+
+                  return true;
+                });
 
               // Create month labels
-              const monthLabels = monthNumbers.map((monthNum) => ({
-                month: new Date(2024, monthNum, 1).toLocaleDateString("en-US", {
+              const monthLabels = monthYearNumbers.map(({ year, month }) => ({
+                month: new Date(year, month, 1).toLocaleDateString("en-US", {
                   month: "short",
                 }),
-                monthNum,
+                monthNum: month,
+                year,
+                key: `${year}-${month}`,
               }));
 
-              // Find the first occurrence of each month in the weeks
-              const monthPositions = new Map<number, number>();
-              let currentMonth = -1;
+              // Find the first occurrence of each month-year in the weeks
+              const monthPositions = new Map<string, number>();
+              let currentMonthYear = "";
 
               weeks.forEach((week, weekIndex) => {
                 week.forEach((day) => {
-                  if (day.month !== currentMonth) {
-                    currentMonth = day.month;
-                    if (!monthPositions.has(day.month)) {
-                      monthPositions.set(day.month, weekIndex);
+                  const monthYear = `${day.year}-${day.month}`;
+                  if (monthYear !== currentMonthYear) {
+                    currentMonthYear = monthYear;
+                    if (!monthPositions.has(monthYear)) {
+                      monthPositions.set(monthYear, weekIndex);
                     }
                   }
                 });
@@ -248,10 +291,32 @@ export function GitHubContributions({
 
               // Create a grid of 53 columns and distribute month labels
               const monthGrid = new Array(53).fill("");
-              monthLabels.forEach(({ month, monthNum }) => {
-                const position = monthPositions.get(monthNum);
+
+              // Sort month labels by their position, then by year and month
+              const sortedMonthLabels = monthLabels.sort((a, b) => {
+                const posA = monthPositions.get(a.key) || 0;
+                const posB = monthPositions.get(b.key) || 0;
+                if (posA === posB) {
+                  if (a.year !== b.year) return a.year - b.year;
+                  return a.monthNum - b.monthNum;
+                }
+                return posA - posB;
+              });
+
+              sortedMonthLabels.forEach(({ month, key }) => {
+                const position = monthPositions.get(key);
                 if (position !== undefined) {
-                  monthGrid[position] = month;
+                  // Find the first empty position starting from the calculated position
+                  let targetPosition = position;
+                  while (
+                    targetPosition < 53 &&
+                    monthGrid[targetPosition] !== ""
+                  ) {
+                    targetPosition++;
+                  }
+                  if (targetPosition < 53) {
+                    monthGrid[targetPosition] = month;
+                  }
                 }
               });
 
@@ -328,15 +393,15 @@ export function GitHubContributions({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="fixed z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded shadow-lg pointer-events-none whitespace-nowrap"
+            className="fixed z-[9999] px-3 py-2 text-xs text-white bg-gray-900 rounded-lg shadow-xl pointer-events-none whitespace-nowrap border border-gray-700"
             style={{
               left: tooltipPosition.x,
-              top: tooltipPosition.y - 40,
+              top: tooltipPosition.y,
               transform: "translateX(-50%)",
             }}
           >
             {getTooltipText(hoveredDay)}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-transparent border-t-gray-900"></div>
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
           </motion.div>
         )}
       </AnimatePresence>
