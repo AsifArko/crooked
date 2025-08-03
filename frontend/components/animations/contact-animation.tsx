@@ -185,7 +185,7 @@ export function ContactAnimation({
 
     // Signal waves emanating from devices
     const drawSignalWaves = () => {
-      devices.forEach(device => {
+      devices.forEach((device) => {
         const waveCount = 2;
         for (let i = 0; i < waveCount; i++) {
           const waveRadius =
@@ -327,7 +327,7 @@ export function ContactAnimation({
     };
 
     const drawDataPackets = () => {
-      dataPackets.forEach(packet => {
+      dataPackets.forEach((packet) => {
         const pulse = Math.sin(time * 0.1) * 0.2 + 0.8;
 
         ctx.fillStyle = accentColor;
@@ -456,9 +456,7 @@ export function ContactAnimation({
 
   return (
     <canvas
-      ref={el => {
-        canvasRef.current = el;
-      }}
+      ref={canvasRef}
       className={`block ${className}`}
       style={{
         imageRendering: "pixelated",

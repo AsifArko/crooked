@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GitHubContributions } from "@/components/github/components/GitHubContributions";
+import { GitHubContributions } from "@/components/github/components/contributions/GitHubContributions";
 import { Mail, Linkedin, Github, FileText } from "lucide-react";
 
 export function HeroDesktop() {

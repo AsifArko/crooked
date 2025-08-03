@@ -1,5 +1,5 @@
-import { MonthLabel } from "../lib/types";
-import { GitHubContributionsConfig } from "../lib/types";
+import { MonthLabel } from "../../lib/types";
+import { GitHubContributionsConfig } from "../../lib/types";
 
 interface MonthLabelsProps {
   config: GitHubContributionsConfig;

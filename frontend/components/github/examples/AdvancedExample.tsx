@@ -1,4 +1,4 @@
-import { GitHubContributions } from "../components/GitHubContributions";
+import { GitHubContributions } from "../components/contributions/GitHubContributions";
 
 export function AdvancedExample() {
   const customColors = {

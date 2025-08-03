@@ -226,7 +226,7 @@ export function InfographicAnimation({
       // Draw connections
       ctx.strokeStyle = "rgba(156, 163, 175, 0.3)";
       ctx.lineWidth = 2;
-      nodes.forEach(node => {
+      nodes.forEach((node) => {
         ctx.beginPath();
         ctx.moveTo(hubX, hubY);
         ctx.lineTo(node.x, node.y);
@@ -263,7 +263,7 @@ export function InfographicAnimation({
         });
       }
 
-      dataPackets.forEach(packet => {
+      dataPackets.forEach((packet) => {
         if (packet.life > 0) {
           ctx.fillStyle = packet.color;
           ctx.globalAlpha = packet.life;
@@ -363,7 +363,7 @@ export function InfographicAnimation({
       ctx.strokeStyle = "rgba(156, 163, 175, 0.4)";
       ctx.lineWidth = 2;
       atoms.forEach((atom, i) => {
-        atom.connections.forEach(targetIndex => {
+        atom.connections.forEach((targetIndex) => {
           if (targetIndex > i) {
             const target = atoms[targetIndex];
             ctx.beginPath();
@@ -403,7 +403,7 @@ export function InfographicAnimation({
         });
       }
 
-      dataPoints.forEach(point => {
+      dataPoints.forEach((point) => {
         point.x += point.vx;
         point.y += point.vy;
         point.life -= 0.005;
@@ -587,9 +587,7 @@ export function InfographicAnimation({
 
   return (
     <canvas
-      ref={el => {
-        canvasRef.current = el;
-      }}
+      ref={canvasRef}
       className={`block ${className}`}
       style={{
         imageRendering: "pixelated",

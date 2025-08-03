@@ -4,13 +4,13 @@ import {
   ContributionDay,
   WeekData,
   GitHubContributionsConfig,
-} from "../lib/types";
+} from "../../lib/types";
 import {
   getContributionColor,
   getSquareSize,
   getGapSize,
   getAccessibilityLabel,
-} from "../lib/utils";
+} from "../../lib/utils";
 
 interface ContributionGridProps {
   config: GitHubContributionsConfig;
@@ -29,18 +29,17 @@ export function ContributionGrid({
 }: ContributionGridProps) {
   const squareSize = getSquareSize(config.compact || false);
   const gapSize = getGapSize(config.compact || false);
-
   return (
-    <div className={`grid grid-cols-53 ${gapSize} max-w-full`}>
+    <div className={`grid grid-cols-53 gap-[3.5px] max-w-full`}>
       {weeks.map((week, weekIndex) => (
-        <div key={weekIndex} className={`flex flex-col ${gapSize}`}>
+        <div key={weekIndex} className={`flex flex-col gap-[3.5px]`}>
           {week.days.map((day, dayIndex) => (
             <motion.div
               key={day.date}
               className={`
-                ${squareSize} rounded-sm cursor-pointer transition-all duration-200
+                ${squareSize} rounded-md cursor-pointer transition-all duration-200
                 ${getContributionColor(day.contributionCount, colorScheme)}
-                hover:scale-125 hover:ring-1 hover:ring-primary/30
+                hover:scale-125 hover:shadow-lg hover:z-10
                 focus:outline-none focus:ring-2 focus:ring-primary/50
               `}
               onMouseEnter={(e) => onMouseEnter(day, e)}

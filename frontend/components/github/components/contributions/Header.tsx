@@ -1,5 +1,5 @@
-import { GitHubContributionsConfig } from "../lib/types";
-import { formatContributionCount } from "../lib/utils";
+import { GitHubContributionsConfig } from "../../lib/types";
+import { formatContributionCount } from "../../lib/utils";
 
 interface HeaderProps {
   config: GitHubContributionsConfig;

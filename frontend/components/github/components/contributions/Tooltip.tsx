@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Contribution, GitHubContributionsConfig } from "../lib/types";
-import { formatTooltipText } from "../lib/utils";
-import { TOOLTIP_CONFIG } from "../lib/constants";
+import { Contribution, GitHubContributionsConfig } from "../../lib/types";
+import { formatTooltipText } from "../../lib/utils";
+import { TOOLTIP_CONFIG } from "../../lib/constants";
 
 interface TooltipProps {
   config: GitHubContributionsConfig;

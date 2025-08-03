@@ -35,6 +35,14 @@
   --font-sans: "Inter", "sans-serif";
 
   --default-transition-duration: 250ms;
+
+  /* Card Design System */
+  --card-border: border-border/50;
+  --card-radius: rounded-lg;
+  --card-padding: p-6;
+  --card-background: bg-gradient-to-br from-background to-background/50;
+  --card-backdrop: backdrop-blur-sm;
+  --card-height: h-full;
 }
 
 @theme inline {

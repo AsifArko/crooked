@@ -1,5 +1,5 @@
-import { GitHubContributionsConfig } from "../lib/types";
-import { getContributionColor } from "../lib/utils";
+import { GitHubContributionsConfig } from "../../lib/types";
+import { getContributionColor } from "../../lib/utils";
 
 interface LegendProps {
   config: GitHubContributionsConfig;

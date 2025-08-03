@@ -1,4 +1,4 @@
-import { GitHubContributions } from "./components/github/components/GitHubContributions";
+import { GitHubContributions } from "./components/github/components/contributions/GitHubContributions";
 
 export default function TestGitHubComponent() {
   return (

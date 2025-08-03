@@ -497,9 +497,7 @@ export function SecurityAnimation({
 
   return (
     <canvas
-      ref={el => {
-        canvasRef.current = el;
-      }}
+      ref={canvasRef}
       className={`${className}`}
       style={{
         display: "block",

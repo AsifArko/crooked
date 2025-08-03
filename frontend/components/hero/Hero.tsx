@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sigma, Mail, Linkedin, Github, FileText } from "lucide-react";
 import { CSAnimation } from "@/components/animations";
 import Link from "next/link";
-import { GitHubContributions } from "@/components/github/components/GitHubContributions";
+import { GitHubContributions } from "@/components/github/components/contributions/GitHubContributions";
 
 export function Hero() {
   return (
@@ -46,7 +46,7 @@ export function Hero() {
 
           <div className="space-y-4">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-              Hello, I'm Asif
+              Hello, I&apos;m Asif
             </h1>
             <p className="text-sm text-foreground/70 font-normal">
               I am a software engineer and I am building tools for engineers and

@@ -1,5 +1,6 @@
 import React from "react";
-import { GitHubContributions } from "./GitHubContributions";
+import { GitHubContributions } from "./contributions/GitHubContributions";
+import { ActivityOverview } from "./activityOverview/ActivityOverview";
 
 export const GithubActivity = () => {
   return (
@@ -15,11 +16,11 @@ export const GithubActivity = () => {
           </div>
         </div>
 
-        <div className="flex justify-left">
-          <div className="w-full max-w-4xl">
+        <div className="flex gap-6">
+          {/* GitHub Contributions - full width */}
+          <div className="flex-1">
             <GitHubContributions
               username="asifarko"
-              className="border border-border/50 rounded-lg p-6 bg-gradient-to-br from-background to-background/50 backdrop-blur-sm"
               showHeader={false}
               showLegend={true}
               showMonthLabels={true}
@@ -27,6 +28,11 @@ export const GithubActivity = () => {
               colorScheme="github"
               animation={true}
             />
+          </div>
+
+          {/* Activity Overview - full width */}
+          <div className="flex-1">
+            <ActivityOverview username="asifarko" />
           </div>
         </div>
       </div>

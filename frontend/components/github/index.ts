@@ -1,17 +1,17 @@
 import { exitCode } from "process";
 
 // Main Component
-export { GitHubContributions } from "./components/GitHubContributions";
+export { GitHubContributions } from "./components/contributions/GitHubContributions";
 
 // UI Components
-export { LoadingSpinner } from "./components/LoadingSpinner";
-export { ErrorDisplay } from "./components/ErrorDisplay";
-export { Header } from "./components/Header";
-export { Username } from "./components/Username";
-export { MonthLabels } from "./components/MonthLabels";
-export { ContributionGrid } from "./components/ContributionGrid";
-export { Legend } from "./components/Legend";
-export { Tooltip } from "./components/Tooltip";
+export { LoadingSpinner } from "./components/contributions/LoadingSpinner";
+export { ErrorDisplay } from "./components/contributions/ErrorDisplay";
+export { Header } from "./components/contributions/Header";
+export { Username } from "./components/contributions/Username";
+export { MonthLabels } from "./components/contributions/MonthLabels";
+export { ContributionGrid } from "./components/contributions/ContributionGrid";
+export { Legend } from "./components/contributions/Legend";
+export { Tooltip } from "./components/contributions/Tooltip";
 
 // Examples
 export { BasicExample } from "./examples/BasicExample";

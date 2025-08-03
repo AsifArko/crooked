@@ -106,7 +106,7 @@ export function EngineeringAnimation({
         },
       ];
 
-      secondaryGears.forEach(gear => {
+      secondaryGears.forEach((gear) => {
         ctx.save();
         ctx.translate(gear.x, gear.y);
         ctx.rotate(gear.rotation);
@@ -165,7 +165,7 @@ export function EngineeringAnimation({
         },
       ];
 
-      paths.forEach(path => {
+      paths.forEach((path) => {
         ctx.beginPath();
         ctx.moveTo(path.start.x, path.start.y);
         ctx.lineTo(path.end.x, path.end.y);
@@ -180,7 +180,7 @@ export function EngineeringAnimation({
         { x: canvasSize * 0.4, y: canvasSize * 0.8, type: "led" },
       ];
 
-      components.forEach(comp => {
+      components.forEach((comp) => {
         ctx.save();
         ctx.translate(comp.x, comp.y);
 
@@ -255,7 +255,7 @@ export function EngineeringAnimation({
       ctx.globalAlpha = 0.3;
 
       nodes.forEach((node, i) => {
-        node.connections.forEach(targetIndex => {
+        node.connections.forEach((targetIndex) => {
           if (targetIndex > i) {
             const target = nodes[targetIndex];
             ctx.beginPath();
@@ -294,7 +294,7 @@ export function EngineeringAnimation({
         });
       }
 
-      dataPackets.forEach(packet => {
+      dataPackets.forEach((packet) => {
         packet.x += packet.vx;
         packet.y += packet.vy;
         packet.life -= 0.005;
@@ -357,7 +357,7 @@ export function EngineeringAnimation({
         });
       }
 
-      particles.forEach(particle => {
+      particles.forEach((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
         particle.life -= 0.01;
@@ -479,9 +479,7 @@ export function EngineeringAnimation({
 
   return (
     <canvas
-      ref={el => {
-        canvasRef.current = el;
-      }}
+      ref={canvasRef}
       className={`block ${className}`}
       style={{
         imageRendering: "pixelated",

@@ -268,9 +268,7 @@ export function CommunityAnimation({
 
   return (
     <canvas
-      ref={el => {
-        canvasRef.current = el;
-      }}
+      ref={canvasRef}
       className={`block ${className}`}
       style={{
         imageRendering: "pixelated",

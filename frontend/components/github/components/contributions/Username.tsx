@@ -1,4 +1,4 @@
-import { GitHubContributionsConfig } from "../lib/types";
+import { GitHubContributionsConfig } from "../../lib/types";
 
 interface UsernameProps {
   config: GitHubContributionsConfig;

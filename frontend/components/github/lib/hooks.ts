@@ -128,3 +128,46 @@ export function useTooltipState() {
     handleMouseLeave,
   };
 }
+
+export const useActivityOverview = (username: string) => {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchActivityOverview = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(
+          `/api/github/activity-overview?username=${username}`
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.error || "Failed to fetch activity overview"
+          );
+        }
+
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to fetch activity overview"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (username) {
+      fetchActivityOverview();
+    }
+  }, [username]);
+
+  return { data, loading, error };
+};

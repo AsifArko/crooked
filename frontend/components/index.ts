@@ -14,7 +14,7 @@ export { DocumentGrid } from "./documents/DocumentGrid";
 export { DocumentCard } from "./documents/DocumentCard";
 
 // GitHub Components
-export { GitHubContributions } from "./github/components/GitHubContributions";
+export { GitHubContributions } from "./github/components/contributions/GitHubContributions";
 
 // Layout Components
 export { default as Header } from "../app/components/Header";

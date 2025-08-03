@@ -1,13 +1,13 @@
 "use client";
 
-import { GitHubContributionsConfig } from "../lib/types";
-import { DEFAULT_CONFIG } from "../lib/constants";
+import { GitHubContributionsConfig } from "../../lib/types";
+import { DEFAULT_CONFIG } from "../../lib/constants";
 import {
   useGitHubContributions,
   useContributionData,
   useColorScheme,
   useTooltipState,
-} from "../lib/hooks";
+} from "../../lib/hooks";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { ErrorDisplay } from "./ErrorDisplay";
 import { Header } from "./Header";
@@ -16,6 +16,8 @@ import { MonthLabels } from "./MonthLabels";
 import { ContributionGrid } from "./ContributionGrid";
 import { Legend } from "./Legend";
 import { Tooltip } from "./Tooltip";
+import { GlassCard } from "../../../ui/card";
+import clsx from "clsx";
 
 interface GitHubContributionsProps extends Partial<GitHubContributionsConfig> {
   username: string;
@@ -53,29 +55,35 @@ export function GitHubContributions(props: GitHubContributionsProps) {
   }
 
   return (
-    <div className={config.className || ""}>
-      <Header config={config} totalContributions={totalContributions} />
-      <Username config={config} />
-
-      <div className="relative">
-        <MonthLabels config={config} monthLabels={monthLabels} />
-
-        <ContributionGrid
-          config={config}
-          weeks={weeks}
-          colorScheme={colorScheme}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
-
-        {/* <Legend config={config} colorScheme={colorScheme} /> */}
+    <GlassCard className={clsx("flex flex-col", config.className)}>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-sm font-normal text-muted-foreground">
+          @{config.username}
+        </span>
+        <span className="ml-2 px-2 py-0.5 rounded bg-muted/50 text-muted-foreground text-xs font-normal">
+          {totalContributions} contributions
+        </span>
       </div>
-
+      <div className="relative flex-1 flex flex-col">
+        <MonthLabels config={config} monthLabels={monthLabels} />
+        <div className="flex-1 flex items-center justify-center">
+          <ContributionGrid
+            config={config}
+            weeks={weeks}
+            colorScheme={colorScheme}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        </div>
+        <div className="mt-4 flex justify-end">
+          <Legend config={config} colorScheme={colorScheme} />
+        </div>
+      </div>
       <Tooltip
         config={config}
         hoveredDay={hoveredDay}
         tooltipPosition={tooltipPosition}
       />
-    </div>
+    </GlassCard>
   );
 }
