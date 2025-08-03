@@ -101,20 +101,40 @@ export function useTooltipState() {
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseEnter = (day: Contribution, event: React.MouseEvent) => {
+    console.log("Hovering over:", day.date, day.contributionCount);
     setHoveredDay(day);
+
+    // Find the container for relative positioning
+    const container = event.currentTarget.closest(".overflow-hidden");
     const rect = event.currentTarget.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    const containerRect = container?.getBoundingClientRect();
 
-    let x = rect.left + rect.width / 2;
-    let y = rect.top - 40;
+    if (containerRect) {
+      // Position relative to the container
+      let x = rect.left - containerRect.left + rect.width / 2;
+      let y = rect.top - containerRect.top - 40;
 
-    // Ensure tooltip doesn't go off-screen
-    if (x < 100) x = 100;
-    if (x > viewportWidth - 100) x = viewportWidth - 100;
-    if (y < 50) y = rect.bottom + 10;
+      // Tooltip dimensions
+      const tooltipWidth = 200;
+      const tooltipHeight = 60;
 
-    setTooltipPosition({ x, y });
+      // Horizontal positioning - allow slight overflow
+      if (x < 50) x = 50;
+      if (x > containerRect.width - 50) x = containerRect.width - 50;
+
+      // Vertical positioning - always show the tooltip
+      if (y < 0) {
+        // If no space above, show below
+        y = rect.bottom - containerRect.top + 10;
+      }
+
+      // If it would go below container, show above even if it clips
+      if (y > containerRect.height - tooltipHeight) {
+        y = rect.top - containerRect.top - tooltipHeight - 10;
+      }
+
+      setTooltipPosition({ x, y });
+    }
   };
 
   const handleMouseLeave = () => {

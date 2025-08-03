@@ -66,24 +66,26 @@ export function GitHubContributions(props: GitHubContributionsProps) {
       </div>
       <div className="relative flex-1 flex flex-col">
         <MonthLabels config={config} monthLabels={monthLabels} />
-        <div className="flex-1 flex items-center justify-center">
-          <ContributionGrid
-            config={config}
-            weeks={weeks}
-            colorScheme={colorScheme}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          />
+        <div className="flex-1 flex items-center justify-center relative">
+          <div className="relative w-full h-full overflow-visible">
+            <ContributionGrid
+              config={config}
+              weeks={weeks}
+              colorScheme={colorScheme}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+            <Tooltip
+              config={config}
+              hoveredDay={hoveredDay}
+              tooltipPosition={tooltipPosition}
+            />
+          </div>
         </div>
         <div className="mt-4 flex justify-end">
           <Legend config={config} colorScheme={colorScheme} />
         </div>
       </div>
-      <Tooltip
-        config={config}
-        hoveredDay={hoveredDay}
-        tooltipPosition={tooltipPosition}
-      />
     </GlassCard>
   );
 }
