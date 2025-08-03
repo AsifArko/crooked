@@ -18,62 +18,78 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
 
   return (
     <div className="flex-1 flex items-center justify-center">
-      <div className="w-full max-w-[180px]">
+      <div
+        className="w-full max-w-full sm:max-w-[180px]"
+        key={`activity-${commits}-${pullRequests}-${issues}-${codeReviews}`}
+      >
+        {/* Minimal debug to keep progress bars visible */}
+        <div className="text-xs text-transparent h-0 overflow-hidden">
+          {JSON.stringify({ commits, pullRequests, issues, codeReviews })}
+        </div>
+
         {/* Clean horizontal bar chart */}
         <div className="space-y-3">
           {/* Commits */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 text-xs text-muted-foreground">Commits</div>
-            <div className="flex-1 bg-gray-200 rounded-full h-1">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-12 sm:w-16 text-xs text-muted-foreground">
+              Commits
+            </div>
+            <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div
-                className="bg-[#238636] h-1 rounded-full transition-all duration-300"
-                style={{ width: `${commits}%` }}
+                className="bg-green-600 h-2 rounded-full"
+                style={{ width: `${commits || 0}%` }}
               ></div>
             </div>
-            <div className="w-8 text-xs text-muted-foreground text-right">
-              {commits}%
+            <div className="hidden sm:block w-6 sm:w-8 text-xs text-muted-foreground text-right">
+              {commits || 0}%
             </div>
           </div>
 
           {/* Pull Requests */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 text-xs text-muted-foreground">PRs</div>
-            <div className="flex-1 bg-gray-200 rounded-full h-1">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-12 sm:w-16 text-xs text-muted-foreground">
+              PRs
+            </div>
+            <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div
-                className="bg-[#238636] h-1 rounded-full transition-all duration-300"
-                style={{ width: `${pullRequests}%` }}
+                className="bg-green-600 h-2 rounded-full"
+                style={{ width: `${pullRequests || 0}%` }}
               ></div>
             </div>
-            <div className="w-8 text-xs text-muted-foreground text-right">
-              {pullRequests}%
+            <div className="hidden sm:block w-6 sm:w-8 text-xs text-muted-foreground text-right">
+              {pullRequests || 0}%
             </div>
           </div>
 
           {/* Issues */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 text-xs text-muted-foreground">Issues</div>
-            <div className="flex-1 bg-gray-200 rounded-full h-1">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-12 sm:w-16 text-xs text-muted-foreground">
+              Issues
+            </div>
+            <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div
-                className="bg-[#238636] h-1 rounded-full transition-all duration-300"
-                style={{ width: `${issues}%` }}
+                className="bg-green-600 h-2 rounded-full"
+                style={{ width: `${issues || 0}%` }}
               ></div>
             </div>
-            <div className="w-8 text-xs text-muted-foreground text-right">
-              {issues}%
+            <div className="hidden sm:block w-6 sm:w-8 text-xs text-muted-foreground text-right">
+              {issues || 0}%
             </div>
           </div>
 
           {/* Code Reviews */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 text-xs text-muted-foreground">Reviews</div>
-            <div className="flex-1 bg-gray-200 rounded-full h-1">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-12 sm:w-16 text-xs text-muted-foreground">
+              Reviews
+            </div>
+            <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div
-                className="bg-[#238636] h-1 rounded-full transition-all duration-300"
-                style={{ width: `${codeReviews}%` }}
+                className="bg-green-600 h-2 rounded-full"
+                style={{ width: `${codeReviews || 0}%` }}
               ></div>
             </div>
-            <div className="w-8 text-xs text-muted-foreground text-right">
-              {codeReviews}%
+            <div className="hidden sm:block w-6 sm:w-8 text-xs text-muted-foreground text-right">
+              {codeReviews || 0}%
             </div>
           </div>
         </div>

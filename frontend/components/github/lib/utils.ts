@@ -237,11 +237,11 @@ export function generateMonthLabels(weeks: WeekData[]): MonthLabel[] {
 }
 
 export function getSquareSize(compact: boolean): string {
-  return compact ? "w-1 h-1" : "w-1.5 h-1.5";
+  return compact ? "w-1 h-1" : "w-1 h-1 sm:w-1.5 sm:h-1.5";
 }
 
 export function getGapSize(compact: boolean): string {
-  return compact ? "gap-1.5" : "gap-1.5";
+  return compact ? "gap-1" : "gap-1 sm:gap-1.5";
 }
 
 export function formatContributionCount(count: number): string {

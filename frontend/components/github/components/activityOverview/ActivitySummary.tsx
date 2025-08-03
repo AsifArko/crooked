@@ -40,7 +40,7 @@ export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
         Activity overview
       </h3>
       <p className="text-xs text-muted-foreground leading-relaxed">
-        <span className="inline-flex items-center gap-1 mr-1">
+        {/* <span className="inline-flex items-center gap-1 mr-1">
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -48,7 +48,7 @@ export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
               clipRule="evenodd"
             />
           </svg>
-        </span>
+        </span> */}
         Contributed to{" "}
         {displayedRepos.map((repo, index) => (
           <React.Fragment key={repo}>

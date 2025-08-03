@@ -8,7 +8,7 @@ import {
   useColorScheme,
   useTooltipState,
 } from "../../lib/hooks";
-import { LoadingSpinner } from "./LoadingSpinner";
+
 import { ErrorDisplay } from "./ErrorDisplay";
 import { Header } from "./Header";
 import { Username } from "./Username";
@@ -47,7 +47,15 @@ export function GitHubContributions(props: GitHubContributionsProps) {
     useTooltipState();
 
   if (loading) {
-    return <LoadingSpinner config={config} />;
+    return (
+      <GlassCard className={clsx("flex flex-col", config.className)}>
+        <div className="flex items-center justify-center h-full">
+          <div className="text-sm text-muted-foreground">
+            Loading contributions...
+          </div>
+        </div>
+      </GlassCard>
+    );
   }
 
   if (error) {
@@ -64,10 +72,10 @@ export function GitHubContributions(props: GitHubContributionsProps) {
           {totalContributions} contributions
         </span>
       </div>
-      <div className="relative flex-1 flex flex-col">
+      <div className="relative flex flex-col">
         <MonthLabels config={config} monthLabels={monthLabels} />
-        <div className="flex-1 flex items-center justify-center relative">
-          <div className="relative w-full h-full overflow-visible">
+        <div className="flex items-center justify-center relative">
+          <div className="relative w-full overflow-visible">
             <ContributionGrid
               config={config}
               weeks={weeks}
@@ -82,7 +90,7 @@ export function GitHubContributions(props: GitHubContributionsProps) {
             />
           </div>
         </div>
-        <div className="mt-4 flex justify-end">
+        <div className="flex justify-end">
           <Legend config={config} colorScheme={colorScheme} />
         </div>
       </div>

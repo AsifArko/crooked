@@ -31,10 +31,10 @@ export function ContributionGrid({
   const gapSize = getGapSize(config.compact || false);
   return (
     <div
-      className={`grid grid-cols-53 gap-[3.5px] max-w-full overflow-hidden p-2`}
+      className={`grid grid-cols-53 gap-1 sm:gap-[3.5px] max-w-full overflow-hidden p-2`}
     >
       {weeks.map((week, weekIndex) => (
-        <div key={weekIndex} className={`flex flex-col gap-[3.5px]`}>
+        <div key={weekIndex} className={`flex flex-col gap-1 sm:gap-[3.5px]`}>
           {week.days.map((day, dayIndex) => (
             <motion.div
               key={day.date}

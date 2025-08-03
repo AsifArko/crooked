@@ -88,20 +88,44 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
       <div className="flex items-center gap-2 mb-4">
         {organizations && organizations.length > 0 ? (
           <>
-            <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-zinc-800">
-              <span className="text-white text-xs font-normal">
-                {organizations[0].login.charAt(0).toUpperCase()}
-              </span>
+            <div className="w-6 h-6 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
+              <img
+                src={organizations[0].avatarUrl}
+                alt={organizations[0].login}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = "none";
+                  target.nextElementSibling?.classList.remove("hidden");
+                }}
+              />
+              <div className="w-full h-full bg-blue-500 flex items-center justify-center hidden">
+                <span className="text-white text-xs font-normal">
+                  {organizations[0].login.charAt(0).toUpperCase()}
+                </span>
+              </div>
             </div>
             <span className="text-xs font-normal text-muted-foreground">
               @{organizations[0].login}
             </span>
             {organizations.length > 1 && (
               <>
-                <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-zinc-800">
-                  <span className="text-white text-xs font-normal">
-                    {organizations[1].login.charAt(0).toUpperCase()}
-                  </span>
+                <div className="w-6 h-6 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
+                  <img
+                    src={organizations[1].avatarUrl}
+                    alt={organizations[1].login}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      target.nextElementSibling?.classList.remove("hidden");
+                    }}
+                  />
+                  <div className="w-full h-full bg-gray-800 flex items-center justify-center hidden">
+                    <span className="text-white text-xs font-normal">
+                      {organizations[1].login.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
                 </div>
                 <span className="text-xs font-normal text-muted-foreground">
                   @{organizations[1].login}
@@ -123,14 +147,14 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
         )}
       </div>
 
-      <div className="flex-1 flex gap-4 items-start">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
         <ActivitySummary
           repositories={repositories}
           totalRepositories={totalRepositories}
         />
 
         {/* Subtle divider */}
-        <div className="w-px h-16 bg-border/50 mx-2"></div>
+        <div className="hidden sm:block w-px h-16 bg-border/50 mx-2"></div>
 
         <ActivityGraph contributionBreakdown={contributionBreakdown} />
       </div>

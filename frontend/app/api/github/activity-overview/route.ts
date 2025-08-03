@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
       query($username: String!) {
         user(login: $username) {
           login
-          repositories(first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+          repositories(last: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
             nodes {
               name
               nameWithOwner
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
               totalContributions
             }
           }
-          organizations(first: 10) {
+          organizations(first: 20) {
             nodes {
               login
               avatarUrl
@@ -153,8 +153,8 @@ export async function GET(request: NextRequest) {
       .slice(0, 5) // Show first 5 repositories
       .map((repo: any) => repo.nameWithOwner);
 
-    // Get organizations
-    const organizations = user.organizations.nodes.slice(0, 2);
+    // Get organizations (reversed to show most recent first)
+    const organizations = user.organizations.nodes.reverse().slice(0, 2);
 
     return NextResponse.json({
       username: user.login,
