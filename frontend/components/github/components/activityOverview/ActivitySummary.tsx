@@ -56,9 +56,9 @@ export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
               href={`https://github.com/${repo}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-normal transition-colors"
+              className="text-gray-600 hover:gray-blue-800 hover:underline font-normal transition-colors"
             >
-              {repo}
+              {repo.replace(/^[^/]+\//, "")}
             </a>
             {index < displayedRepos.length - 1 && ", "}
           </React.Fragment>
@@ -67,7 +67,7 @@ export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
           <>
             {" "}
             and{" "}
-            <span className="text-blue-600 hover:text-blue-800 cursor-pointer font-normal">
+            <span className="text-gray-600 hover:text-gray-800 cursor-pointer font-normal">
               {remainingCount} other repositories
             </span>
           </>
