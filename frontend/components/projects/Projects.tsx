@@ -82,7 +82,7 @@ export const Projects = async () => {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-3">
-            Sourcecodes in development
+            Explore source code projects
           </h2>
           <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-xl">
             Explore my collection of high-quality source code projects, ready
