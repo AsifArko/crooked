@@ -85,10 +85,10 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
 
   return (
     <GlassCard className={clsx("flex flex-col", config.className)}>
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-1.5 mb-3">
         {organizations && organizations.length > 0 ? (
           <>
-            <div className="w-6 h-6 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
+            <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
               <img
                 src={organizations[0].avatarUrl}
                 alt={organizations[0].login}
@@ -100,17 +100,17 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
                 }}
               />
               <div className="w-full h-full bg-blue-500 flex items-center justify-center hidden">
-                <span className="text-white text-xs font-normal">
+                <span className="text-white text-[10px] font-normal">
                   {organizations[0].login.charAt(0).toUpperCase()}
                 </span>
               </div>
             </div>
-            <span className="text-xs font-normal text-muted-foreground">
+            <span className="text-[11px] font-normal text-muted-foreground">
               @{organizations[0].login}
             </span>
             {organizations.length > 1 && (
               <>
-                <div className="w-6 h-6 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
+                <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
                   <img
                     src={organizations[1].avatarUrl}
                     alt={organizations[1].login}
@@ -122,12 +122,12 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
                     }}
                   />
                   <div className="w-full h-full bg-gray-800 flex items-center justify-center hidden">
-                    <span className="text-white text-xs font-normal">
+                    <span className="text-white text-[10px] font-normal">
                       {organizations[1].login.charAt(0).toUpperCase()}
                     </span>
                   </div>
                 </div>
-                <span className="text-xs font-normal text-muted-foreground">
+                <span className="text-[11px] font-normal text-muted-foreground">
                   @{organizations[1].login}
                 </span>
               </>
@@ -135,26 +135,26 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
           </>
         ) : (
           <>
-            <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-zinc-800">
-              <span className="text-white text-xs font-normal">
+            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-zinc-800">
+              <span className="text-white text-[10px] font-normal">
                 {username.charAt(0).toUpperCase()}
               </span>
             </div>
-            <span className="text-xs font-normal text-muted-foreground">
+            <span className="text-[11px] font-normal text-muted-foreground">
               @{username}
             </span>
           </>
         )}
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+      <div className="flex flex-col sm:flex-row items-stretch justify-between flex-1">
         <ActivitySummary
           repositories={repositories}
           totalRepositories={totalRepositories}
         />
 
         {/* Subtle divider */}
-        <div className="hidden sm:block w-px h-16 bg-border/50 mx-2"></div>
+        <div className="hidden sm:block w-px bg-border/50 mx-4 self-stretch"></div>
 
         <ActivityGraph contributionBreakdown={contributionBreakdown} />
       </div>

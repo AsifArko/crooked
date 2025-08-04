@@ -19,7 +19,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
   return (
     <div className="flex-1 flex items-center justify-center">
       <div
-        className="w-full max-w-full sm:max-w-[180px]"
+        className="w-full max-w-full sm:max-w-[180px] flex flex-col justify-center"
         key={`activity-${commits}-${pullRequests}-${issues}-${codeReviews}`}
       >
         {/* Minimal debug to keep progress bars visible */}
@@ -34,9 +34,9 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             <div className="w-12 sm:w-16 text-xs text-muted-foreground">
               Commits
             </div>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-2 rounded-full"
+                className="bg-green-600 h-1 rounded"
                 style={{ width: `${commits || 0}%` }}
               ></div>
             </div>
@@ -50,9 +50,9 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             <div className="w-12 sm:w-16 text-xs text-muted-foreground">
               PRs
             </div>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-2 rounded-full"
+                className="bg-green-600 h-1 rounded"
                 style={{ width: `${pullRequests || 0}%` }}
               ></div>
             </div>
@@ -66,9 +66,9 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             <div className="w-12 sm:w-16 text-xs text-muted-foreground">
               Issues
             </div>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-2 rounded-full"
+                className="bg-green-600 h-1 rounded"
                 style={{ width: `${issues || 0}%` }}
               ></div>
             </div>
@@ -82,9 +82,9 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             <div className="w-12 sm:w-16 text-xs text-muted-foreground">
               Reviews
             </div>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-2 rounded-full"
+                className="bg-green-600 h-1 rounded"
                 style={{ width: `${codeReviews || 0}%` }}
               ></div>
             </div>

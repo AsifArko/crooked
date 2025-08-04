@@ -35,7 +35,7 @@ export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
   }
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 flex flex-col justify-center">
       <h3 className="text-xs font-normal text-muted-foreground mb-2">
         Activity overview
       </h3>
