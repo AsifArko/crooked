@@ -1,34 +1,9 @@
-// 'use client'
-
-// import { useState, useEffect } from 'react'
-// import { HeroMobile } from './HeroMobile'
-// import { HeroDesktop } from './HeroDesktop'
-
-// export function Hero() {
-//   const [isMobile, setIsMobile] = useState(false)
-
-//   useEffect(() => {
-//     const checkScreenSize = () => {
-//       setIsMobile(window.innerWidth < 768)
-//     }
-
-//     checkScreenSize()
-//     window.addEventListener('resize', checkScreenSize)
-
-//     return () => window.removeEventListener('resize', checkScreenSize)
-//   }, [])
-
-//   return isMobile ? <HeroMobile /> : <HeroDesktop />
-// }
-
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sigma, Mail, Linkedin, Github, FileText } from "lucide-react";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
 import { CSAnimation } from "@/components/animations";
 import Link from "next/link";
-import { GitHubContributions } from "@/components/github/components/contributions/GitHubContributions";
 
 export function Hero() {
   return (
@@ -38,7 +13,7 @@ export function Hero() {
         <div className="space-y-6 order-2 lg:order-1">
           <Badge
             variant="secondary"
-            className="inline-flex items-center justify-center bg-gradient-to-r from-black/5 to-white/10 border-black/20 text-foreground/70 backdrop-blur-sm !rounded-sm font-normal"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-black/5 to-white/10 border-black/20 text-foreground/70 backdrop-blur-sm rounded-sm font-normal"
           >
             {/* <Sigma className="mr-2 h-4 w-4 text-foreground/50" /> */}
             Software Engineer
@@ -73,7 +48,7 @@ export function Hero() {
               </Link>
 
               <Link
-                href="https://linkedin.com/in/your-profile"
+                href="https://www.linkedin.com/in/asifimch/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"
@@ -83,7 +58,7 @@ export function Hero() {
               </Link>
 
               <Link
-                href="https://github.com/your-username"
+                href="https://github.com/asifarko"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"

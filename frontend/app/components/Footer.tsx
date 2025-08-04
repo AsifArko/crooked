@@ -18,9 +18,7 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <div>
-              <h3 className="text-lg font-semibold text-foreground">
-                Asif Arko
-              </h3>
+              <h3 className="text-lg font-semibold text-foreground">Crooked</h3>
               <p className="mt-4 text-sm text-muted-foreground">
                 Full Stack Developer passionate about building modern web
                 applications with cutting-edge technologies and clean,

@@ -1,7 +1,5 @@
 // Hero Components
 export { Hero } from "./hero/Hero";
-export { HeroMobile } from "./hero/HeroMobile";
-export { HeroDesktop } from "./hero/HeroDesktop";
 
 // Source Code Components
 export { SourceCodeGrid } from "./source-code/SourceCodeGrid";

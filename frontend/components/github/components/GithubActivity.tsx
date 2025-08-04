@@ -3,6 +3,14 @@ import { GitHubContributions } from "./contributions/GitHubContributions";
 import { ActivityOverview } from "./activityOverview/ActivityOverview";
 
 export const GithubActivity = () => {
+  const blackContrastColors = {
+    empty: "bg-gray-200 dark:bg-gray-700",
+    low: "bg-gray-400 dark:bg-gray-500",
+    medium: "bg-gray-600 dark:bg-gray-300",
+    high: "bg-gray-800 dark:bg-gray-100",
+    veryHigh: "bg-black dark:bg-white",
+  };
+
   return (
     <section className="bg-background">
       <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
@@ -25,7 +33,8 @@ export const GithubActivity = () => {
               showLegend={true}
               showMonthLabels={true}
               theme="dark"
-              colorScheme="github"
+              colorScheme="custom"
+              customColors={blackContrastColors}
               animation={true}
             />
           </div>

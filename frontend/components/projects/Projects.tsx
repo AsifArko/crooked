@@ -11,7 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { client } from "@/sanity/lib/client";
 import { sourceCodesQuery } from "@/sanity/lib/queries";
-import { ExternalLink, Github, Eye, DollarSign } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Eye,
+  DollarSign,
+  ShoppingCart,
+} from "lucide-react";
 
 interface SourceCode {
   _id: string;
@@ -65,7 +71,7 @@ export const Projects = async () => {
 
   return (
     <section className="bg-background min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>
@@ -76,7 +82,7 @@ export const Projects = async () => {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-3">
-            Source Code Projects
+            Sourcecodes in development
           </h2>
           <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-xl">
             Explore my collection of high-quality source code projects, ready
@@ -86,75 +92,62 @@ export const Projects = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sourceCodes.map((project) => (
-            <Card key={project._id} className="h-full flex flex-col">
-              <CardHeader className="flex-shrink-0">
-                {project.mainImage && (
-                  <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-muted">
-                    <img
-                      src={project.mainImage}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
+            <Card
+              key={project._id}
+              className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden"
+            >
+              {/* Image Section */}
+              {project.mainImage && (
+                <div className="aspect-video overflow-hidden bg-muted">
+                  <img
+                    src={project.mainImage}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                  />
+                </div>
+              )}
+
+              {/* Content Section */}
+              <div className="p-6">
+                {/* Title and Description */}
+                <div className="mb-4">
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground/70 leading-relaxed font-light">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Technologies */}
+                {project.technologies && project.technologies.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0, 3).map((tech, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="text-xs rounded-sm bg-secondary/70 text-muted-foreground/90 font-light"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-secondary/70 text-muted-foreground/90 font-light"
+                        >
+                          +{project.technologies.length - 3}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 )}
-                <CardTitle className="text-xl">{project.title}</CardTitle>
-                <CardDescription className="text-sm leading-relaxed">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
 
-              <CardContent className="flex-1">
-                <div className="space-y-4">
-                  {project.technologies && project.technologies.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-medium mb-2 text-muted-foreground">
-                        Technologies
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, index) => (
-                          <Badge
-                            key={index}
-                            variant="secondary"
-                            className="text-xs"
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {project.features && project.features.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-medium mb-2 text-muted-foreground">
-                        Key Features
-                      </h4>
-                      <ul className="space-y-1">
-                        {project.features.slice(0, 3).map((feature, index) => (
-                          <li
-                            key={index}
-                            className="text-sm text-muted-foreground flex items-start gap-2"
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                            {feature}
-                          </li>
-                        ))}
-                        {project.features.length > 3 && (
-                          <li className="text-sm text-muted-foreground">
-                            +{project.features.length - 3} more features
-                          </li>
-                        )}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-
-              <CardFooter className="flex-shrink-0 pt-4">
-                <div className="flex items-center justify-between w-full">
+                {/* Price and Actions */}
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-primary" />
-                    <span className="font-semibold text-lg">
+                    <span className="font-semibold text-lg text-foreground">
                       ${project.price}
                     </span>
                   </div>
@@ -199,7 +192,14 @@ export const Projects = async () => {
                     )}
                   </div>
                 </div>
-              </CardFooter>
+
+                {/* Buy Now Button */}
+                <div className="mt-2">
+                  <Button className="w-full bg-black hover:bg-black/90 text-white h-10">
+                    Buy Now
+                  </Button>
+                </div>
+              </div>
             </Card>
           ))}
         </div>

@@ -9,4 +9,3 @@ export { PrivacyAnimation } from "./privacy-animation";
 export { TermsAnimation } from "./terms-animation";
 export { SecurityAnimation } from "./security-animation";
 export { LicenseAnimation } from "./license-animation";
-export { BlogAnimation } from "./blog-animation";
