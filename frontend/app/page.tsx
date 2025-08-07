@@ -4,6 +4,7 @@ import { Loading } from "@/components/layout/Loading";
 import { GithubActivity } from "@/components/github/components/GithubActivity";
 import { Projects } from "@/components/projects/Projects";
 import { Stacks } from "@/components/stacks";
+import { Testimonials } from "@/components/testimonials";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
         <GithubActivity />
         <Projects />
         <Stacks />
+        <Testimonials />
       </Suspense>
     </main>
   );

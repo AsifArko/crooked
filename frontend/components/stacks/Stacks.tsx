@@ -82,6 +82,9 @@ const defaultCategories: StackCategory[] = [
       "CI/CD Automation",
       "Sanity",
       "Vercel",
+      "Appsheet",
+      "Glide",
+      "Webflow",
     ],
   },
   {
