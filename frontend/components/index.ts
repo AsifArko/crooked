@@ -14,6 +14,10 @@ export { DocumentCard } from "./documents/DocumentCard";
 // GitHub Components
 export { GitHubContributions } from "./github/components/contributions/GitHubContributions";
 
+// Stacks Components
+export { Stacks } from "./stacks";
+export type { StackCategory, StacksProps } from "./stacks";
+
 // Layout Components
 export { default as Header } from "../app/components/Header";
 export { default as Footer } from "../app/components/Footer";

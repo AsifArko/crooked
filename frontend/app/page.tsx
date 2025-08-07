@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero/Hero";
 import { Loading } from "@/components/layout/Loading";
 import { GithubActivity } from "@/components/github/components/GithubActivity";
 import { Projects } from "@/components/projects/Projects";
+import { Stacks } from "@/components/stacks";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
         <Hero />
         <GithubActivity />
         <Projects />
+        <Stacks />
       </Suspense>
     </main>
   );
