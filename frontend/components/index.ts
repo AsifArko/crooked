@@ -23,6 +23,9 @@ export { default as Header } from "../app/components/Header";
 export { default as Footer } from "../app/components/Footer";
 export { default as Loading } from "./layout/Loading";
 
+// Experience Components
+export { Experience } from "./experience";
+
 // UI Components
 export { Button } from "./ui/button";
 export {

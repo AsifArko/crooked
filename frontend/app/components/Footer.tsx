@@ -145,7 +145,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link
-                      href="#experience"
+                      href="/experience"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
                       Experience
