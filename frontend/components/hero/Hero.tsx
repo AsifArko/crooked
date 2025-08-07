@@ -77,19 +77,10 @@ export function Hero() {
                 <FileText className="h-5 w-5 text-foreground/70 hover:text-foreground transition-colors" />
               </Link>
             </div>
-
-            {/* <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Button
-                size="lg"
-                className="group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto min-w-[200px] h-12"
-              >
-                Contact me
-              </Button>
-            </div> */}
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+        <div className="flex justify-center lg:justify-center order-1 lg:order-2">
           <div className="w-full max-w-md h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg border border-border/50 flex items-center justify-center">
             <CSAnimation size="lg" className="w-48 h-48" />
           </div>

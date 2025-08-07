@@ -36,7 +36,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             </div>
             <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-1 rounded"
+                className="bg-gray-600 h-1 rounded"
                 style={{ width: `${commits || 0}%` }}
               ></div>
             </div>
@@ -52,7 +52,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             </div>
             <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-1 rounded"
+                className="bg-gray-600 h-1 rounded"
                 style={{ width: `${pullRequests || 0}%` }}
               ></div>
             </div>
@@ -68,7 +68,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             </div>
             <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-1 rounded"
+                className="bg-gray-600 h-1 rounded"
                 style={{ width: `${issues || 0}%` }}
               ></div>
             </div>
@@ -84,7 +84,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
             </div>
             <div className="flex-1 bg-gray-200 rounded h-1">
               <div
-                className="bg-green-600 h-1 rounded"
+                className="bg-gray-600 h-1 rounded"
                 style={{ width: `${codeReviews || 0}%` }}
               ></div>
             </div>

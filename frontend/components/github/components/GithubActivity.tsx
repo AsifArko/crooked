@@ -32,7 +32,6 @@ export const GithubActivity = () => {
               showHeader={false}
               showLegend={true}
               showMonthLabels={true}
-              theme="dark"
               colorScheme="custom"
               customColors={blackContrastColors}
               animation={true}

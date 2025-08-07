@@ -76,18 +76,10 @@ export const Projects = async () => {
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>
             <span className="text-xs font-medium text-primary/80 uppercase tracking-[0.25em]">
-              Projects
+              Source codes
             </span>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary/30"></div>
           </div>
-
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-3">
-            Explore source code projects
-          </h2>
-          <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-xl">
-            Explore my collection of high-quality source code projects, ready
-            for production use.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
