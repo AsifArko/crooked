@@ -42,7 +42,7 @@ export function ExperienceStats({ stats }: ExperienceStatsProps) {
   ];
 
   return (
-    <section className="py-8">
+    <section className="bg-background">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>
@@ -62,7 +62,7 @@ export function ExperienceStats({ stats }: ExperienceStatsProps) {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                  <div className="p-2 rounded-lg  border border-primary/20">
                     <item.icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="text-sm font-medium text-foreground/70 uppercase tracking-wide">

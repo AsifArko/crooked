@@ -1,7 +1,9 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Briefcase, MapPin, Calendar, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export function ExperienceHeader() {
   return (
@@ -32,12 +34,24 @@ export function ExperienceHeader() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
             <MapPin className="h-4 w-4" />
-            <span>Dhaka, Bangladesh</span>
+            <span>Philadelphia, Pennsylvania, United States</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
             <Calendar className="h-4 w-4" />
             <span>2018 - Present</span>
           </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <Link href="/" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="group border-border/50 transition-all duration-300 w-full sm:w-auto min-w-[200px] h-12 !px-6"
+            >
+              Back to Home
+            </Button>
+          </Link>
+          <Link href="/documentation" className="w-full sm:w-auto"></Link>
         </div>
       </div>
     </section>

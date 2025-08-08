@@ -26,6 +26,9 @@ export { default as Loading } from "./layout/Loading";
 // Experience Components
 export { Experience } from "./experience";
 
+// Maps Components
+export { WorldMap } from "./maps";
+
 // UI Components
 export { Button } from "./ui/button";
 export {

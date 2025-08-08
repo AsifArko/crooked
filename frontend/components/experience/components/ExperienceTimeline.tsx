@@ -2,7 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, MapPin, Calendar, CheckCircle } from "lucide-react";
+import { Building2, MapPin, Calendar, CheckCircle, Globe } from "lucide-react";
+import { WorldMap } from "@/components/maps";
+
+interface Application {
+  title: string;
+  link: string;
+  countries: string[];
+}
 
 interface Position {
   id: number;
@@ -10,7 +17,7 @@ interface Position {
   location: string;
   position: string;
   duration: string;
-  applications: { title: string; link: string }[];
+  applications: Application[];
   achievements: string[];
   technologies: string[];
 }
@@ -43,17 +50,18 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
             <div className="flex gap-6">
               {/* Timeline dot */}
               <div className="relative">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center">
                   <Building2 className="h-5 w-5 text-primary" />
                 </div>
               </div>
 
               {/* Content */}
               <div className="flex-1">
-                <Card className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden hover:shadow-md">
+                <Card className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none  duration-200 overflow-hidden">
                   <CardHeader className="pb-4">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                      <div className="space-y-2">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                      {/* Company Info */}
+                      <div className="space-y-2 flex-1">
                         <CardTitle className="text-xl font-semibold text-foreground">
                           {position.position}
                         </CardTitle>
@@ -75,15 +83,15 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                         </div>
                       </div>
 
-                      {/* Applications */}
+                      {/* Application badges */}
                       {position.applications &&
                         position.applications.length > 0 && (
-                          <div className="flex flex-wrap gap-1 justify-end">
+                          <div className="flex flex-wrap gap-1 pt-2">
                             {position.applications.map((app, appIndex) => (
                               <Badge
                                 key={appIndex}
                                 variant="outline"
-                                className="text-xs rounded-sm border-primary/30 text-primary/80 hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer"
+                                className="text-xs border-primary/30 text-primary/80 hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer"
                                 onClick={() => window.open(app.link, "_blank")}
                               >
                                 {app.title}
@@ -94,18 +102,22 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                     </div>
                   </CardHeader>
 
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-6">
                     {/* Achievements */}
                     <div className="space-y-3">
-                      <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
-                        Key Achievements
-                      </h4>
-                      <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <div className="h-px w-4 bg-gradient-to-r from-transparent to-secondary/30"></div>
+                        <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
+                          Key Achievements
+                        </h4>
+                        <div className="h-px flex-1 bg-gradient-to-r from-secondary/30 to-transparent"></div>
+                      </div>
+                      <div className="space-y-3">
                         {position.achievements.map(
                           (achievement, achievementIndex) => (
-                            <div key={achievementIndex} className="flex gap-2">
+                            <div key={achievementIndex} className="flex gap-3">
                               <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                              <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                              <p className="text-sm text-muted-foreground/80 leading-relaxed">
                                 {achievement}
                               </p>
                             </div>
@@ -118,20 +130,43 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                     {position.technologies &&
                       position.technologies.length > 0 && (
                         <div className="space-y-3">
-                          <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
-                            Technologies Used
-                          </h4>
+                          <div className="flex items-center gap-2">
+                            <div className="h-px w-4 bg-gradient-to-r from-transparent to-secondary/30"></div>
+                            <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
+                              Technologies Used
+                            </h4>
+                            <div className="h-px flex-1 bg-gradient-to-r from-secondary/30 to-transparent"></div>
+                          </div>
                           <div className="flex flex-wrap gap-2">
                             {position.technologies.map((tech, techIndex) => (
                               <Badge
                                 key={techIndex}
                                 variant="secondary"
-                                className="text-xs rounded-sm bg-secondary/70 text-muted-foreground/90 font-light"
+                                className="text-xs rounded-sm bg-secondary/70 text-muted-foreground/90 font-light hover:bg-secondary/90 transition-colors"
                               >
                                 {tech}
                               </Badge>
                             ))}
                           </div>
+                        </div>
+                      )}
+
+                    {/* Global Applications Map */}
+                    {position.applications &&
+                      position.applications.length > 0 && (
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="h-px w-4 bg-gradient-to-r from-transparent to-primary/30"></div>
+                            <h4 className="text-sm font-medium text-foreground/60 uppercase tracking-wide flex items-center gap-2">
+                              <Globe className="h-4 w-4 text-foreground/60" />
+                              Operated in
+                            </h4>
+                            <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"></div>
+                          </div>
+                          <WorldMap
+                            applications={position.applications}
+                            className="w-full"
+                          />
                         </div>
                       )}
                   </CardContent>
