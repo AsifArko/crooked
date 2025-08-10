@@ -2,14 +2,7 @@
 export { Hero } from "./hero/Hero";
 
 // Source Code Components
-export { SourceCodeGrid } from "./source-code/SourceCodeGrid";
-export { SourceCodeCard } from "./source-code/SourceCodeCard";
-export { SourceCodeCardMobile } from "./source-code/SourceCodeCardMobile";
-export { SourceCodeCardDesktop } from "./source-code/SourceCodeCardDesktop";
-
-// Document Components
-export { DocumentGrid } from "./documents/DocumentGrid";
-export { DocumentCard } from "./documents/DocumentCard";
+export { SourceCodes } from "./sourcecodes";
 
 // GitHub Components
 export { GitHubContributions } from "./github/components/contributions/GitHubContributions";

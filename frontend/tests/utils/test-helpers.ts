@@ -10,30 +10,24 @@ export const createMockTestimonial = (
 ): Testimonial => ({
   id: "1",
   name: "John Smith",
-  title: "Senior Software Engineer",
+  title: "Senior Developer",
   company: "Tech Corp",
-  recommendation: "Excellent developer with great skills.",
+  recommendation: "Great developer to work with!",
   linkedInUrl: "https://linkedin.com/in/johnsmith",
   date: "2024-01-15",
-  relationship: "Former Colleague",
-  skills: ["React", "TypeScript", "Node.js"],
   ...overrides,
 });
 
 export const createMockTestimonials = (count: number): Testimonial[] => {
-  return Array.from({ length: count }, (_, i) =>
-    createMockTestimonial({
-      id: `${i + 1}`,
-      name: `User ${i + 1}`,
-      title: `Engineer ${i + 1}`,
-      company: `Company ${i + 1}`,
-      recommendation: `Great recommendation ${i + 1}`,
-      linkedInUrl: `https://linkedin.com/in/user${i + 1}`,
-      date: `2024-01-${String(i + 1).padStart(2, "0")}`,
-      relationship: i % 2 === 0 ? "Former Colleague" : "Manager",
-      skills: ["React", "TypeScript", "Node.js"],
-    })
-  );
+  return Array.from({ length: count }, (_, i) => ({
+    id: String(i + 1),
+    name: `User ${i + 1}`,
+    title: `Title ${i + 1}`,
+    company: `Company ${i + 1}`,
+    recommendation: `Great recommendation ${i + 1}`,
+    linkedInUrl: `https://linkedin.com/in/user${i + 1}`,
+    date: `2024-01-${String(i + 1).padStart(2, "0")}`,
+  }));
 };
 
 // Environment variable helpers
@@ -63,6 +57,11 @@ export const createMockApiError = (message: string, status = 400) => {
     json: async () => ({ error: message }),
     text: async () => JSON.stringify({ error: message }),
   };
+};
+
+export const mockApiResponses = {
+  success: (data: any) => createMockApiResponse(data),
+  error: (message: string, status = 400) => createMockApiError(message, status),
 };
 
 // Component testing helpers

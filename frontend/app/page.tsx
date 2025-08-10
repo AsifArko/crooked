@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Hero } from "@/components/hero/Hero";
 import { Loading } from "@/components/layout/Loading";
 import { GithubActivity } from "@/components/github/components/GithubActivity";
-import { Projects } from "@/components/projects/Projects";
+import { SourceCodes } from "@/components/sourcecodes";
 import { Stacks } from "@/components/stacks";
 import { Testimonials } from "@/components/testimonials";
 
@@ -12,7 +12,7 @@ export default function HomePage() {
       <Suspense fallback={<Loading />}>
         <Hero />
         <GithubActivity />
-        <Projects />
+        <SourceCodes />
         <Testimonials />
         <Stacks />
       </Suspense>

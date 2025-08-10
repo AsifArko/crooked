@@ -34,10 +34,10 @@ export default function Header() {
               Experience
             </Link>
             <Link
-              href="#projects"
+              href="#sourcecodes"
               className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
-              Projects
+              Source Codes
             </Link>
             <Link
               href="#documents"

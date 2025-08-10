@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ActivitySummary } from "./ActivitySummary";
 import { ActivityGraph } from "./ActivityGraph";
 import { useActivityOverview } from "../../lib/hooks";
@@ -88,11 +89,12 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
       <div className="flex items-center gap-1.5 mb-3">
         {organizations && organizations.length > 0 ? (
           <>
-            <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
-              <img
+            <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden relative">
+              <Image
                 src={organizations[0].avatarUrl}
                 alt={organizations[0].login}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = "none";
@@ -110,11 +112,12 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
             </span>
             {organizations.length > 1 && (
               <>
-                <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden">
-                  <img
+                <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden relative">
+                  <Image
                     src={organizations[1].avatarUrl}
                     alt={organizations[1].login}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";

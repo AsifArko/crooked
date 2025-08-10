@@ -65,10 +65,10 @@ export default function Footer() {
                 <ul className="mt-6 space-y-4">
                   <li>
                     <Link
-                      href="#projects"
+                      href="#sourcecodes"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
-                      Projects
+                      Source Codes
                     </Link>
                   </li>
                   <li>

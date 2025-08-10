@@ -165,7 +165,7 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                           </div>
                           <WorldMap
                             applications={position.applications}
-                            className="w-full"
+                            config={{ className: "w-full" }}
                           />
                         </div>
                       )}

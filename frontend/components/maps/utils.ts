@@ -19,7 +19,7 @@ export const getHighlightedCountryCodes = (countries: string[]): string[] => {
 
 // Get applications in a specific country
 export const getApplicationsInCountry = (
-  applications: Array<{ countries: string[]; title: string }>,
+  applications: Array<{ countries: string[]; title: string; link: string }>,
   country: string
 ) => {
   return applications.filter((app) => app.countries.includes(country));
