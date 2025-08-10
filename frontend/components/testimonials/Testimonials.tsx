@@ -206,7 +206,7 @@ export function Testimonials({ className = "" }: TestimonialsProps) {
                             href={testimonial.linkedInUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-blue-600 transition-colors"
+                            className="hover:text-gray-600 transition-colors"
                             title={testimonial.name}
                           >
                             {testimonial.name}

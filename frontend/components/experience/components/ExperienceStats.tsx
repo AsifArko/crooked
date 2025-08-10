@@ -57,7 +57,7 @@ export function ExperienceStats({ stats }: ExperienceStatsProps) {
         {statItems.map((item, index) => (
           <Card
             key={index}
-            className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden hover:shadow-md"
+            className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden"
           >
             <CardContent className="p-4">
               <div className="flex items-center justify-between">

@@ -43,6 +43,7 @@ const defaultCategories: StackCategory[] = [
       "Dart",
       "React.js",
       "React Native",
+      "Next.js",
       "Flutter",
       "Laravel",
     ],

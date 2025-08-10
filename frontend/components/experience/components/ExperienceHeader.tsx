@@ -31,7 +31,7 @@ export function ExperienceHeader() {
           backend services, cloud automation, and full-stack solutions.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        {/* <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
             <MapPin className="h-4 w-4" />
             <span>Philadelphia, Pennsylvania, United States</span>
@@ -40,7 +40,7 @@ export function ExperienceHeader() {
             <Calendar className="h-4 w-4" />
             <span>2018 - Present</span>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
           <Link href="/" className="w-full sm:w-auto">
@@ -51,7 +51,15 @@ export function ExperienceHeader() {
               Back to Home
             </Button>
           </Link>
-          <Link href="/documentation" className="w-full sm:w-auto"></Link>
+          <Link href="/contact" className="w-full sm:w-auto">
+            <Button
+              variant="outline"
+              size="lg"
+              className="group border-border/50 transition-all duration-300 w-full sm:w-auto min-w-[200px] h-12 !px-6"
+            >
+              Contact me
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

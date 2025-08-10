@@ -13,8 +13,8 @@ export default function HomePage() {
         <Hero />
         <GithubActivity />
         <Projects />
-        <Stacks />
         <Testimonials />
+        <Stacks />
       </Suspense>
     </main>
   );
