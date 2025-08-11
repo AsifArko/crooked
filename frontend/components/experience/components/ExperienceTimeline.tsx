@@ -2,7 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, MapPin, Calendar, CheckCircle, Globe } from "lucide-react";
+import {
+  Building2,
+  MapPin,
+  Calendar,
+  CheckCircle,
+  Globe,
+  Landmark,
+} from "lucide-react";
 import { WorldMap } from "@/components/maps";
 
 interface Application {
@@ -14,9 +21,11 @@ interface Application {
 interface Position {
   id: number;
   company: string;
+  companyLink?: string;
   location: string;
   position: string;
   duration: string;
+  architectures: string[];
   applications: Application[];
   achievements: string[];
   technologies: string[];
@@ -44,14 +53,14 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
           <div key={position.id} className="relative">
             {/* Timeline connector */}
             {index < positions.length - 1 && (
-              <div className="absolute left-6 top-16 bottom-0 w-px bg-gradient-to-b from-primary/30 to-transparent"></div>
+              <div className="absolute left-6 top-16 bottom-0 w-px bg-gradient-to-b from-primary/15 to-transparent"></div>
             )}
 
             <div className="flex gap-6">
               {/* Timeline dot */}
               <div className="relative">
-                <div className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center">
-                  <Building2 className="h-5 w-5 text-primary" />
+                <div className="w-12 h-12 rounded-full border-2 border-primary/5 flex items-center justify-center">
+                  <Landmark className="h-5 w-5 text-primary" />
                 </div>
               </div>
 
@@ -66,10 +75,21 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                           {position.position}
                         </CardTitle>
                         <div className="flex items-center gap-2 text-sm text-foreground/70">
-                          <Building2 className="h-4 w-4" />
-                          <span className="font-medium">
-                            {position.company}
-                          </span>
+                          <Landmark className="h-4 w-4" />
+                          {position.companyLink ? (
+                            <a
+                              href={position.companyLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-medium hover:text-primary transition-colors"
+                            >
+                              {position.company}
+                            </a>
+                          ) : (
+                            <span className="font-medium">
+                              {position.company}
+                            </span>
+                          )}
                         </div>
                         <div className="flex items-center gap-4 text-xs text-muted-foreground/60">
                           <div className="flex items-center gap-1">
@@ -105,21 +125,50 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                   <CardContent className="space-y-6">
                     {/* Achievements */}
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className="h-px w-4 bg-gradient-to-r from-transparent to-secondary/30"></div>
-                        <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
-                          Key Achievements
-                        </h4>
-                        <div className="h-px flex-1 bg-gradient-to-r from-secondary/30 to-transparent"></div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="h-px w-4 bg-gradient-to-r from-transparent to-secondary/30"></div>
+                          <h4 className="text-sm font-medium text-foreground/80 uppercase tracking-wide">
+                            Key Achievements
+                          </h4>
+                          <div className="h-px flex-1 bg-gradient-to-r from-secondary/30 to-transparent"></div>
+                        </div>
+                        {/* Architecture metadata */}
+                        {position.architectures &&
+                          position.architectures.length > 0 && (
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs text-muted-foreground/60 font-bold">
+                                Architecture:
+                              </span>
+                              {position.architectures.map((arch, archIndex) => (
+                                <span
+                                  key={archIndex}
+                                  className="text-xs text-muted-foreground/60 font-light"
+                                >
+                                  {arch}
+                                  {archIndex <
+                                    position.architectures.length - 1 && (
+                                    <span className="text-muted-foreground/40">
+                                      {" "}
+                                      •{" "}
+                                    </span>
+                                  )}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                       </div>
                       <div className="space-y-3">
                         {position.achievements.map(
                           (achievement, achievementIndex) => (
                             <div key={achievementIndex} className="flex gap-3">
                               <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                              <p className="text-sm text-muted-foreground/80 leading-relaxed">
-                                {achievement}
-                              </p>
+                              <p
+                                className="text-sm text-muted-foreground/80 leading-relaxed"
+                                dangerouslySetInnerHTML={{
+                                  __html: achievement,
+                                }}
+                              />
                             </div>
                           )
                         )}

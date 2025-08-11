@@ -96,7 +96,7 @@ export function Testimonials({ className = "" }: TestimonialsProps) {
 
           <div
             ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth md:gap-4 gap-0"
+            className="flex gap-4 overflow-x-auto pb-0 scrollbar-hide scroll-smooth md:gap-4 gap-0"
             onScroll={checkScrollButtons}
           >
             {testimonials.map((testimonial, index) => (

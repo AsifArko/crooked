@@ -1,6 +1,7 @@
 export { CSAnimation } from "./cs-animation";
 export { CrookedAnimation } from "./crooked-animation";
 export { CrookedEmailAnimation } from "./crooked-email-animation";
+export { CrookedExperienceTimeLineAnimation } from "./crooked-experience-timeline-animation";
 export { EngineeringAnimation } from "./engineering-animation";
 export { SupportAnimation } from "./support-animation";
 export { FeaturesAnimation } from "./features-animation";

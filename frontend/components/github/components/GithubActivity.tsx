@@ -12,7 +12,7 @@ export const GithubActivity = () => {
   };
 
   return (
-    <section className="bg-background">
+    <section id="github" className="bg-background">
       <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-8">

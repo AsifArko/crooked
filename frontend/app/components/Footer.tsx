@@ -5,8 +5,27 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
+const scrollToSection = (sectionId: string, router: any, pathname: string) => {
+  // Check if we're on the homepage
+  if (pathname !== "/") {
+    // Navigate to homepage with hash
+    router.push(`/#${sectionId}`);
+    return;
+  }
+
+  // If already on homepage, scroll to section
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <motion.footer
       className="bg-background border-t"
@@ -64,28 +83,25 @@ export default function Footer() {
                 </h3>
                 <ul className="mt-6 space-y-4">
                   <li>
-                    <Link
-                      href="#sourcecodes"
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
+                    <button
+                      onClick={() =>
+                        scrollToSection("sourcecodes", router, pathname)
+                      }
+                      className="text-sm text-muted-foreground/70 hover:text-foreground/80 cursor-pointer"
                     >
                       Source Codes
-                    </Link>
+                    </button>
                   </li>
+
                   <li>
-                    <Link
-                      href="#documents"
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
-                    >
-                      Documents
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#github"
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
+                    <button
+                      onClick={() =>
+                        scrollToSection("github", router, pathname)
+                      }
+                      className="text-sm text-muted-foreground/70 hover:text-foreground/80 cursor-pointer"
                     >
                       GitHub
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -104,7 +120,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link
-                      href="https://linkedin.com/in/asifarko"
+                      href="https://www.linkedin.com/in/asifimch/"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
                       LinkedIn
@@ -112,10 +128,10 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link
-                      href="https://github.com/asifarko"
+                      href="https://x.com/asif_imch"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
-                      GitHub
+                      Twitter
                     </Link>
                   </li>
                 </ul>
@@ -128,21 +144,14 @@ export default function Footer() {
                 </h3>
                 <ul className="mt-6 space-y-4">
                   <li>
-                    <Link
-                      href="#about"
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
+                    <button
+                      onClick={() => scrollToSection("about", router, pathname)}
+                      className="text-sm text-muted-foreground/70 hover:text-foreground/80 cursor-pointer"
                     >
                       About Me
-                    </Link>
+                    </button>
                   </li>
-                  <li>
-                    <Link
-                      href="#skills"
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
-                    >
-                      Skills
-                    </Link>
-                  </li>
+
                   <li>
                     <Link
                       href="/experience"

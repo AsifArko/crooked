@@ -193,7 +193,7 @@ export const SourceCodes = async () => {
                 {/* Buy Now Button */}
                 <div className="mt-2">
                   <Button className="w-full bg-black hover:bg-black/90 text-white h-10">
-                    Buy Now
+                    Buy now
                   </Button>
                 </div>
               </div>

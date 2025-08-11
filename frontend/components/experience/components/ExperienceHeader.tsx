@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Briefcase, MapPin, Calendar, ArrowLeft } from "lucide-react";
-import { CSAnimation } from "@/components/animations";
+import { CrookedExperienceTimeLineAnimation } from "@/components/animations";
 import Link from "next/link";
 
 export function ExperienceHeader() {
@@ -57,7 +57,10 @@ export function ExperienceHeader() {
 
         <div className="flex justify-center lg:justify-center order-1 lg:order-2">
           <div className="w-full max-w-md h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg border border-border/50 flex items-center justify-center">
-            <CSAnimation size="lg" className="w-48 h-48" />
+            <CrookedExperienceTimeLineAnimation
+              size="lg"
+              className="w-48 h-48"
+            />
           </div>
         </div>
       </div>

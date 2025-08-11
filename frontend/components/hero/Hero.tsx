@@ -26,7 +26,10 @@ export function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-background py-12 sm:py-16 mx-auto max-w-7xl px-6 lg:px-8">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-background py-12 sm:py-16 mx-auto max-w-7xl px-6 lg:px-8"
+    >
       {/* Information column */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-6 order-2 lg:order-1">

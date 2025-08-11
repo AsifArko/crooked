@@ -134,7 +134,7 @@ export const Stacks: React.FC<StacksProps> = ({
           {categories.map((category) => (
             <Card
               key={category.id}
-              className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden hover:shadow-sm"
+              className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden"
             >
               <CardHeader className="pb-2">
                 <div className="flex items-center gap-3 mb-1">
