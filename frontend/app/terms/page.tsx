@@ -161,13 +161,6 @@ const contactInfo = [
     link: "/privacy",
     external: false,
   },
-  {
-    icon: FileText,
-    title: "Resume",
-    description: "Download my professional resume and credentials",
-    link: "/resume.pdf",
-    external: true,
-  },
 ];
 
 export default function TermsPage() {

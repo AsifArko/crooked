@@ -208,7 +208,7 @@ export function ExperienceTimeline({ positions }: ExperienceTimelineProps) {
                             <div className="h-px w-4 bg-gradient-to-r from-transparent to-primary/30"></div>
                             <h4 className="text-sm font-medium text-foreground/60 uppercase tracking-wide flex items-center gap-2">
                               <Globe className="h-4 w-4 text-foreground/60" />
-                              Operated in
+                              Global Reach
                             </h4>
                             <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"></div>
                           </div>

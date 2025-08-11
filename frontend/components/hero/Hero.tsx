@@ -5,11 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, FileText, Copy, Twitter } from "lucide-react";
 import { CrookedAnimation } from "@/components/animations";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Hero() {
   const [emailCopied, setEmailCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchResume = async () => {
+      try {
+        const response = await fetch("/api/resume");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.resume && data.resume.fileUrl) {
+            setResumeUrl(data.resume.fileUrl);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch resume:", error);
+      }
+    };
+
+    fetchResume();
+  }, []);
 
   const copyEmailToClipboard = async () => {
     try {
@@ -22,6 +41,27 @@ export function Hero() {
       }, 2000);
     } catch (err) {
       console.error("Failed to copy email:", err);
+    }
+  };
+
+  const downloadResume = async () => {
+    if (resumeUrl) {
+      try {
+        const response = await fetch(resumeUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Asif_Imtiyaz_Chowdhury_Resume.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Failed to download resume:", error);
+      }
+    } else {
+      console.error("Resume URL not available");
     }
   };
 
@@ -108,9 +148,9 @@ export function Hero() {
               </div>
               <div className="w-px h-4 bg-border/50 mx-0.5"></div>
               <div
-                onClick={() => window.open("/resume.pdf", "_blank")}
+                onClick={downloadResume}
                 className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer pr-2 sm:pr-0"
-                title="Open resume"
+                title="Download resume"
               >
                 <FileText className="h-4 w-4" />
               </div>

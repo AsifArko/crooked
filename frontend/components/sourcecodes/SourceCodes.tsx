@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -10,8 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { client } from "@/sanity/lib/client";
-import { sourceCodesQuery } from "@/sanity/lib/queries";
 import {
   ExternalLink,
   Github,
@@ -36,16 +36,88 @@ interface SourceCode {
   publishedAt: string;
 }
 
-async function getSourceCodes(): Promise<SourceCode[]> {
-  return await client.fetch(sourceCodesQuery);
-}
+export const SourceCodes = () => {
+  const [sourceCodes, setSourceCodes] = React.useState<SourceCode[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
-export const SourceCodes = async () => {
-  const sourceCodes = await getSourceCodes();
+  useEffect(() => {
+    const fetchSourceCodes = async () => {
+      try {
+        console.log("Fetching source codes from API...");
+        const response = await fetch("/api/sourcecodes");
+        console.log("API response status:", response.status);
+        if (!response.ok) {
+          throw new Error("Failed to fetch source codes");
+        }
+        const data = await response.json();
+        console.log("API response data:", data);
+        console.log("Number of source codes received:", data?.length || 0);
+        setSourceCodes(data);
+      } catch (error) {
+        console.error("Error fetching source codes:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSourceCodes();
+  }, []);
+
+  useEffect(() => {
+    // Check if we need to scroll to this section (when coming from contact page)
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash === "#sourcecodes"
+    ) {
+      // Use a small delay to ensure the component is fully rendered
+      setTimeout(() => {
+        const element = document.getElementById("sourcecodes");
+        if (element) {
+          // Calculate position to show the section at 50% visibility
+          const elementRect = element.getBoundingClientRect();
+          const elementHeight = elementRect.height;
+          const windowHeight = window.innerHeight;
+
+          // Scroll to position the element at 50% of viewport height
+          const targetScrollTop =
+            window.pageYOffset +
+            elementRect.top -
+            windowHeight * 0.5 +
+            elementHeight * 0.5;
+
+          window.scrollTo({
+            top: targetScrollTop,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="bg-background">
+        <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>
+              <span className="text-xs font-medium text-primary/80 uppercase tracking-[0.25em]">
+                Source Codes
+              </span>
+              <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary/30"></div>
+            </div>
+          </div>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (sourceCodes.length === 0) {
     return (
-      <section id="sourcecodes" className="bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-8">
@@ -71,7 +143,7 @@ export const SourceCodes = async () => {
   }
 
   return (
-    <section id="sourcecodes" className="bg-background">
+    <section className="bg-background">
       <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-8">
@@ -83,7 +155,10 @@ export const SourceCodes = async () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          id="sourcecodes"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {sourceCodes.map((sourceCode) => (
             <Card
               key={sourceCode._id}

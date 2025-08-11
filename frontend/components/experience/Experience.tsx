@@ -3,7 +3,6 @@
 import { ExperienceHeader } from "./components/ExperienceHeader";
 import { ExperienceTimeline } from "./components/ExperienceTimeline";
 import { ExperienceStats } from "./components/ExperienceStats";
-import { ExperienceSkills } from "./components/ExperienceSkills";
 import { experienceData } from "./data";
 
 export function Experience() {
@@ -21,7 +20,6 @@ export function Experience() {
         <ExperienceHeader />
         <ExperienceStats stats={experienceData.stats} />
         <ExperienceTimeline positions={experienceData.positions} />
-        {/* <ExperienceSkills skills={experienceData.skills} /> */}
       </div>
     </div>
   );

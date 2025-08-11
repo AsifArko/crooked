@@ -539,6 +539,9 @@ export type SettingsQueryResult = {
 // Variable: sourceCodesQuery
 // Query: *[_type == "sourceCode" && isPublished == true] | order(publishedAt desc) {    _id,    title,    "slug": slug.current,    description,    githubUrl,    demoUrl,    price,    "mainImage": mainImage.asset->url,    "images": images[].asset->url,    technologies,    features,    readme,    publishedAt  }
 export type SourceCodesQueryResult = Array<never>;
+// Variable: resumeQuery
+// Query: *[_type == "docFile" && category == "resume" && isPublic == true][0] {    _id,    name,    description,    "fileUrl": file.asset->url,    uploadedAt  }
+export type ResumeQueryResult = null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -546,5 +549,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"settings\"][0]": SettingsQueryResult;
     "\n  *[_type == \"sourceCode\" && isPublished == true] | order(publishedAt desc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    description,\n    githubUrl,\n    demoUrl,\n    price,\n    \"mainImage\": mainImage.asset->url,\n    \"images\": images[].asset->url,\n    technologies,\n    features,\n    readme,\n    publishedAt\n  }\n": SourceCodesQueryResult;
+    "\n  *[_type == \"docFile\" && category == \"resume\" && isPublic == true][0] {\n    _id,\n    name,\n    description,\n    \"fileUrl\": file.asset->url,\n    uploadedAt\n  }\n": ResumeQueryResult;
   }
 }

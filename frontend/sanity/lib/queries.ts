@@ -19,3 +19,13 @@ export const sourceCodesQuery = defineQuery(`
     publishedAt
   }
 `);
+
+export const resumeQuery = defineQuery(`
+  *[_type == "docFile" && category == "resume" && isPublic == true][0] {
+    _id,
+    name,
+    description,
+    "fileUrl": file.asset->url,
+    uploadedAt
+  }
+`);

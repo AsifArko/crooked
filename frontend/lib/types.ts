@@ -8,3 +8,11 @@ export interface Testimonial {
   avatar?: string;
   date: string;
 }
+
+export interface Resume {
+  _id: string;
+  name: string;
+  description?: string;
+  fileUrl: string;
+  uploadedAt: string;
+}
