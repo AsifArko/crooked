@@ -1,78 +1,100 @@
 import React from "react";
-
-interface ActivitySummaryProps {
-  repositories: string[];
-  totalRepositories: number;
-}
+import { UserHeader } from "./UserHeader";
+import { ActivityTitle } from "./ActivityTitle";
+import { RepositoryList } from "./RepositoryList";
+import { EmptyStateIcon } from "./EmptyStateIcon";
+import { ActivitySummaryProps } from "./types";
+import { DEFAULT_ACTIVITY_SUMMARY_CONFIG } from "./config";
+import { cn } from "@/lib/utils";
 
 export const ActivitySummary: React.FC<ActivitySummaryProps> = ({
   repositories,
   totalRepositories,
+  organizations,
+  username,
+  config = {},
 }) => {
-  const displayedRepos = repositories?.slice(0, 3) || [];
-  const remainingCount = (totalRepositories || 0) - displayedRepos.length;
+  // Merge with default config
+  const finalConfig = { ...DEFAULT_ACTIVITY_SUMMARY_CONFIG, ...config };
+  
+  const {
+    showUserHeader,
+    showTitle,
+    showRepositoryList,
+    variant,
+    avatarSize,
+    maxRepositories,
+    showRepositoryTotal,
+    title,
+    emptyMessage,
+    className,
+    userHeaderClassName,
+    titleClassName,
+    repositoryListClassName,
+  } = finalConfig;
 
+  // Early return for empty state
   if (!repositories || repositories.length === 0) {
     return (
-      <div className="flex-1">
-        <h3 className="text-sm font-semibold text-foreground mb-2">
-          Activity overview
-        </h3>
-        <p className="text-xs text-muted-foreground leading-relaxed">
-          <span className="inline-flex items-center gap-1 mr-1">
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a2 2 0 00-2 2v1H4a2 2 0 01-2-2V6zm5 0a1 1 0 011-1h2a1 1 0 011 1v1H7V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
-          No repositories found
-        </p>
+      <div className={cn("flex-1", className)}>
+        {showUserHeader && (
+          <UserHeader
+            username={username}
+            organizations={organizations}
+            avatarSize={avatarSize}
+            className={cn("mb-3", userHeaderClassName)}
+          />
+        )}
+        
+        {showTitle && (
+          <ActivityTitle
+            title={title}
+            variant={variant}
+            className={titleClassName}
+          />
+        )}
+        
+        {showRepositoryList && (
+          <RepositoryList
+            repositories={[]}
+            totalRepositories={0}
+            emptyMessage={emptyMessage}
+            emptyIcon={<EmptyStateIcon className="w-3 h-3" />}
+            className={repositoryListClassName}
+          />
+        )}
       </div>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-center">
-      <h3 className="text-xs font-normal text-muted-foreground mb-2">
-        Activity overview
-      </h3>
-      <p className="text-xs text-muted-foreground leading-relaxed">
-        {/* <span className="inline-flex items-center gap-1 mr-1">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a2 2 0 00-2 2v1H4a2 2 0 01-2-2V6zm5 0a1 1 0 011-1h2a1 1 0 011 1v1H7V6z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </span> */}
-        Contributed to{" "}
-        {displayedRepos.map((repo, index) => (
-          <React.Fragment key={repo}>
-            <a
-              href={`https://github.com/${repo}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:gray-blue-800 hover:underline font-normal transition-colors"
-            >
-              {repo.replace(/^[^/]+\//, "")}
-            </a>
-            {index < displayedRepos.length - 1 && ", "}
-          </React.Fragment>
-        ))}
-        {remainingCount > 0 && (
-          <>
-            {" "}
-            and{" "}
-            <span className="text-gray-600 hover:text-gray-800 cursor-pointer font-normal">
-              {remainingCount} other repositories
-            </span>
-          </>
-        )}
-      </p>
+    <div className={cn("flex-1 flex flex-col justify-center", className)}>
+      {showUserHeader && (
+        <UserHeader
+          username={username}
+          organizations={organizations}
+          avatarSize={avatarSize}
+          className={cn("mb-3", userHeaderClassName)}
+        />
+      )}
+      
+      {showTitle && (
+        <ActivityTitle
+          title={title}
+          variant={variant}
+          className={cn("mb-2", titleClassName)}
+        />
+      )}
+      
+      {showRepositoryList && (
+        <RepositoryList
+          repositories={repositories}
+          totalRepositories={totalRepositories}
+          maxDisplayed={maxRepositories}
+          showTotal={showRepositoryTotal}
+          className={repositoryListClassName}
+        />
+      )}
     </div>
   );
 };

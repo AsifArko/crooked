@@ -86,74 +86,12 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
 
   return (
     <GlassCard className={clsx("flex flex-col", config.className)}>
-      <div className="flex items-center gap-1.5 mb-3">
-        {organizations && organizations.length > 0 ? (
-          <>
-            <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden relative">
-              <Image
-                src={organizations[0].avatarUrl}
-                alt={organizations[0].login}
-                fill
-                className="object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                  target.nextElementSibling?.classList.remove("hidden");
-                }}
-              />
-              <div className="w-full h-full bg-blue-500 flex items-center justify-center hidden">
-                <span className="text-white text-[10px] font-normal">
-                  {organizations[0].login.charAt(0).toUpperCase()}
-                </span>
-              </div>
-            </div>
-            <span className="text-[11px] font-normal text-muted-foreground">
-              @{organizations[0].login}
-            </span>
-            {organizations.length > 1 && (
-              <>
-                <div className="w-5 h-5 rounded-full shadow-sm border border-white dark:border-zinc-800 overflow-hidden relative">
-                  <Image
-                    src={organizations[1].avatarUrl}
-                    alt={organizations[1].login}
-                    fill
-                    className="object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      target.nextElementSibling?.classList.remove("hidden");
-                    }}
-                  />
-                  <div className="w-full h-full bg-gray-800 flex items-center justify-center hidden">
-                    <span className="text-white text-[10px] font-normal">
-                      {organizations[1].login.charAt(0).toUpperCase()}
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[11px] font-normal text-muted-foreground">
-                  @{organizations[1].login}
-                </span>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-zinc-800">
-              <span className="text-white text-[10px] font-normal">
-                {username.charAt(0).toUpperCase()}
-              </span>
-            </div>
-            <span className="text-[11px] font-normal text-muted-foreground">
-              @{username}
-            </span>
-          </>
-        )}
-      </div>
-
       <div className="flex flex-col sm:flex-row items-stretch justify-between flex-1">
         <ActivitySummary
           repositories={repositories}
           totalRepositories={totalRepositories}
+          organizations={organizations}
+          username={username}
         />
 
         {/* Subtle divider */}

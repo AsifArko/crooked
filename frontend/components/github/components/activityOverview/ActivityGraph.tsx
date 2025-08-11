@@ -28,7 +28,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
         </div>
 
         {/* Clean horizontal bar chart */}
-        <div className="space-y-3">
+        <div className="space-y-3 pt-4 sm:pt-0">
           {/* Commits */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-12 sm:w-16 text-xs text-muted-foreground">

@@ -96,10 +96,10 @@ export default function Footer() {
                 <ul className="mt-6 space-y-4">
                   <li>
                     <Link
-                      href="mailto:contact@asifarko.com"
+                      href="/contact"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
-                      Email
+                      Contact
                     </Link>
                   </li>
                   <li>

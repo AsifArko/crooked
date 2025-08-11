@@ -1,11 +1,30 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Mail, Linkedin, Github, FileText } from "lucide-react";
-import { CSAnimation } from "@/components/animations";
+import { Button } from "@/components/ui/button";
+import { Mail, Linkedin, Github, FileText, Copy, Twitter } from "lucide-react";
+import { CrookedAnimation } from "@/components/animations";
 import Link from "next/link";
+import { useState } from "react";
 
 export function Hero() {
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const copyEmailToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText("your-email@example.com");
+      setEmailCopied(true);
+      setShowTooltip(true);
+      setTimeout(() => {
+        setShowTooltip(false);
+        setEmailCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+
   return (
     <section className="relative overflow-hidden bg-background py-12 sm:py-16 mx-auto max-w-7xl px-6 lg:px-8">
       {/* Information column */}
@@ -36,53 +55,76 @@ export function Hero() {
             provide those solutions.
           </p>
 
+          {/* Social Media Icons */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {/* Social Media Icons */}
-            <div className="flex items-center gap-3">
-              <Link
-                href="mailto:your-email@example.com"
-                className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"
-                aria-label="Email"
+            <div className="flex items-center justify-between bg-muted/30 rounded-lg p-1 border border-border/50 relative w-full sm:w-56">
+              <div
+                onClick={copyEmailToClipboard}
+                className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md relative cursor-pointer pl-2 sm:pl-0"
+                title={emailCopied ? "Email copied!" : "Copy email address"}
               >
-                <Mail className="h-5 w-5 text-foreground/70 hover:text-foreground transition-colors" />
-              </Link>
-
-              <Link
-                href="https://www.linkedin.com/in/asifimch/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"
-                aria-label="LinkedIn"
+                <Mail className="h-4 w-4" />
+                {/* Compact Tooltip */}
+                {showTooltip && (
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap z-50">
+                    Email copied!
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-black"></div>
+                  </div>
+                )}
+              </div>
+              <div className="w-px h-4 bg-border/50 mx-0.5"></div>
+              <div
+                onClick={() =>
+                  window.open("https://www.linkedin.com/in/asifimch/", "_blank")
+                }
+                className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer"
+                title="Open LinkedIn profile"
               >
-                <Linkedin className="h-5 w-5 text-foreground/70 hover:text-foreground transition-colors" />
-              </Link>
-
-              <Link
-                href="https://github.com/asifarko"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"
-                aria-label="GitHub"
+                <Linkedin className="h-4 w-4" />
+              </div>
+              <div className="w-px h-4 bg-border/50 mx-0.5"></div>
+              <div
+                onClick={() =>
+                  window.open("https://github.com/asifarko", "_blank")
+                }
+                className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer"
+                title="Open GitHub profile"
               >
-                <Github className="h-5 w-5 text-foreground/70 hover:text-foreground transition-colors" />
-              </Link>
-
-              <Link
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-lg border border-border/50 hover:bg-background/50 transition-all duration-300 hover:scale-105"
-                aria-label="Resume"
+                <Github className="h-4 w-4" />
+              </div>
+              <div className="w-px h-4 bg-border/50 mx-0.5"></div>
+              <div
+                onClick={() =>
+                  window.open("https://twitter.com/yourusername", "_blank")
+                }
+                className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer"
+                title="Open Twitter profile"
               >
-                <FileText className="h-5 w-5 text-foreground/70 hover:text-foreground transition-colors" />
-              </Link>
+                <Twitter className="h-4 w-4" />
+              </div>
+              <div className="w-px h-4 bg-border/50 mx-0.5"></div>
+              <div
+                onClick={() => window.open("/resume.pdf", "_blank")}
+                className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer pr-2 sm:pr-0"
+                title="Open resume"
+              >
+                <FileText className="h-4 w-4" />
+              </div>
             </div>
+
+            {/* Experience Button */}
+            <Link href="/experience" className="w-full sm:w-56">
+              <Button className="bg-black text-white hover:bg-black/80 transition-all duration-200 h-11 rounded-lg border border-border/50 w-full">
+                Work Experience
+              </Button>
+            </Link>
           </div>
         </div>
 
         <div className="flex justify-center lg:justify-center order-1 lg:order-2">
           <div className="w-full max-w-md h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg border border-border/50 flex items-center justify-center">
-            <CSAnimation size="lg" className="w-48 h-48" />
+            <CrookedAnimation size="lg" className="w-48 h-48" />
           </div>
         </div>
       </div>

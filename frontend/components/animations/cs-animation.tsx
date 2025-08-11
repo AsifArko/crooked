@@ -153,7 +153,7 @@ export function CSAnimation({ className = "", size = "md" }: CSAnimationProps) {
 
     const drawParticles = () => {
       ctx.fillStyle = accentColor;
-      particles.forEach(particle => {
+      particles.forEach((particle) => {
         const alpha = 1 - particle.life / particle.maxLife;
         ctx.globalAlpha = alpha * 0.8;
         ctx.beginPath();
@@ -228,7 +228,7 @@ export function CSAnimation({ className = "", size = "md" }: CSAnimationProps) {
       ctx.strokeStyle = accentColor;
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.4;
-      particles.forEach(particle => {
+      particles.forEach((particle) => {
         const distance = Math.sqrt(
           Math.pow(particle.x - centerX, 2) + Math.pow(particle.y - centerY, 2)
         );
