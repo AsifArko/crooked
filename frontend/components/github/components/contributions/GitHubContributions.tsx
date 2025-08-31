@@ -65,9 +65,14 @@ export function GitHubContributions(props: GitHubContributionsProps) {
   return (
     <GlassCard className={clsx("flex flex-col", config.className)}>
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-sm font-normal text-muted-foreground">
+        <a
+          href="https://www.github.com/asifarko"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
+        >
           @{config.username}
-        </span>
+        </a>
         <span className="ml-2 px-2 py-0.5 rounded bg-muted/50 text-muted-foreground text-xs font-normal">
           {totalContributions} contributions
         </span>

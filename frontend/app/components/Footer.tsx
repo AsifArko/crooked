@@ -94,14 +94,12 @@ export default function Footer() {
                   </li>
 
                   <li>
-                    <button
-                      onClick={() =>
-                        scrollToSection("github", router, pathname)
-                      }
-                      className="text-sm text-muted-foreground/70 hover:text-foreground/80 cursor-pointer"
+                    <Link
+                      href="https://www.github.com/asifarko/"
+                      className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
-                      GitHub
-                    </button>
+                      Github
+                    </Link>
                   </li>
                 </ul>
               </div>

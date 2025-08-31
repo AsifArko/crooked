@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favicon Setup Instructions</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .step {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 8px;
+      }
+      .code {
+        background: #333;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .warning {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        padding: 15px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔬 Scientific Favicon Setup</h1>
+
+    <div class="success">
+      <h3>✅ What's Already Done:</h3>
+      <ul>
+        <li>SVG favicon created at <code>/public/favicon.svg</code></li>
+        <li>Layout updated to reference the new favicon</li>
+        <li>Old favicon.ico removed</li>
+      </ul>
+    </div>
+
+    <div class="warning">
+      <h3>⚠️ Why You Still See the Old Icon:</h3>
+      <p>Browsers aggressively cache favicons. You need to:</p>
+      <ol>
+        <li>Generate PNG versions of the favicon</li>
+        <li>Clear browser cache</li>
+        <li>Hard refresh the page</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <h3>Step 1: Generate PNG Favicons</h3>
+      <p>You need to convert the SVG to PNG files. Use one of these methods:</p>
+
+      <h4>Option A: Online Converter (Recommended)</h4>
+      <ol>
+        <li>
+          Go to
+          <a href="https://favicon.io/favicon-converter/" target="_blank"
+            >favicon.io</a
+          >
+        </li>
+        <li>Upload the <code>frontend/public/favicon.svg</code> file</li>
+        <li>Download the generated package</li>
+        <li>Replace the placeholder files in <code>frontend/public/</code></li>
+      </ol>
+
+      <h4>Option B: Manual Conversion</h4>
+      <ol>
+        <li>Open <code>frontend/public/favicon.svg</code> in a browser</li>
+        <li>Take a screenshot or use browser dev tools to save as PNG</li>
+        <li>Resize to 16x16, 32x32, and 180x180 pixels</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <h3>Step 2: Clear Browser Cache</h3>
+
+      <h4>Chrome/Edge:</h4>
+      <div class="code">
+        Ctrl+Shift+Delete → Clear browsing data → Cached images and files
+      </div>
+
+      <h4>Firefox:</h4>
+      <div class="code">Ctrl+Shift+Delete → Cache → Clear Now</div>
+
+      <h4>Safari:</h4>
+      <div class="code">Develop → Empty Caches</div>
+    </div>
+
+    <div class="step">
+      <h3>Step 3: Hard Refresh</h3>
+      <p>After clearing cache, hard refresh your page:</p>
+      <div class="code">
+        Windows: Ctrl+F5<br />
+        Mac: Cmd+Shift+R
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 4: Verify the New Favicon</h3>
+      <p>Check these locations:</p>
+      <ul>
+        <li>Browser tab icon</li>
+        <li>Bookmarks</li>
+        <li>Browser history</li>
+        <li>Mobile home screen (if added)</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>Alternative: Force Favicon Update</h3>
+      <p>If the above doesn't work, add a cache-busting parameter:</p>
+      <div class="code">
+        &lt;link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" /&gt;
+      </div>
+      <p>Update the version number each time you change the favicon.</p>
+    </div>
+
+    <div class="success">
+      <h3>🎯 Expected Result:</h3>
+      <p>
+        You should see a blue circular icon with green DNA helix strands, golden
+        molecular bonds, and a central atom structure - representing science and
+        technology!
+      </p>
+    </div>
+
+    <hr />
+    <p>
+      <strong>Need help?</strong> The SVG favicon is already created and
+      working. The main issue is browser caching and needing PNG versions for
+      full compatibility.
+    </p>
+  </body>
+</html>

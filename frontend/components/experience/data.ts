@@ -17,7 +17,7 @@ export const experienceData = {
         {
           title: "SportsData",
           link: "https://www.ntb.no/sport/sportsdata",
-          countries: ["Norway", "Denmark", "Sweden", "Finland", "Iceland"],
+          countries: ["Norway"],
         },
       ],
       achievements: [

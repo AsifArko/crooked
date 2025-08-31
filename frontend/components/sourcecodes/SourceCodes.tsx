@@ -2,23 +2,10 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  ExternalLink,
-  Github,
-  Eye,
-  DollarSign,
-  ShoppingCart,
-} from "lucide-react";
+import {} from "lucide-react";
 
 interface SourceCode {
   _id: string;
@@ -159,121 +146,105 @@ export const SourceCodes = () => {
           id="sourcecodes"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {sourceCodes.map((sourceCode) => (
-            <Card
-              key={sourceCode._id}
-              className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden"
-            >
-              {/* Image Section */}
-              {sourceCode.mainImage && (
-                <div className="aspect-video overflow-hidden bg-muted relative">
-                  <Image
-                    src={sourceCode.mainImage}
-                    alt={sourceCode.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-200"
-                  />
-                </div>
-              )}
+          {sourceCodes
+            .sort((a, b) => b.price - a.price)
+            .map((sourceCode) => (
+              <Card
+                key={sourceCode._id}
+                className="group bg-card border border-border/50 bg-gradient-to-br from-background to-background/50 rounded-sm shadow-none transition-all duration-200 overflow-hidden"
+              >
+                {/* Image Section */}
+                {sourceCode.mainImage && (
+                  <div className="aspect-video overflow-hidden bg-muted relative">
+                    <Image
+                      src={sourceCode.mainImage}
+                      alt={sourceCode.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-200"
+                    />
+                  </div>
+                )}
 
-              {/* Content Section */}
-              <div className="p-6">
-                {/* Title and Description */}
-                <div className="mb-4">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {sourceCode.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground/70 leading-relaxed font-light">
-                    {sourceCode.description}
-                  </p>
-                </div>
+                {/* Content Section */}
+                <div className="p-6">
+                  {/* Title and Description */}
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      {sourceCode.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground/70 leading-relaxed font-light">
+                      {sourceCode.description}
+                    </p>
+                  </div>
 
-                {/* Technologies */}
-                {sourceCode.technologies &&
-                  sourceCode.technologies.length > 0 && (
-                    <div className="mb-4">
-                      <div className="flex flex-wrap gap-2">
-                        {sourceCode.technologies
-                          .slice(0, 3)
-                          .map((tech, index) => (
-                            <Badge
-                              key={index}
-                              variant="secondary"
-                              className="text-xs rounded-sm bg-secondary/70 text-muted-foreground/90 font-light"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        {sourceCode.technologies.length > 3 && (
-                          <Badge
-                            variant="secondary"
-                            className="text-xs bg-secondary/70 text-muted-foreground/90 font-light"
-                          >
-                            +{sourceCode.technologies.length - 3}
-                          </Badge>
-                        )}
+                  {/* Technologies */}
+                  {sourceCode.technologies &&
+                    sourceCode.technologies.length > 0 && (
+                      <div className="mb-4">
+                        <div className="flex flex-wrap gap-2">
+                          {sourceCode.technologies
+                            .slice(0, 3)
+                            .map((tech, index) => (
+                              <Badge
+                                key={index}
+                                variant="secondary"
+                                className="text-xs rounded-sm bg-secondary/70 text-muted-foreground/90 font-light"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                          {sourceCode.technologies.length > 3 && (
+                            <div className="relative group">
+                              <Badge
+                                variant="secondary"
+                                className="text-xs bg-secondary/70 text-muted-foreground/90 font-light cursor-pointer"
+                              >
+                                +{sourceCode.technologies.length - 3}
+                              </Badge>
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black/90 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                                {sourceCode.technologies.slice(3).join(", ")}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90"></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    )}
+
+                  {/* Price and Actions */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-muted-foreground/80 tracking-wide">
+                        Price
+                      </span>
                     </div>
-                  )}
 
-                {/* Price and Actions */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-lg text-foreground">
-                      ${sourceCode.price}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-muted-foreground/80 tracking-wide">
+                        ${sourceCode.price}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    {sourceCode.githubUrl && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="h-8 px-3"
-                      >
-                        <a
-                          href={sourceCode.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1"
-                        >
-                          <Github className="w-3 h-3" />
-                          <span className="text-xs">Code</span>
-                        </a>
-                      </Button>
-                    )}
+                  {/* Preview Button */}
+                  {/* <div className="mt-2 mb-2">
+                    <Button
+                      variant="outline"
+                      className="w-full bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-300"
+                    >
+                      Preview
+                    </Button>
+                  </div> */}
 
-                    {sourceCode.demoUrl && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="h-8 px-3"
-                      >
-                        <a
-                          href={sourceCode.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1"
-                        >
-                          <Eye className="w-3 h-3" />
-                          <span className="text-xs">Demo</span>
-                        </a>
-                      </Button>
-                    )}
+                  {/* Buy Now Button */}
+                  <div className="mt-2">
+                    <Button className="w-full bg-black hover:bg-black/90 text-white h-10">
+                      Will be available soon
+                    </Button>
                   </div>
                 </div>
-
-                {/* Buy Now Button */}
-                <div className="mt-2">
-                  <Button className="w-full bg-black hover:bg-black/90 text-white h-10">
-                    Buy now
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
         </div>
       </div>
     </section>

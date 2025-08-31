@@ -32,7 +32,7 @@ export function Hero() {
 
   const copyEmailToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText("your-email@example.com");
+      await navigator.clipboard.writeText("asif.imch@gmail.com");
       setEmailCopied(true);
       setShowTooltip(true);
       setTimeout(() => {
@@ -138,9 +138,7 @@ export function Hero() {
               </div>
               <div className="w-px h-4 bg-border/50 mx-0.5"></div>
               <div
-                onClick={() =>
-                  window.open("https://twitter.com/yourusername", "_blank")
-                }
+                onClick={() => window.open("https://x.com/asif_imch", "_blank")}
                 className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer"
                 title="Open Twitter profile"
               >
