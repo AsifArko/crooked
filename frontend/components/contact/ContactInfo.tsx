@@ -100,7 +100,7 @@ export function ContactInfo() {
         </div>
 
         <p className="text-sm text-muted-foreground/70 max-w-md mx-auto mb-6">
-          Feel free to reach out through any of these channels. I'm always open
+          Feel free to reach out through any of these channels. I&apos;m always open
           to discussing new opportunities and collaborations.
         </p>
 

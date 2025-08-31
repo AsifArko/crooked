@@ -39,7 +39,7 @@ export function ContactHero() {
             </div>
 
             <p className="text-xs leading-relaxed text-muted-foreground/80 sm:text-sm max-w-lg font-light tracking-wide">
-              I'd love to hear from you. Send me a message and I'll get back to
+              I&apos;d love to hear from you. Send me a message and I&apos;ll get back to
               you as soon as possible.
             </p>
 

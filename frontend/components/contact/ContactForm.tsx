@@ -68,7 +68,7 @@ export function ContactForm() {
             Send Message
           </CardTitle>
           <CardDescription className="text-muted-foreground/70">
-            Fill out the form below and I'll respond within 24 hours
+            Fill out the form below and I&apos;ll respond within 24 hours
           </CardDescription>
         </CardHeader>
 
@@ -159,7 +159,7 @@ export function ContactForm() {
               <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/30 rounded-lg">
                 <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                 <span className="text-sm text-green-700 dark:text-green-300">
-                  Message sent successfully! I'll get back to you soon.
+                  Message sent successfully! I&apos;ll get back to you soon.
                 </span>
               </div>
             )}
