@@ -1,4 +1,13 @@
 // Experience data parsed from resume
+export const scandanavian_countries = [
+  "Norway",
+  "Sweden",
+  "Denmark",
+  "Finland",
+  "Iceland",
+];
+
+const NORWAY = "Norway";
 export const experienceData = {
   positions: [
     {
