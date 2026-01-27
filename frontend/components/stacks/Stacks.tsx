@@ -49,6 +49,8 @@ const defaultCategories: StackCategory[] = [
       "Next.js",
       "Flutter",
       "Laravel",
+      "Sanity",
+
     ],
   },
   {
@@ -99,6 +101,7 @@ const defaultCategories: StackCategory[] = [
       "Webflow",
       "Varnish",
       "HAProxy",
+      "Vercel"
     ],
   },
   {

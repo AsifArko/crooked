@@ -288,3 +288,36 @@ html {
     linear-gradient(to bottom, rgb(51 65 85 / 0.25) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Radar Chart Animations */
+@keyframes radar-draw {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes radar-point {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-radar-draw {
+  animation: radar-draw 0.6s ease-out forwards;
+  transform-origin: center;
+}
+
+.animate-radar-point {
+  animation: radar-point 0.4s ease-out forwards;
+  transform-origin: center;
+}

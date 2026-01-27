@@ -17,3 +17,21 @@ export {
   COMPACT_ACTIVITY_SUMMARY_CONFIG, 
   LARGE_ACTIVITY_SUMMARY_CONFIG 
 } from "./config";
+
+// Radar Chart exports
+export type {
+  ContributionBreakdown,
+  RadarDataPoint,
+  RadarChartConfig,
+  RadarChartColors,
+  ActivityGraphProps,
+} from "./ActivityGraph";
+
+export {
+  COMPACT_RADAR_CONFIG,
+  LARGE_RADAR_CONFIG,
+  MINIMAL_RADAR_CONFIG,
+  DARK_RADAR_COLORS,
+  LIGHT_RADAR_COLORS,
+  GREEN_RADAR_COLORS,
+} from "./ActivityGraph";

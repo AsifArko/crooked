@@ -38,7 +38,7 @@ export default function Footer() {
           <div className="space-y-8">
             <div>
               <h3 className="text-lg font-semibold text-foreground/80">
-                Crooked
+                Asif Imtiyaz Chowdhury
               </h3>
               <p className="mt-4 text-sm text-muted-foreground/70">
                 Full Stack Developer passionate about building modern web
@@ -165,14 +165,14 @@ export default function Footer() {
                   Legal
                 </h3>
                 <ul className="mt-6 space-y-4">
-                  <li>
+                  {/* <li>
                     <Link
                       href="/privacy"
                       className="text-sm text-muted-foreground/70 hover:text-foreground/80"
                     >
                       Privacy
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       href="/terms"
@@ -189,10 +189,10 @@ export default function Footer() {
         <Separator className="my-8" />
         <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
           <p className="text-sm text-muted-foreground/70">
-            © 2025 Crooked. All rights reserved.
+            © 2026 Asif Imtiyaz Chowdhury. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground/70">
-            Thank you for supporting Crooked.
+            Thank you for visiting.
           </p>
         </div>
       </div>
