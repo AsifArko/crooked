@@ -50,7 +50,7 @@ export const RepositoryList: React.FC<RepositoryListProps> = ({
           >
             {repo.replace(/^[^/]+\//, "")}
           </a>
-          {index < displayedRepos.length - 1 && ", "}
+          { ", "}
         </React.Fragment>
       ))}
       {showTotal && remainingCount > 0 && (
