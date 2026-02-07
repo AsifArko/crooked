@@ -9,11 +9,11 @@ import { Toaster } from "sonner";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
+import { AnalyticsProvider } from "@/components/analytics";
 import * as demo from "@/sanity/lib/demo";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { sanityFetch } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { handleError } from "./client-utils";
 import { Analytics } from "@vercel/analytics/next"
 
 /**
@@ -96,9 +96,10 @@ export default async function RootLayout({
               <VisualEditing />
             </>
           )}
-          <SanityLive onError={handleError} />
-          <main className="">{children}</main>
+          <AnalyticsProvider>
+            <main className="">{children}</main>
           <Footer />
+          </AnalyticsProvider>
         </section>
         <Analytics />
         <SpeedInsights />

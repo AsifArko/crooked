@@ -50,7 +50,8 @@
     "stripe": "^18.4.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.10"
+    "tailwindcss": "^4.1.10",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.4",

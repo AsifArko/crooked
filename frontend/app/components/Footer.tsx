@@ -26,6 +26,10 @@ export default function Footer() {
   const router = useRouter();
   const pathname = usePathname();
 
+  if (pathname?.startsWith("/studio")) {
+    return null;
+  }
+
   return (
     <motion.footer
       className="bg-background border-t"

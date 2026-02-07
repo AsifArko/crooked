@@ -5,31 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, FileText, Copy, Twitter } from "lucide-react";
 import { CrookedAnimation } from "@/components/animations";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function Hero() {
   const [emailCopied, setEmailCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchResume = async () => {
-      try {
-        const response = await fetch("/api/resume");
-        if (response.ok) {
-          const data = await response.json();
-          if (data.resume && data.resume.fileUrl) {
-            setResumeUrl(data.resume.fileUrl);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch resume:", error);
-      }
-    };
-
-    fetchResume();
-  }, []);
-
   const copyEmailToClipboard = async () => {
     try {
       await navigator.clipboard.writeText("asif.imch@gmail.com");
@@ -44,25 +24,8 @@ export function Hero() {
     }
   };
 
-  const downloadResume = async () => {
-    if (resumeUrl) {
-      try {
-        const response = await fetch(resumeUrl);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "Asif_Imtiyaz_Chowdhury_Resume.pdf";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-      } catch (error) {
-        console.error("Failed to download resume:", error);
-      }
-    } else {
-      console.error("Resume URL not available");
-    }
+  const downloadResume = () => {
+    window.open("/api/resume/download", "_blank");
   };
 
   return (

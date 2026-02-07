@@ -479,6 +479,44 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/analyticsQueries.ts
+// Variable: pageViewsQuery
+// Query: *[_type == "pageView"] | order(recordedAt desc) [$from...$to] {    _id,    url,    sessionId,    ipAddress,    hostname,    userAgent,    loadTimeMs,    referrer,    recordedAt  }
+export type PageViewsQueryResult = Array<never>;
+// Variable: pageViewsCountQuery
+// Query: count(*[_type == "pageView"])
+export type PageViewsCountQueryResult = number;
+// Variable: userEventsQuery
+// Query: *[_type == "userEvent"] | order(recordedAt desc) [$from...$to] {    _id,    eventType,    eventName,    url,    sessionId,    ipAddress,    hostname,    metadata,    recordedAt  }
+export type UserEventsQueryResult = Array<never>;
+// Variable: userEventsCountQuery
+// Query: count(*[_type == "userEvent"])
+export type UserEventsCountQueryResult = number;
+// Variable: errorLogsQuery
+// Query: *[_type == "errorLog"] | order(recordedAt desc) [$from...$to] {    _id,    errorType,    message,    severity,    url,    ipAddress,    hostname,    stackTrace,    status,    recordedAt  }
+export type ErrorLogsQueryResult = Array<never>;
+// Variable: errorLogsCountQuery
+// Query: count(*[_type == "errorLog"])
+export type ErrorLogsCountQueryResult = number;
+// Variable: systemMetricsQuery
+// Query: *[_type == "systemMetric"] | order(recordedAt desc) [$from...$to] {    _id,    metricType,    value,    unit,    status,    recordedAt  }
+export type SystemMetricsQueryResult = Array<never>;
+// Variable: systemMetricsCountQuery
+// Query: count(*[_type == "systemMetric"])
+export type SystemMetricsCountQueryResult = number;
+// Variable: performanceMetricsQuery
+// Query: *[_type == "performanceMetric"] | order(recordedAt desc) [$from...$to] {    _id,    metric,    value,    url,    sessionId,    ipAddress,    hostname,    recordedAt  }
+export type PerformanceMetricsQueryResult = Array<never>;
+// Variable: performanceMetricsCountQuery
+// Query: count(*[_type == "performanceMetric"])
+export type PerformanceMetricsCountQueryResult = number;
+// Variable: resumeDownloadsQuery
+// Query: *[_type == "resumeDownload"] | order(recordedAt desc) [$from...$to] {    _id,    ipAddress,    hostname,    userAgent,    sessionId,    referrer,    recordedAt  }
+export type ResumeDownloadsQueryResult = Array<never>;
+// Variable: resumeDownloadsCountQuery
+// Query: count(*[_type == "resumeDownload"])
+export type ResumeDownloadsCountQueryResult = number;
+
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
@@ -547,6 +585,18 @@ export type ResumeQueryResult = null;
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n  *[_type == \"pageView\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    url,\n    sessionId,\n    ipAddress,\n    hostname,\n    userAgent,\n    loadTimeMs,\n    referrer,\n    recordedAt\n  }\n": PageViewsQueryResult;
+    "\n  count(*[_type == \"pageView\"])\n": PageViewsCountQueryResult;
+    "\n  *[_type == \"userEvent\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    eventType,\n    eventName,\n    url,\n    sessionId,\n    ipAddress,\n    hostname,\n    metadata,\n    recordedAt\n  }\n": UserEventsQueryResult;
+    "\n  count(*[_type == \"userEvent\"])\n": UserEventsCountQueryResult;
+    "\n  *[_type == \"errorLog\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    errorType,\n    message,\n    severity,\n    url,\n    ipAddress,\n    hostname,\n    stackTrace,\n    status,\n    recordedAt\n  }\n": ErrorLogsQueryResult;
+    "\n  count(*[_type == \"errorLog\"])\n": ErrorLogsCountQueryResult;
+    "\n  *[_type == \"systemMetric\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    metricType,\n    value,\n    unit,\n    status,\n    recordedAt\n  }\n": SystemMetricsQueryResult;
+    "\n  count(*[_type == \"systemMetric\"])\n": SystemMetricsCountQueryResult;
+    "\n  *[_type == \"performanceMetric\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    metric,\n    value,\n    url,\n    sessionId,\n    ipAddress,\n    hostname,\n    recordedAt\n  }\n": PerformanceMetricsQueryResult;
+    "\n  count(*[_type == \"performanceMetric\"])\n": PerformanceMetricsCountQueryResult;
+    "\n  *[_type == \"resumeDownload\"] | order(recordedAt desc) [$from...$to] {\n    _id,\n    ipAddress,\n    hostname,\n    userAgent,\n    sessionId,\n    referrer,\n    recordedAt\n  }\n": ResumeDownloadsQueryResult;
+    "\n  count(*[_type == \"resumeDownload\"])\n": ResumeDownloadsCountQueryResult;
     "*[_type == \"settings\"][0]": SettingsQueryResult;
     "\n  *[_type == \"sourceCode\" && isPublished == true] | order(publishedAt desc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    description,\n    githubUrl,\n    demoUrl,\n    price,\n    \"mainImage\": mainImage.asset->url,\n    \"images\": images[].asset->url,\n    technologies,\n    features,\n    readme,\n    publishedAt\n  }\n": SourceCodesQueryResult;
     "\n  *[_type == \"docFile\" && category == \"resume\" && isPublic == true][0] {\n    _id,\n    name,\n    description,\n    \"fileUrl\": file.asset->url,\n    uploadedAt\n  }\n": ResumeQueryResult;
