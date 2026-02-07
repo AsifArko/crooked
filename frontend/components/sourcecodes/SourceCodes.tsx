@@ -220,7 +220,7 @@ export const SourceCodes = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-muted-foreground/80 tracking-wide">
+                      <span className="text-sm font-medium text-muted-foreground/80 tracking-wide blur-sm select-none">
                         ${sourceCode.price}
                       </span>
                     </div>

@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Testimonial } from "@/lib/types";
 import { formatDate, getInitials, isTextTruncated } from "../utils";
-import { TESTIMONIALS_CONFIG } from "../config";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
