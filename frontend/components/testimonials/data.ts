@@ -30,7 +30,7 @@ export const testimonials: Testimonial[] = [
     recommendation:
       "Asif has been a part of our sportsdata team for many years through his consultancy with Cefalo. During his time with us, he has contributed with great enthusiasm and determination. He is a person who is easy to work with, possesses strong English skills and enjoys discussing various issues. His work has primarily focused on developing our frontend API, CRUD service, and our internal sportsdata admin. Asif has proven to be reliable, consistently delivering code as expected and is proactive in seeking clarification when needed. He often contributes valuable solutions when challenges arise.",
     linkedInUrl: "https://www.linkedin.com/in/terje-alstad-33a395a3/",
-    date: "2024-22-24",
+    date: "2024-08-22",
   },
   {
     id: "4",
