@@ -4,10 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, FileText, Twitter } from "lucide-react";
 
 export function ContactInfo() {
-  const downloadResume = () => {
-    window.open("/api/resume/download", "_blank");
-  };
-
   return (
     <div className="w-full h-full flex flex-col justify-center">
       <div className="text-center py-8">
@@ -53,11 +49,13 @@ export function ContactInfo() {
 
           <Button
             variant="outline"
-            onClick={downloadResume}
+            asChild
             className="border-border/50 hover:bg-accent hover:text-accent-foreground h-12"
           >
-            <FileText className="mr-2 h-4 w-4" />
-            Download Resume
+            <a href="/api/resume/download" download="resume.pdf">
+              <FileText className="mr-2 h-4 w-4" />
+              Download Resume
+            </a>
           </Button>
         </div>
 

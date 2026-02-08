@@ -24,10 +24,6 @@ export function Hero() {
     }
   };
 
-  const downloadResume = () => {
-    window.open("/api/resume/download", "_blank");
-  };
-
   return (
     <section
       id="about"
@@ -108,13 +104,14 @@ export function Hero() {
                 <Twitter className="h-4 w-4" />
               </div>
               <div className="w-px h-4 bg-border/50 mx-0.5"></div>
-              <div
-                onClick={downloadResume}
+              <a
+                href="/api/resume/download"
+                download="resume.pdf"
                 className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer pr-2 sm:pr-0"
                 title="Download resume"
               >
                 <FileText className="h-4 w-4" />
-              </div>
+              </a>
             </div>
 
             {/* Experience Button */}
