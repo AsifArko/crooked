@@ -26,7 +26,13 @@ export default function Footer() {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (pathname?.startsWith("/studio")) {
+  const studioPath =
+    process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH?.trim() || "studio";
+  if (
+    pathname?.startsWith("/studio") ||
+    pathname === `/${studioPath}` ||
+    pathname?.startsWith(`/${studioPath}/`)
+  ) {
     return null;
   }
 

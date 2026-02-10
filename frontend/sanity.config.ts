@@ -9,7 +9,11 @@ export default defineConfig({
   title: "Portfolio CMS",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  basePath: "/studio",
+  basePath:
+    process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH?.trim() &&
+    process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH !== "studio"
+      ? `/${process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH.trim()}`
+      : "/studio",
   plugins: [
     structureTool({ structure }),
     visionTool(),
