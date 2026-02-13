@@ -46,16 +46,14 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Site Analytics")
         .icon(Activity)
-        .child(
-          S.component(SiteAnalyticsDashboard).title("Analytics Dashboard")
-        ),
+        .child(S.component(SiteAnalyticsDashboard).title("Analytics")),
 
       // System Monitoring - custom dashboard
       S.listItem()
         .title("System Monitoring")
         .icon(Monitor)
         .child(
-          S.component(SystemMonitoringDashboard).title("Monitoring Dashboard")
+          S.component(SystemMonitoringDashboard).title("Monitoring Dashboard"),
         ),
 
       // User Downloads - custom dashboard
@@ -63,11 +61,12 @@ export const structure: StructureResolver = (S) =>
         .title("User Downloads")
         .icon(Download)
         .child(
-          S.component(UserDownloadsDashboard).title("User Download Management")
+          S.component(UserDownloadsDashboard).title("User Download Management"),
         ),
 
       S.divider(),
 
+      /*
       // User Activity - document type lists
       S.listItem()
         .title("User Activity")
@@ -82,7 +81,7 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title("User Events")
                 .child(S.documentTypeList("userEvent").title("User Events")),
-            ])
+            ]),
         ),
 
       // System Metrics - document type lists
@@ -96,25 +95,24 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title("System Metrics")
                 .child(
-                  S.documentTypeList("systemMetric").title("System Metrics")
+                  S.documentTypeList("systemMetric").title("System Metrics"),
                 ),
               S.listItem()
                 .title("Performance Metrics")
                 .child(
                   S.documentTypeList("performanceMetric").title(
-                    "Performance Metrics"
-                  )
+                    "Performance Metrics",
+                  ),
                 ),
               S.listItem()
                 .title("Error Logs")
                 .child(S.documentTypeList("errorLog").title("Error Logs")),
-            ])
+            ]),
         ),
 
       S.listItem()
         .title("Resume Downloads")
         .icon(LinkIcon)
-        .child(
-          S.documentTypeList("resumeDownload").title("Resume Downloads")
-        ),
+        .child(S.documentTypeList("resumeDownload").title("Resume Downloads")),
+      */
     ]);

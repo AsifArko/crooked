@@ -10,7 +10,7 @@ function getDateFilter(dateRange: string | null): string {
 }
 
 function escapeMatch(s: string) {
-  return s.replace(/[\\*]/g, "\\$&");
+  return s.replace(/["\\*]/g, "\\$&");
 }
 
 export async function GET(request: NextRequest) {
@@ -21,6 +21,8 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search")?.trim() || "";
     const dateRange = searchParams.get("dateRange") || "7d";
     const eventType = searchParams.get("eventType")?.trim() || "";
+    const sessionIdParam = searchParams.get("sessionId")?.trim() || "";
+    const excludeSessionIdParam = searchParams.get("excludeSessionId")?.trim() || "";
     const from = (page - 1) * limit;
     const to = from + limit;
 
@@ -32,8 +34,22 @@ export async function GET(request: NextRequest) {
     const searchFilter =
       search === ""
         ? ""
-        : ` && (eventType match "*${escapeMatch(search)}*" || eventName match "*${escapeMatch(search)}*" || defined(url) && url match "*${escapeMatch(search)}*")`;
-    const baseFilter = `*[_type == "userEvent"${dateFilter}${eventTypeFilter}${searchFilter}]`;
+        : ` && (eventType match "*${escapeMatch(search)}*" || eventName match "*${escapeMatch(search)}*" || (defined(url) && url match "*${escapeMatch(search)}*") || (defined(sessionId) && sessionId match "*${escapeMatch(search)}*"))`;
+    const sessionFilter =
+      sessionIdParam !== ""
+        ? (() => {
+            const ids = sessionIdParam.split(",").map((s) => s.trim()).filter(Boolean);
+            if (ids.length === 0) return "";
+            return ` && sessionId in ${JSON.stringify(ids)}`;
+          })()
+        : excludeSessionIdParam !== ""
+          ? (() => {
+              const ids = excludeSessionIdParam.split(",").map((s) => s.trim()).filter(Boolean);
+              if (ids.length === 0) return "";
+              return ` && !(sessionId in ${JSON.stringify(ids)})`;
+            })()
+          : "";
+    const baseFilter = `*[_type == "userEvent"${dateFilter}${eventTypeFilter}${searchFilter}${sessionFilter}]`;
 
     const [items, total] = await Promise.all([
       client.fetch<

@@ -10,7 +10,7 @@ function getDateFilter(dateRange: string | null): string {
 }
 
 function escapeMatch(s: string) {
-  return s.replace(/[\\*]/g, "\\$&");
+  return s.replace(/["\\*]/g, "\\$&");
 }
 
 export async function GET(request: NextRequest) {
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
     const searchFilter =
       search === ""
         ? ""
-        : ` && (errorType match "*${escapeMatch(search)}*" || message match "*${escapeMatch(search)}*" || defined(url) && url match "*${escapeMatch(search)}*")`;
+        : ` && (errorType match "*${escapeMatch(search)}*" || message match "*${escapeMatch(search)}*" || (defined(url) && url match "*${escapeMatch(search)}*"))`;
     const baseFilter = `*[_type == "errorLog"${dateFilter}${severityFilter}${statusFilter}${searchFilter}]`;
 
     const [items, total] = await Promise.all([

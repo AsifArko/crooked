@@ -10,7 +10,7 @@ function getDateFilter(dateRange: string | null): string {
 }
 
 function escapeMatch(s: string) {
-  return s.replace(/[\\*]/g, "\\$&");
+  return s.replace(/["\\*]/g, "\\$&");
 }
 
 export async function GET(request: NextRequest) {

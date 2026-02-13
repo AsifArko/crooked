@@ -1,5 +1,11 @@
 {
   "buildCommand": "npm run build --workspace=frontend",
   "outputDirectory": "frontend/.next",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/record-system-metrics",
+      "schedule": "*/5 * * * *"
+    }
+  ]
 }
