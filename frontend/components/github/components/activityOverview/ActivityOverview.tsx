@@ -83,7 +83,7 @@ export const ActivityOverview: React.FC<ActivityOverviewProps> = ({
     contributionBreakdown,
     organizations,
   } = data;
-
+  console.log(data);
   return (
     <GlassCard className={clsx("flex flex-col", config.className)}>
       <div className="flex flex-col sm:flex-row items-stretch justify-between flex-1">

@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
-import { ComposableMap } from "react-simple-maps";
+import { ComposableMap } from "@vnedyalk0v/react19-simple-maps";
 import { Application, WorldMapConfig, TooltipData } from "./types";
 import { DEFAULT_MAP_CONFIG, APP_COLORS } from "./constants";
 import { getUniqueCountries, getHighlightedCountryCodes } from "./utils";
@@ -54,7 +54,7 @@ export const WorldMap = memo(({ applications, config = {} }: WorldMapProps) => {
           projection="geoMercator"
           projectionConfig={{
             scale: finalConfig.scale,
-            center: finalConfig.center,
+            center: finalConfig.center as any,
           }}
           width={finalConfig.width}
           height={finalConfig.height}

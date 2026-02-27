@@ -9,6 +9,7 @@ import { Toaster } from "sonner";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
+import { StudioBodyClass } from "@/app/studio/StudioBodyClass";
 import { AnalyticsProvider } from "@/components/analytics";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -21,11 +22,17 @@ import { Analytics } from "@vercel/analytics/next"
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-    // Metadata should never contain stega
-    stega: false,
-  });
+  let settings: Awaited<ReturnType<typeof sanityFetch>>["data"] = null;
+  try {
+    const result = await sanityFetch({
+      query: settingsQuery,
+      // Metadata should never contain stega
+      stega: false,
+    });
+    settings = result.data;
+  } catch {
+    // Sanity API may be unreachable (CORS, network) - use demo fallbacks
+  }
   const title = settings?.title || demo.title;
   const description = settings?.description || demo.description;
 
@@ -88,6 +95,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body>
+        <StudioBodyClass />
         <section className="min-h-screen">
           <Toaster />
           {isDraftMode && (

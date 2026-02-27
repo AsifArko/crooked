@@ -1,5 +1,5 @@
 import React from "react";
-import { Marker } from "react-simple-maps";
+import { Marker } from "@vnedyalk0v/react19-simple-maps";
 import { MapMarkersProps } from "../types";
 import { COUNTRY_COORDINATES } from "../constants";
 import { getApplicationsInCountry, calculateMarkerOffset } from "../utils";
@@ -33,7 +33,7 @@ export const MapMarkers: React.FC<MapMarkersProps> = ({
             return (
               <Marker
                 key={`${app.title}-${country}-${index}-${appIndexInCountry}`}
-                coordinates={[coords[0] + offsetX, coords[1] + offsetY]}
+                coordinates={[coords[0] + offsetX, coords[1] + offsetY] as any}
               >
                 <circle
                   r={4}
