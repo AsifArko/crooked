@@ -55,8 +55,8 @@ export const analyticsToolsPlugin = definePlugin({
       ),
     },
     {
-      name: "user-downloads",
-      title: "User Downloads",
+      name: "resume-downloads",
+      title: "Resume Downloads",
       icon: DownloadIcon,
       component: () => (
         <Suspense fallback={<LoadingFallback />}>

@@ -10,7 +10,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-type DataPoint = { date: string; visitors: number; pageViews: number };
+type DataPoint = {
+  date: string;
+  visitors?: number;
+  pageViews?: number;
+  downloads?: number;
+};
 
 function formatShortDate(dateStr: string): string {
   try {
@@ -23,7 +28,7 @@ function formatShortDate(dateStr: string): string {
 
 type TrafficChartProps = {
   data: DataPoint[];
-  metric?: "visitors" | "pageViews";
+  metric?: "visitors" | "pageViews" | "downloads";
 };
 
 export function TrafficChart({ data, metric = "visitors" }: TrafficChartProps) {
@@ -32,10 +37,10 @@ export function TrafficChart({ data, metric = "visitors" }: TrafficChartProps) {
   const chartData = data.map((d) => ({
     ...d,
     label: formatShortDate(d.date),
-    value: d[metric],
+    value: d[metric] ?? 0,
   }));
 
-  const maxValue = Math.max(1, ...chartData.map((d) => d.value));
+  const maxValue = Math.max(1, ...chartData.map((d) => d.value ?? 0));
   const yDomain = [0, maxValue] as [number, number];
 
   return (
@@ -83,7 +88,11 @@ export function TrafficChart({ data, metric = "visitors" }: TrafficChartProps) {
             labelStyle={{ color: "#3f3f46", fontWeight: 600 }}
             formatter={(value: number | undefined) => [
               value ?? 0,
-              metric === "visitors" ? "Visitors" : "Page Views",
+              metric === "visitors"
+                ? "Visitors"
+                : metric === "downloads"
+                  ? "Downloads"
+                  : "Page Views",
             ]}
             labelFormatter={(label) => label}
           />

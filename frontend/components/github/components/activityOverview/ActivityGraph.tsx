@@ -102,7 +102,7 @@ const polarToCartesian = (
   centerX: number,
   centerY: number,
   radius: number,
-  angleInDegrees: number
+  angleInDegrees: number,
 ): { x: number; y: number } => {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180;
   return {
@@ -115,12 +115,20 @@ const polarToCartesian = (
  * Transforms contribution breakdown into radar data points
  */
 const transformToRadarData = (
-  breakdown: ContributionBreakdown
+  breakdown: ContributionBreakdown,
 ): RadarDataPoint[] => {
   const items = [
-    { label: "Code review", shortLabel: "Code Reviews", key: "codeReviews" as const },
+    {
+      label: "Code review",
+      shortLabel: "Code Reviews",
+      key: "codeReviews" as const,
+    },
     { label: "Issues", shortLabel: "Issues", key: "issues" as const },
-    { label: "Pull requests", shortLabel: "Pull Requests", key: "pullRequests" as const },
+    {
+      label: "Pull requests",
+      shortLabel: "Pull Requests",
+      key: "pullRequests" as const,
+    },
     { label: "Commits", shortLabel: "Commits", key: "commits" as const },
   ];
 
@@ -140,7 +148,7 @@ const transformToRadarData = (
 const generatePolygonPath = (
   data: RadarDataPoint[],
   center: number,
-  maxRadius: number
+  maxRadius: number,
 ): string => {
   const points = data.map((point) => {
     const radius = (point.value / 100) * maxRadius;
@@ -299,7 +307,12 @@ const AxisLabels: React.FC<AxisLabelsProps> = ({
     <>
       {data.map((point, index) => {
         const labelRadius = maxRadius + labelOffset;
-        const coords = polarToCartesian(center, center, labelRadius, point.angle);
+        const coords = polarToCartesian(
+          center,
+          center,
+          labelRadius,
+          point.angle,
+        );
 
         // Determine text anchor based on position
         let textAnchor: "start" | "middle" | "end" = "middle";
@@ -334,7 +347,13 @@ const AxisLabels: React.FC<AxisLabelsProps> = ({
               x={coords.x}
               y={coords.y}
               textAnchor={textAnchor}
-              dy={point.angle === 0 ? "1em" : point.angle === 180 ? "2.2em" : "1.5em"}
+              dy={
+                point.angle === 0
+                  ? "1em"
+                  : point.angle === 180
+                    ? "2.2em"
+                    : "1.5em"
+              }
               fill={labelColor}
               fontSize={size < 180 ? 9 : 10}
               className="select-none opacity-80"
@@ -360,18 +379,18 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
   // Merge user config with defaults
   const config = useMemo(
     () => ({ ...DEFAULT_CONFIG, ...userConfig }),
-    [userConfig]
+    [userConfig],
   );
 
   const colors = useMemo(
     () => ({ ...DEFAULT_COLORS, ...userColors }),
-    [userColors]
+    [userColors],
   );
 
   // Transform data for radar chart
   const radarData = useMemo(
     () => transformToRadarData(contributionBreakdown),
-    [contributionBreakdown]
+    [contributionBreakdown],
   );
 
   // Calculate dimensions
@@ -381,7 +400,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
   // Generate polygon path
   const polygonPath = useMemo(
     () => generatePolygonPath(radarData, center, maxRadius),
-    [radarData, center, maxRadius]
+    [radarData, center, maxRadius],
   );
 
   // Check if all values are zero
@@ -391,7 +410,7 @@ export const ActivityGraph: React.FC<ActivityGraphProps> = ({
     <div
       className={cn(
         "flex-1 flex items-center justify-center",
-        config.className
+        config.className,
       )}
     >
       <div className="relative">

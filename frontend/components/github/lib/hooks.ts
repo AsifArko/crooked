@@ -26,7 +26,7 @@ export function useGitHubContributions(config: GitHubContributionsConfig) {
         setError(null);
 
         const response = await fetch(
-          `/api/github/contributions?username=${config.username}`
+          `/api/github/contributions?username=${config.username}`,
         );
 
         if (!response.ok) {
@@ -39,7 +39,7 @@ export function useGitHubContributions(config: GitHubContributionsConfig) {
         setTotalContributions(data.totalContributions);
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Failed to fetch contributions"
+          err instanceof Error ? err.message : "Failed to fetch contributions",
         );
       } finally {
         setLoading(false);
@@ -161,13 +161,13 @@ export const useActivityOverview = (username: string) => {
         setError(null);
 
         const response = await fetch(
-          `/api/github/activity-overview?username=${username}`
+          `/api/github/activity-overview?username=${username}`,
         );
 
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(
-            errorData.error || "Failed to fetch activity overview"
+            errorData.error || "Failed to fetch activity overview",
           );
         }
 
@@ -177,7 +177,7 @@ export const useActivityOverview = (username: string) => {
         setError(
           err instanceof Error
             ? err.message
-            : "Failed to fetch activity overview"
+            : "Failed to fetch activity overview",
         );
       } finally {
         setLoading(false);

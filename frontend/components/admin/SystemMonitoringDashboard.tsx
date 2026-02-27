@@ -141,7 +141,7 @@ export function SystemMonitoringDashboard() {
   const dailyTrend = data?.dailyTrend ?? [];
 
   return (
-    <div className="min-h-screen bg-zinc-100/50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">

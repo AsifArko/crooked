@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, FileText, Copy, Twitter } from "lucide-react";
+import { downloadResume } from "@/lib/resumeDownload";
 import { CrookedAnimation } from "@/components/animations";
 import Link from "next/link";
 import { useState } from "react";
@@ -104,14 +105,14 @@ export function Hero() {
                 <Twitter className="h-4 w-4" />
               </div>
               <div className="w-px h-4 bg-border/50 mx-0.5"></div>
-              <a
-                href="/api/resume/download"
-                download="resume.pdf"
+              <button
+                type="button"
+                onClick={() => downloadResume()}
                 className="h-9 w-9 flex items-center justify-center hover:bg-background/80 transition-all duration-200 rounded-md cursor-pointer pr-2 sm:pr-0"
                 title="Download resume"
               >
                 <FileText className="h-4 w-4" />
-              </a>
+              </button>
             </div>
 
             {/* Experience Button */}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Geographies, Geography } from "react-simple-maps";
+import { Geographies, Geography } from "@vnedyalk0v/react19-simple-maps";
 import { MapGeographyProps } from "../types";
 
 export const MapGeography: React.FC<MapGeographyProps> = ({

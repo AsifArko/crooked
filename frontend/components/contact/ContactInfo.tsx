@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, FileText, Twitter } from "lucide-react";
+import { downloadResume } from "@/lib/resumeDownload";
 
 export function ContactInfo() {
   return (
@@ -49,13 +50,11 @@ export function ContactInfo() {
 
           <Button
             variant="outline"
-            asChild
+            onClick={() => downloadResume()}
             className="border-border/50 hover:bg-accent hover:text-accent-foreground h-12"
           >
-            <a href="/api/resume/download" download="resume.pdf">
-              <FileText className="mr-2 h-4 w-4" />
-              Download Resume
-            </a>
+            <FileText className="mr-2 h-4 w-4" />
+            Download Resume
           </Button>
         </div>
 

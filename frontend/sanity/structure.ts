@@ -56,12 +56,13 @@ export const structure: StructureResolver = (S) =>
           S.component(SystemMonitoringDashboard).title("Monitoring Dashboard"),
         ),
 
-      // User Downloads - custom dashboard
+      // Resume Downloads - custom dashboard
       S.listItem()
-        .title("User Downloads")
+        .id("resumeDownloads")
+        .title("Resume Downloads")
         .icon(Download)
         .child(
-          S.component(UserDownloadsDashboard).title("User Download Management"),
+          S.component(UserDownloadsDashboard).title("Resume Downloads"),
         ),
 
       S.divider(),

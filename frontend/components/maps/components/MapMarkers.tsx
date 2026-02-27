@@ -1,5 +1,5 @@
 import React from "react";
-import { Marker } from "react-simple-maps";
+import { Marker } from "@vnedyalk0v/react19-simple-maps";
 import { MapMarkersProps } from "../types";
 import { COUNTRY_COORDINATES } from "../constants";
 import { getApplicationsInCountry, calculateMarkerOffset } from "../utils";

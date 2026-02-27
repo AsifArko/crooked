@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
     const ip = getClientIp(request.headers);
     const userAgent = request.headers.get("user-agent") ?? null;
     const referrer = request.headers.get("referer") ?? null;
+    const sessionId = request.headers.get("x-session-id")?.trim() || null;
 
     try {
       await writeClient.create({
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest) {
         ipAddress: ip,
         hostname: null,
         userAgent,
-        sessionId: null,
+        sessionId,
         referrer,
         recordedAt: new Date().toISOString(),
       });

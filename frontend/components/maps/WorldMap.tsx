@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
-import { ComposableMap } from "react-simple-maps";
+import { ComposableMap } from "@vnedyalk0v/react19-simple-maps";
 import { Application, WorldMapConfig, TooltipData } from "./types";
 import { DEFAULT_MAP_CONFIG, APP_COLORS } from "./constants";
 import { getUniqueCountries, getHighlightedCountryCodes } from "./utils";

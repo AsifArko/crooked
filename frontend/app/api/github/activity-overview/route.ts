@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     if (!username) {
       return NextResponse.json(
         { error: "Username is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
           error: "GitHub token not configured",
           message: "Please configure GITHUB_TOKEN environment variable",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -73,14 +73,14 @@ export async function GET(request: NextRequest) {
       if (response.status === 401) {
         return NextResponse.json(
           { error: "Invalid GitHub token" },
-          { status: 401 }
+          { status: 401 },
         );
       }
 
       if (response.status === 403) {
         return NextResponse.json(
           { error: "Rate limit exceeded or insufficient permissions" },
-          { status: 403 }
+          { status: 403 },
         );
       }
 
@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
       if (error.message.includes("Could not resolve to a User")) {
         return NextResponse.json(
           { error: "GitHub user not found" },
-          { status: 404 }
+          { status: 404 },
         );
       }
 
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
           Authorization: `Bearer ${githubToken}`,
           "User-Agent": "crooked-app",
         },
-      }
+      },
     );
 
     if (!statsResponse.ok) {
@@ -129,7 +129,7 @@ export async function GET(request: NextRequest) {
     // This is an approximation since GitHub doesn't provide exact breakdown via API
     const totalRepos = repos.length;
     const activeRepos = repos.filter(
-      (repo: any) => !repo.fork && !repo.archived
+      (repo: any) => !repo.fork && !repo.archived,
     ).length;
 
     // Estimate breakdown based on typical GitHub user patterns
@@ -174,7 +174,7 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching GitHub activity overview:", error);
     return NextResponse.json(
       { error: "Failed to fetch activity overview" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

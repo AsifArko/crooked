@@ -246,6 +246,68 @@ html {
   }
 }
 
+/* Sanity Studio: force pure white background */
+body.studio-full-height,
+html.studio-full-height {
+  background: #ffffff !important;
+}
+
+/* Sanity Studio: elegant sidebar and top bar polish */
+body.studio-full-height [data-sanity="navbar"],
+body.studio-full-height [data-sanity="layout"] > header,
+body.studio-full-height nav[data-sanity] {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.studio-full-height [data-sanity="structure-tool"] [role="menuitem"],
+body.studio-full-height [data-sanity="structure-tool"] [role="treeitem"],
+body.studio-full-height [data-sanity="structure-tool"] a[role="tab"] {
+  border-radius: 6px !important;
+  margin: 2px 8px !important;
+  padding: 10px 12px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+body.studio-full-height [data-sanity="structure-tool"] [role="menuitem"]:hover,
+body.studio-full-height [data-sanity="structure-tool"] [role="treeitem"]:hover,
+body.studio-full-height [data-sanity="structure-tool"] a[role="tab"]:hover {
+  background-color: rgba(248, 250, 252, 0.12) !important;
+}
+
+body.studio-full-height [data-sanity="structure-tool"] [role="menuitem"][aria-selected="true"],
+body.studio-full-height [data-sanity="structure-tool"] [role="treeitem"][aria-selected="true"],
+body.studio-full-height [data-sanity="structure-tool"] a[role="tab"][aria-selected="true"],
+body.studio-full-height [role="navigation"] [role="menuitem"][aria-selected="true"],
+body.studio-full-height [role="navigation"] [role="treeitem"][aria-selected="true"],
+body.studio-full-height [role="navigation"] a[aria-selected="true"],
+body.studio-full-height [role="navigation"] [data-selected="true"] {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  color: #f8fafc !important;
+}
+
+body.studio-full-height [data-sanity="tool-menu"] button,
+body.studio-full-height [data-sanity="tool-menu"] [role="tab"] {
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.15s ease !important;
+}
+
+body.studio-full-height [data-sanity="tool-menu"] button[aria-selected="true"],
+body.studio-full-height [data-sanity="tool-menu"] [role="tab"][aria-selected="true"] {
+  background-color: #2563eb !important;
+  color: white !important;
+}
+
+/* Sanity Studio: reduce sidebar width */
+body.studio-full-height [role="navigation"],
+body.studio-full-height [data-sanity="structure-tool"] {
+  min-width: 200px !important;
+  max-width: 220px !important;
+  width: 220px !important;
+}
+
 /* Blob Animation */
 @keyframes blob {
   0% {
