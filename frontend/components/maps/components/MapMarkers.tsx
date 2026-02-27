@@ -33,7 +33,7 @@ export const MapMarkers: React.FC<MapMarkersProps> = ({
             return (
               <Marker
                 key={`${app.title}-${country}-${index}-${appIndexInCountry}`}
-                coordinates={[coords[0] + offsetX, coords[1] + offsetY]}
+                coordinates={[coords[0] + offsetX, coords[1] + offsetY] as any}
               >
                 <circle
                   r={4}

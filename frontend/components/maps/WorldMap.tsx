@@ -54,7 +54,7 @@ export const WorldMap = memo(({ applications, config = {} }: WorldMapProps) => {
           projection="geoMercator"
           projectionConfig={{
             scale: finalConfig.scale,
-            center: finalConfig.center,
+            center: finalConfig.center as any,
           }}
           width={finalConfig.width}
           height={finalConfig.height}
