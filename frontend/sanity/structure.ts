@@ -8,10 +8,12 @@ import {
   ActivityIcon,
   ChartUpwardIcon,
 } from "@sanity/icons";
-import { Activity, Monitor, Download } from "lucide-react";
+import { Activity, Monitor, Download, Briefcase, Database } from "lucide-react";
 import { SiteAnalyticsDashboard } from "@/components/admin/SiteAnalyticsDashboard";
 import { SystemMonitoringDashboard } from "@/components/admin/SystemMonitoringDashboard";
 import { UserDownloadsDashboard } from "@/components/admin/UserDownloadsDashboard";
+import { JobsDashboard } from "@/components/admin/JobsDashboard";
+import { CrawlsDashboard } from "@/components/admin/CrawlsDashboard";
 
 const CONTENT_TYPES = ["sourceCode", "docFile", "imageFile"];
 
@@ -64,6 +66,20 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.component(UserDownloadsDashboard).title("Resume Downloads"),
         ),
+
+      // Jobs - custom dashboard
+      S.listItem()
+        .id("jobs")
+        .title("Jobs")
+        .icon(Briefcase)
+        .child(S.component(JobsDashboard).title("Jobs")),
+
+      // Crawls - crawling sessions & metadata
+      S.listItem()
+        .id("crawls")
+        .title("Crawls")
+        .icon(Database)
+        .child(S.component(CrawlsDashboard).title("Crawl Sessions")),
 
       S.divider(),
 

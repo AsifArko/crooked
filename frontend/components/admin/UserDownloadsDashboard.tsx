@@ -28,6 +28,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+import type { DateRange } from "react-day-picker";
 
 type Download = {
   _id: string;
@@ -491,8 +493,7 @@ export function UserDownloadsDashboard() {
   );
   const [search, setSearch] = useState("");
   const [searchDebounced, setSearchDebounced] = useState("");
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [filterDateRange, setFilterDateRange] = useState<DateRange | undefined>(undefined);
   const [device, setDevice] = useState<string>("all");
   const [countryCode, setCountryCode] = useState<string>("all");
   const [browser, setBrowser] = useState<string>("all");
@@ -511,14 +512,14 @@ export function UserDownloadsDashboard() {
       params.set("page", String(p));
       params.set("limit", String(PAGE_SIZE));
       if (searchDebounced) params.set("search", searchDebounced);
-      if (dateFrom) params.set("dateFrom", dateFrom);
-      if (dateTo) params.set("dateTo", dateTo);
+      if (filterDateRange?.from) params.set("dateFrom", filterDateRange.from.toISOString().slice(0, 10));
+      if (filterDateRange?.to) params.set("dateTo", filterDateRange.to.toISOString().slice(0, 10));
       if (device && device !== "all") params.set("device", device);
       if (countryCode && countryCode !== "all") params.set("countryCode", countryCode);
       if (browser && browser !== "all") params.set("browser", browser);
       return params.toString();
     },
-    [searchDebounced, dateFrom, dateTo, device, countryCode, browser]
+    [searchDebounced, filterDateRange, device, countryCode, browser]
   );
 
   const fetchData = useCallback(
@@ -659,7 +660,7 @@ export function UserDownloadsDashboard() {
           <div className="flex items-center gap-2 mb-4">
             <Filter className="h-4 w-4 text-zinc-500" />
             <h3 className="text-sm font-semibold text-zinc-900">Filters</h3>
-            {(searchDebounced || dateFrom || dateTo || (device !== "all") || (countryCode !== "all") || (browser !== "all")) && (
+            {(searchDebounced || filterDateRange?.from || (device !== "all") || (countryCode !== "all") || (browser !== "all")) && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -667,8 +668,7 @@ export function UserDownloadsDashboard() {
                 onClick={() => {
                   setSearch("");
                   setSearchDebounced("");
-                  setDateFrom("");
-                  setDateTo("");
+                  setFilterDateRange(undefined);
                   setDevice("all");
                   setCountryCode("all");
                   setBrowser("all");
@@ -679,7 +679,7 @@ export function UserDownloadsDashboard() {
               </Button>
             )}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_repeat(5,1fr)] gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_repeat(4,1fr)] gap-4">
             <div className="min-w-0">
               <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1.5">
                 Search
@@ -696,24 +696,15 @@ export function UserDownloadsDashboard() {
             </div>
             <div className="min-w-0">
               <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1.5">
-                From date
+                Date range
               </label>
-              <Input
-                type="date"
-                value={dateFrom}
-                onChange={(e) => setDateFrom(e.target.value)}
-                className="h-9 w-full bg-zinc-50/80 border-zinc-200 focus:bg-white"
-              />
-            </div>
-            <div className="min-w-0">
-              <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1.5">
-                To date
-              </label>
-              <Input
-                type="date"
-                value={dateTo}
-                onChange={(e) => setDateTo(e.target.value)}
-                className="h-9 w-full bg-zinc-50/80 border-zinc-200 focus:bg-white"
+              <DateRangePicker
+                value={filterDateRange}
+                onChange={setFilterDateRange}
+                placeholder="dd/mm/yyyy"
+                displayFormat="dd/MM/yyyy"
+                numberOfMonths={2}
+                className="h-9"
               />
             </div>
             <div className="min-w-0">
@@ -750,7 +741,7 @@ export function UserDownloadsDashboard() {
         {/* Table header with results count */}
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-zinc-900">Resume Downloads</h2>
-          {(searchDebounced || dateFrom || dateTo || device !== "all" || countryCode !== "all" || browser !== "all") && (
+          {(searchDebounced || filterDateRange?.from || device !== "all" || countryCode !== "all" || browser !== "all") && (
             <span className="text-sm text-zinc-500">
               Showing {Math.min((page - 1) * PAGE_SIZE + items.length, data?.total ?? 0)} of {data?.total ?? 0} results
             </span>

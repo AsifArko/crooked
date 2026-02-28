@@ -1,11 +1,1 @@
-{
-  "buildCommand": "npm run build --workspace=frontend",
-  "outputDirectory": "frontend/.next",
-  "framework": "nextjs",
-  "crons": [
-    {
-      "path": "/api/cron/record-system-metrics",
-      "schedule": "0 0 * * *"
-    }
-  ]
-}
+{"buildCommand":"npm run build --workspace=frontend","outputDirectory":"frontend/.next","framework":"nextjs","crons":[{"path":"/api/cron/record-system-metrics","schedule":"0 0 * * *"},{"path":"/api/cron/crawl-jobs","schedule":"0 */6 * * *"},{"path":"/api/cron/crawl-jobs-locations","schedule":"0 2 * * *"}]}
