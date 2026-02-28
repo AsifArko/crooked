@@ -8,12 +8,14 @@ import {
   ActivityIcon,
   ChartUpwardIcon,
 } from "@sanity/icons";
-import { Activity, Monitor, Download, Briefcase, Database } from "lucide-react";
+import { Activity, Monitor, Download, Briefcase, Database, Rss, Globe } from "lucide-react";
 import { SiteAnalyticsDashboard } from "@/components/admin/SiteAnalyticsDashboard";
 import { SystemMonitoringDashboard } from "@/components/admin/SystemMonitoringDashboard";
 import { UserDownloadsDashboard } from "@/components/admin/UserDownloadsDashboard";
 import { JobsDashboard } from "@/components/admin/JobsDashboard";
 import { CrawlsDashboard } from "@/components/admin/CrawlsDashboard";
+import { RSSFeedsDashboard } from "@/components/admin/RSSFeedsDashboard";
+import { SourcesDashboard } from "@/components/admin/SourcesDashboard";
 
 const CONTENT_TYPES = ["sourceCode", "docFile", "imageFile"];
 
@@ -80,6 +82,20 @@ export const structure: StructureResolver = (S) =>
         .title("Crawls")
         .icon(Database)
         .child(S.component(CrawlsDashboard).title("Crawl Sessions")),
+
+      // RSS Feeds - RSS/Atom feed registry (tabular view)
+      S.listItem()
+        .id("rssFeeds")
+        .title("RSS Feeds")
+        .icon(Rss)
+        .child(S.component(RSSFeedsDashboard).title("RSS Feeds")),
+
+      // Sources - job source registry (tabular view)
+      S.listItem()
+        .id("sources")
+        .title("Sources")
+        .icon(Globe)
+        .child(S.component(SourcesDashboard).title("Sources")),
 
       S.divider(),
 

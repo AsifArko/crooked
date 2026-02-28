@@ -39,23 +39,14 @@ export const RSS_FEEDS: Array<{
     source: "weworkremotely",
     category: "product",
   },
-  {
-    url: "https://remote.co/remote-jobs/developer/feed/",
-    source: "remoteco",
-    category: "developer",
-  },
-  {
-    url: "https://remote.co/remote-jobs/design/feed/",
-    source: "remoteco",
-    category: "design",
-  },
+  // Remote.co: 404 - feed URLs changed, disabled for now
+  // { url: "https://remote.co/remote-jobs/developer/feed/", source: "remoteco", category: "developer" },
+  // { url: "https://remote.co/remote-jobs/design/feed/", source: "remoteco", category: "design" },
   // Stack Overflow & Hacker News
+  // Stack Overflow: 403 Forbidden (Cloudflare blocks bots) - disabled
+  // { url: "https://stackoverflow.com/jobs/feed", source: "stackoverflow" },
   {
-    url: "https://stackoverflow.com/jobs/feed",
-    source: "stackoverflow",
-  },
-  {
-    url: "https://news.ycombinator.com/jobs.rss",
+    url: "https://hnrss.org/jobs",
     source: "hackernews",
   },
   // Design & Dev
@@ -63,10 +54,8 @@ export const RSS_FEEDS: Array<{
     url: "https://authenticjobs.com/jobs/feed/",
     source: "authenticjobs",
   },
-  {
-    url: "https://dribbble.com/jobs/feed",
-    source: "dribbble",
-  },
+  // Dribbble: 404 - no longer offers jobs RSS
+  // { url: "https://dribbble.com/jobs/feed", source: "dribbble" },
   {
     url: "https://www.smashingmagazine.com/jobs/feed/",
     source: "smashingmagazine",
@@ -76,90 +65,31 @@ export const RSS_FEEDS: Array<{
     url: "https://eurobrussels.com/jobs/feed",
     source: "eurobrussels",
   },
-  // Greenhouse ATS (sample companies – expand via ats-companies.ts)
+  // Academic / Computer Science (jobs.ac.uk)
   {
-    url: "https://boards.greenhouse.io/stripe/jobs.rss",
-    source: "greenhouse",
-    category: "stripe",
+    url: "https://www.jobs.ac.uk/jobs/computer-science/?format=rss",
+    source: "jobsacuk",
+    category: "computer-science",
   },
   {
-    url: "https://boards.greenhouse.io/datadog/jobs.rss",
-    source: "greenhouse",
-    category: "datadog",
+    url: "https://www.jobs.ac.uk/jobs/software-engineering/?format=rss",
+    source: "jobsacuk",
+    category: "software-engineering",
   },
   {
-    url: "https://boards.greenhouse.io/figma/jobs.rss",
-    source: "greenhouse",
-    category: "figma",
+    url: "https://www.jobs.ac.uk/jobs/artificial-intelligence/?format=rss",
+    source: "jobsacuk",
+    category: "artificial-intelligence",
   },
   {
-    url: "https://boards.greenhouse.io/notion/jobs.rss",
-    source: "greenhouse",
-    category: "notion",
+    url: "https://www.jobs.ac.uk/jobs/cyber-security/?format=rss",
+    source: "jobsacuk",
+    category: "cyber-security",
   },
   {
-    url: "https://boards.greenhouse.io/vercel/jobs.rss",
-    source: "greenhouse",
-    category: "vercel",
+    url: "https://www.jobs.ac.uk/jobs/information-systems/?format=rss",
+    source: "jobsacuk",
+    category: "information-systems",
   },
-  {
-    url: "https://boards.greenhouse.io/airbnb/jobs.rss",
-    source: "greenhouse",
-    category: "airbnb",
-  },
-  {
-    url: "https://boards.greenhouse.io/dropbox/jobs.rss",
-    source: "greenhouse",
-    category: "dropbox",
-  },
-  {
-    url: "https://boards.greenhouse.io/spotify/jobs.rss",
-    source: "greenhouse",
-    category: "spotify",
-  },
-  {
-    url: "https://boards.greenhouse.io/github/jobs.rss",
-    source: "greenhouse",
-    category: "github",
-  },
-  {
-    url: "https://boards.greenhouse.io/netflix/jobs.rss",
-    source: "greenhouse",
-    category: "netflix",
-  },
-  {
-    url: "https://boards.greenhouse.io/uber/jobs.rss",
-    source: "greenhouse",
-    category: "uber",
-  },
-  {
-    url: "https://boards.greenhouse.io/lyft/jobs.rss",
-    source: "greenhouse",
-    category: "lyft",
-  },
-  {
-    url: "https://boards.greenhouse.io/shopify/jobs.rss",
-    source: "greenhouse",
-    category: "shopify",
-  },
-  {
-    url: "https://boards.greenhouse.io/instacart/jobs.rss",
-    source: "greenhouse",
-    category: "instacart",
-  },
-  {
-    url: "https://boards.greenhouse.io/reddit/jobs.rss",
-    source: "greenhouse",
-    category: "reddit",
-  },
-  {
-    url: "https://boards.greenhouse.io/discord/jobs.rss",
-    source: "greenhouse",
-    category: "discord",
-  },
-  {
-    url: "https://boards.greenhouse.io/robinhood/jobs.rss",
-    source: "greenhouse",
-    category: "robinhood",
-  },
+  // Greenhouse: RSS feeds return 404 - use Greenhouse API fetcher instead (free JSON API)
 ];

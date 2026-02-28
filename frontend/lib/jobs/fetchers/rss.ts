@@ -5,6 +5,8 @@ import { extractUrlDomain } from "../utils";
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
+  // Fix "Maximum nested tags exceeded" for feeds like eurobrussels.com
+  maxNestedTags: 5000,
 });
 
 type RssItem = {

@@ -11,11 +11,19 @@ export default defineType({
       type: "reference",
       to: [{ type: "jobSource" }],
       title: "Source",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "category",
+      type: "string",
+      title: "Category",
+      description: "Optional category for grouping (e.g. remote-software, programming, design)",
     }),
     defineField({
       name: "feedType",
       type: "string",
       title: "Feed Type",
+      initialValue: "rss",
       options: {
         list: [
           { title: "RSS", value: "rss" },

@@ -1,5 +1,5 @@
 import { fetchRssJobs } from "./rss";
-import { RSS_FEEDS } from "../feeds/registry";
+import { getRssFeeds } from "../feeds/get-feeds";
 import type { NormalizedJob } from "../types";
 
 const BATCH_SIZE = 10;
@@ -9,7 +9,7 @@ async function delay(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-async function fetchOneFeed(feed: (typeof RSS_FEEDS)[0]): Promise<{
+async function fetchOneFeed(feed: { url: string; source: string; category?: string }): Promise<{
   source: string;
   jobs: NormalizedJob[];
   error?: string;
@@ -27,7 +27,8 @@ async function fetchOneFeed(feed: (typeof RSS_FEEDS)[0]): Promise<{
 }
 
 /**
- * Fetch jobs from all RSS feeds in the registry.
+ * Fetch jobs from all RSS feeds. Uses Sanity jobFeed documents when available,
+ * otherwise falls back to the static registry.
  * Runs feeds in parallel batches to avoid overwhelming servers.
  */
 export async function fetchAllRssJobs(): Promise<{
@@ -35,10 +36,11 @@ export async function fetchAllRssJobs(): Promise<{
   jobs: NormalizedJob[];
   error?: string;
 }[]> {
+  const feeds = await getRssFeeds();
   const bySource = new Map<string, { jobs: NormalizedJob[]; error?: string }>();
 
-  for (let i = 0; i < RSS_FEEDS.length; i += BATCH_SIZE) {
-    const batch = RSS_FEEDS.slice(i, i + BATCH_SIZE);
+  for (let i = 0; i < feeds.length; i += BATCH_SIZE) {
+    const batch = feeds.slice(i, i + BATCH_SIZE);
     const settled = await Promise.allSettled(batch.map(fetchOneFeed));
     for (const p of settled) {
       if (p.status === "fulfilled") {
@@ -52,7 +54,7 @@ export async function fetchAllRssJobs(): Promise<{
         }
       }
     }
-    if (i + BATCH_SIZE < RSS_FEEDS.length) await delay(RATE_LIMIT_MS);
+    if (i + BATCH_SIZE < feeds.length) await delay(RATE_LIMIT_MS);
   }
 
   return Array.from(bySource.entries()).map(([source, { jobs, error }]) => ({

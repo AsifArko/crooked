@@ -1,6 +1,7 @@
 import { writeClient } from "@/sanity/lib/writeClient";
 import { fetchAllJobs } from "./fetchers";
 import { ensureJobSources } from "./crawler/ensure-sources";
+import { ensureJobFeeds } from "./crawler/ensure-feeds";
 import type { NormalizedJob } from "./types";
 import type { CrawlParams } from "./types";
 
@@ -22,6 +23,7 @@ const JOB_SOURCE_IDS: Record<string, string> = {
   eurobrussels: "jobSource-eurobrussels",
   greenhouse: "jobSource-greenhouse",
   "serpapi-google-jobs": "jobSource-serpapi-google-jobs",
+  jobsacuk: "jobSource-jobsacuk",
 };
 
 export type CrawlResult = {
@@ -66,6 +68,7 @@ export async function runCrawl(options?: CrawlOptions | CrawlParams): Promise<Cr
 
   try {
     await ensureJobSources();
+    await ensureJobFeeds();
     const results = await fetchAllJobs(crawlParams);
     const errors: string[] = [];
 

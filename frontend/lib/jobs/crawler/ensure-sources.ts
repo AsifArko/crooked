@@ -25,6 +25,7 @@ const SOURCES: Array<{
   { _id: "jobSource-eurobrussels", slug: "eurobrussels", name: "EuroBrussels", url: "https://eurobrussels.com", attribution: "EU jobs by EuroBrussels", enabled: true },
   { _id: "jobSource-greenhouse", slug: "greenhouse", name: "Greenhouse (ATS)", url: "https://boards.greenhouse.io", attribution: "Company job boards via Greenhouse", enabled: true },
   { _id: "jobSource-serpapi-google-jobs", slug: "serpapi-google-jobs", name: "Google Jobs (SerpApi)", url: "https://serpapi.com", attribution: "Jobs via SerpApi Google Jobs", enabled: true },
+  { _id: "jobSource-jobsacuk", slug: "jobsacuk", name: "jobs.ac.uk", url: "https://www.jobs.ac.uk", attribution: "Academic jobs by jobs.ac.uk", enabled: true },
 ];
 
 export async function ensureJobSources(): Promise<void> {

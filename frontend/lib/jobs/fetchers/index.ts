@@ -7,6 +7,7 @@ import { fetchTheMuseJobs } from "./themuse";
 import { fetchUsaJobs } from "./usajobs";
 import { fetchRemoteOkJobs } from "./remoteok";
 import { fetchAllRssJobs } from "./rss-batch";
+import { fetchGreenhouseJobs } from "./greenhouse";
 
 export type { NormalizedJob, CrawlParams } from "../types";
 
@@ -35,7 +36,7 @@ export async function fetchAllJobs(params?: CrawlParams): Promise<FetcherResult[
     location: params?.location,
   };
 
-  const [apiSettled, rssResults] = await Promise.all([
+  const [apiSettled, rssResults, greenhouseResult] = await Promise.all([
     Promise.allSettled([
       fetchRemotiveJobs(),
       fetchArbeitnowJobs(),
@@ -48,6 +49,7 @@ export async function fetchAllJobs(params?: CrawlParams): Promise<FetcherResult[
       fetchRemoteOkJobs(),
     ]),
     fetchAllRssJobs(),
+    fetchGreenhouseJobs(),
   ]);
 
   const [r, a, ad, t, u, ro] = apiSettled as PromiseSettledResult<NormalizedJob[]>[];
@@ -61,6 +63,12 @@ export async function fetchAllJobs(params?: CrawlParams): Promise<FetcherResult[
   for (const { source, jobs, error } of rssResults) {
     results.push({ source, jobs, error });
   }
+
+  results.push({
+    source: greenhouseResult.source,
+    jobs: greenhouseResult.jobs,
+    error: greenhouseResult.error,
+  });
 
   return results;
 }

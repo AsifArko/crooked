@@ -1,12 +1,22 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { RefreshCw, Database, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { RefreshCw, Database, CheckCircle, XCircle, Loader2, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TablePagination } from "./SiteAnalyticsDashboardComponents";
 import { cn } from "@/lib/utils";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const PAGE_SIZE = 15;
+const SOURCE_STATS_PAGE_SIZE = 10;
 
 type SourceStat = {
   source: string;
@@ -107,7 +117,8 @@ export function CrawlsDashboard() {
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [page, setPage] = useState(1);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [sourceStatsPage, setSourceStatsPage] = useState(1);
 
   const fetchData = useCallback((p = 1) => {
     setIsRefreshing(true);
@@ -135,6 +146,11 @@ export function CrawlsDashboard() {
   }, [fetchData, page]);
 
   const items = data?.items ?? [];
+  const selectedRun = selectedId ? items.find((r) => r._id === selectedId) : null;
+
+  useEffect(() => {
+    setSourceStatsPage(1);
+  }, [selectedId]);
 
   if (loading && !data) {
     return (
@@ -188,9 +204,6 @@ export function CrawlsDashboard() {
                   Started
                 </th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 text-[11px] uppercase tracking-wider">
-                  Finished
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-gray-700 text-[11px] uppercase tracking-wider">
                   Type
                 </th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 text-[11px] uppercase tracking-wider">
@@ -217,14 +230,16 @@ export function CrawlsDashboard() {
                 <th className="text-right py-3 px-4 font-semibold text-gray-700 text-[11px] uppercase tracking-wider">
                   Duration
                 </th>
-                <th className="w-10"></th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 text-[11px] uppercase tracking-wider">
+                  Finished
+                </th>
               </tr>
             </thead>
             <tbody>
               {items.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={12}
+                    colSpan={11}
                     className="py-8 text-center text-zinc-500 text-[11px]"
                   >
                     No crawl runs yet. Trigger a crawl from the Jobs dashboard.
@@ -232,25 +247,20 @@ export function CrawlsDashboard() {
                 </tr>
               ) : (
                 items.map((run) => (
-                  <React.Fragment key={run._id}>
-                    <tr
-                      key={run._id}
-                      className="border-b border-gray-100 last:border-0 hover:bg-gray-50/50"
-                    >
+                  <tr
+                    key={run._id}
+                    onClick={() => setSelectedId(selectedId === run._id ? null : run._id)}
+                    className={cn(
+                      "border-b border-gray-100 last:border-0 cursor-pointer transition-colors",
+                      selectedId === run._id ? "bg-blue-50/80" : "hover:bg-gray-50/50"
+                    )}
+                  >
                       <td className="py-2.5 px-4">
                         <span
                           className="block max-w-[140px] truncate text-[9px] font-mono text-zinc-500"
                           title={formatISO(run.startedAt)}
                         >
                           {formatISO(run.startedAt)}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-4">
-                        <span
-                          className="block max-w-[140px] truncate text-[9px] font-mono text-zinc-500"
-                          title={formatISO(run.finishedAt)}
-                        >
-                          {formatISO(run.finishedAt)}
                         </span>
                       </td>
                       <td className="py-2.5 px-4 text-[11px] text-zinc-600">
@@ -290,116 +300,14 @@ export function CrawlsDashboard() {
                         {formatDuration(run.durationMs)}
                       </td>
                       <td className="py-2.5 px-4">
-                        {(run.sourceStats?.length > 0 ||
-                          run.locationStats?.length > 0 ||
-                          run.params ||
-                          run.errorLog) && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setExpandedId(
-                                expandedId === run._id ? null : run._id
-                              )
-                            }
-                            className="text-[11px] text-zinc-500 hover:text-zinc-700"
-                          >
-                            {expandedId === run._id ? "−" : "+"}
-                          </button>
-                        )}
+                        <span
+                          className="block max-w-[140px] truncate text-[9px] font-mono text-zinc-500"
+                          title={formatISO(run.finishedAt)}
+                        >
+                          {formatISO(run.finishedAt)}
+                        </span>
                       </td>
                     </tr>
-                    {expandedId === run._id && (
-                      <tr>
-                        <td
-                          colSpan={12}
-                          className="bg-zinc-50/80 py-3 px-4 border-b border-gray-100"
-                        >
-                          <div className="space-y-2 text-[11px]">
-                            {run.params &&
-                              (run.params.search ||
-                                run.params.countryCode ||
-                                run.params.location ||
-                                run.params.source) && (
-                              <div>
-                                <div className="font-medium text-zinc-600 uppercase tracking-wider mb-1.5">
-                                  Params
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                  {run.params.search && (
-                                    <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200">
-                                      search: {run.params.search}
-                                    </span>
-                                  )}
-                                  {run.params.countryCode && (
-                                    <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200">
-                                      country: {run.params.countryCode}
-                                    </span>
-                                  )}
-                                  {run.params.location && (
-                                    <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200">
-                                      location: {run.params.location}
-                                    </span>
-                                  )}
-                                  {run.params.source && (
-                                    <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200">
-                                      source: {run.params.source}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            )}
-                            {run.sourceStats && run.sourceStats.length > 0 && (
-                              <div>
-                                <div className="font-medium text-zinc-600 uppercase tracking-wider mb-1.5">
-                                  Per-source stats
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                  {run.sourceStats.map((s) => (
-                                    <span
-                                      key={s.source}
-                                      className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200"
-                                    >
-                                      {s.source}: fetched {s.fetched}, created{" "}
-                                      {s.created}, updated {s.updated}
-                                      {s.errors > 0 && `, errors ${s.errors}`}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {run.locationStats && run.locationStats.length > 0 && (
-                              <div>
-                                <div className="font-medium text-zinc-600 uppercase tracking-wider mb-1.5">
-                                  Per-location stats
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                  {run.locationStats.map((s, i) => (
-                                    <span
-                                      key={`${s.city}-${s.country}-${i}`}
-                                      className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200"
-                                    >
-                                      {s.city}, {s.country}: {s.jobsFound} found,
-                                      created {s.created}, updated {s.updated}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {run.errorLog && (
-                              <div>
-                                <div className="font-medium text-zinc-600 uppercase tracking-wider mb-1.5">
-                                  Error log
-                                </div>
-                                <pre className="whitespace-pre-wrap rounded bg-white p-2 font-mono text-red-600 text-[10px] border border-zinc-200 max-h-32 overflow-y-auto">
-                                  {run.errorLog}
-                                </pre>
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
                 ))
               )}
             </tbody>
@@ -412,7 +320,280 @@ export function CrawlsDashboard() {
           limit={PAGE_SIZE}
           onPageChange={fetchData}
         />
+
+        {selectedRun && (
+          <SessionDetailsSection
+            run={selectedRun}
+            sourceStatsPage={sourceStatsPage}
+            onSourceStatsPageChange={setSourceStatsPage}
+          />
+        )}
       </div>
+    </div>
+  );
+}
+
+function SessionDetailsSection({
+  run,
+  sourceStatsPage,
+  onSourceStatsPageChange,
+}: {
+  run: CrawlRun;
+  sourceStatsPage: number;
+  onSourceStatsPageChange: (p: number) => void;
+}) {
+  const sourceStats = run.sourceStats ?? [];
+  const totalSourcePages = Math.max(
+    1,
+    Math.ceil(sourceStats.length / SOURCE_STATS_PAGE_SIZE)
+  );
+  const paginatedSources = sourceStats.slice(
+    (sourceStatsPage - 1) * SOURCE_STATS_PAGE_SIZE,
+    sourceStatsPage * SOURCE_STATS_PAGE_SIZE
+  );
+
+  const chartData = sourceStats.map((s) => ({
+    name: s.source,
+    fetched: s.fetched,
+    created: s.created,
+    updated: s.updated,
+    errors: s.errors,
+  }));
+
+  return (
+    <div className="mt-8 space-y-6">
+      <h2 className="text-lg font-semibold text-zinc-900 flex items-center gap-2">
+        <BarChart3 className="h-5 w-5 text-zinc-500" />
+        Session details — {formatISO(run.startedAt)}
+      </h2>
+
+      {run.params &&
+        (run.params.search ||
+          run.params.countryCode ||
+          run.params.location ||
+          run.params.source) && (
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50/50 p-4">
+            <div className="text-[11px] font-medium text-zinc-600 uppercase tracking-wider mb-2">
+              Params
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {run.params.search && (
+                <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200 text-[11px]">
+                  search: {run.params.search}
+                </span>
+              )}
+              {run.params.countryCode && (
+                <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200 text-[11px]">
+                  country: {run.params.countryCode}
+                </span>
+              )}
+              {run.params.location && (
+                <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200 text-[11px]">
+                  location: {run.params.location}
+                </span>
+              )}
+              {run.params.source && (
+                <span className="inline-block rounded bg-white px-2 py-1 font-mono text-zinc-600 border border-zinc-200 text-[11px]">
+                  source: {run.params.source}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+      {sourceStats.length > 0 && (
+        <>
+          <div className="rounded-lg border border-zinc-200 bg-white p-4">
+            <div className="text-[11px] font-medium text-zinc-600 uppercase tracking-wider mb-3">
+              Fetched per source (chart)
+            </div>
+            <div className="h-[220px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={chartData}
+                  layout="vertical"
+                  margin={{ top: 4, right: 20, left: 60, bottom: 4 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
+                  <XAxis type="number" tick={{ fontSize: 10 }} />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    width={55}
+                    tick={{ fontSize: 10 }}
+                  />
+                  <Tooltip
+                    contentStyle={{ fontSize: 11 }}
+                    labelFormatter={(label) => `Source: ${label}`}
+                  />
+                  <Bar dataKey="fetched" fill="#3b82f6" name="Fetched" radius={[0, 2, 2, 0]} />
+                  <Bar dataKey="created" fill="#10b981" name="Created" radius={[0, 2, 2, 0]} />
+                  <Bar dataKey="updated" fill="#6366f1" name="Updated" radius={[0, 2, 2, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-zinc-200 bg-white overflow-hidden">
+            <div className="px-4 py-3 border-b border-zinc-100 flex items-center justify-between">
+              <span className="text-[11px] font-medium text-zinc-600 uppercase tracking-wider">
+                Per-source stats
+              </span>
+              {totalSourcePages > 1 && (
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-[11px]"
+                    disabled={sourceStatsPage <= 1}
+                    onClick={() => onSourceStatsPageChange(sourceStatsPage - 1)}
+                  >
+                    ←
+                  </Button>
+                  <span className="text-[11px] text-zinc-500 px-2">
+                    {sourceStatsPage} / {totalSourcePages}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-[11px]"
+                    disabled={sourceStatsPage >= totalSourcePages}
+                    onClick={() => onSourceStatsPageChange(sourceStatsPage + 1)}
+                  >
+                    →
+                  </Button>
+                </div>
+              )}
+            </div>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-zinc-50 border-b border-zinc-200">
+                  <th className="text-left py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                    Source
+                  </th>
+                  <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                    Fetched
+                  </th>
+                  <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                    Created
+                  </th>
+                  <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                    Updated
+                  </th>
+                  <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                    Errors
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedSources.map((s) => (
+                  <tr
+                    key={s.source}
+                    className="border-b border-zinc-100 last:border-0 hover:bg-zinc-50/50"
+                  >
+                    <td className="py-2 px-4 font-mono text-[11px] text-zinc-700 capitalize">
+                      {s.source}
+                    </td>
+                    <td className="py-2 px-4 text-right font-mono text-[11px] text-zinc-600">
+                      {s.fetched}
+                    </td>
+                    <td className="py-2 px-4 text-right font-mono text-[11px] text-emerald-600">
+                      {s.created}
+                    </td>
+                    <td className="py-2 px-4 text-right font-mono text-[11px] text-blue-600">
+                      {s.updated}
+                    </td>
+                    <td className="py-2 px-4 text-right">
+                      <span
+                        className={cn(
+                          "font-mono text-[11px]",
+                          s.errors > 0 ? "text-red-600" : "text-zinc-400"
+                        )}
+                      >
+                        {s.errors}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {run.locationStats && run.locationStats.length > 0 && (
+        <div className="rounded-lg border border-zinc-200 bg-white overflow-hidden">
+          <div className="px-4 py-3 border-b border-zinc-100">
+            <span className="text-[11px] font-medium text-zinc-600 uppercase tracking-wider">
+              Per-location stats
+            </span>
+          </div>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-zinc-50 border-b border-zinc-200">
+                <th className="text-left py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  City
+                </th>
+                <th className="text-left py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  Country
+                </th>
+                <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  Queries
+                </th>
+                <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  Found
+                </th>
+                <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  Created
+                </th>
+                <th className="text-right py-2 px-4 font-medium text-zinc-600 text-[11px]">
+                  Updated
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {run.locationStats.map((s, i) => (
+                <tr
+                  key={`${s.city}-${s.country}-${i}`}
+                  className="border-b border-zinc-100 last:border-0 hover:bg-zinc-50/50"
+                >
+                  <td className="py-2 px-4 font-mono text-[11px] text-zinc-700">
+                    {s.city}
+                  </td>
+                  <td className="py-2 px-4 font-mono text-[11px] text-zinc-600">
+                    {s.country}
+                  </td>
+                  <td className="py-2 px-4 text-right font-mono text-[11px] text-zinc-600">
+                    {s.queries}
+                  </td>
+                  <td className="py-2 px-4 text-right font-mono text-[11px] text-zinc-600">
+                    {s.jobsFound}
+                  </td>
+                  <td className="py-2 px-4 text-right font-mono text-[11px] text-emerald-600">
+                    {s.created}
+                  </td>
+                  <td className="py-2 px-4 text-right font-mono text-[11px] text-blue-600">
+                    {s.updated}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {run.errorLog && (
+        <div className="rounded-lg border border-red-200 bg-red-50/30 overflow-hidden">
+          <div className="px-4 py-3 border-b border-red-100">
+            <span className="text-[11px] font-medium text-red-700 uppercase tracking-wider">
+              Error log
+            </span>
+          </div>
+          <pre className="whitespace-pre-wrap p-4 font-mono text-red-600 text-[10px] max-h-48 overflow-y-auto">
+            {run.errorLog}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

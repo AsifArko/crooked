@@ -61,7 +61,7 @@ type OverviewResponse = {
   lastCrawledAt?: string;
 };
 
-const SOURCE_OPTIONS = [
+const SOURCE_OPTIONS_FALLBACK = [
   { value: "all", label: "All sources" },
   { value: "remotive", label: "Remotive" },
   { value: "arbeitnow", label: "Arbeitnow" },
@@ -172,6 +172,7 @@ function formatSalary(min?: number, max?: number, currency?: string): string {
 export function JobsDashboard() {
   const [data, setData] = useState<JobsResponse | null>(null);
   const [overview, setOverview] = useState<OverviewResponse | null>(null);
+  const [sourceOptions, setSourceOptions] = useState<{ value: string; label: string }[]>(SOURCE_OPTIONS_FALLBACK);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isCrawling, setIsCrawling] = useState(false);
@@ -276,6 +277,23 @@ export function JobsDashboard() {
   useEffect(() => {
     fetchOverview();
   }, [fetchOverview]);
+
+  useEffect(() => {
+    fetch("/api/admin/jobs/sources?limit=100")
+      .then((res) => res.json())
+      .then((d: { items?: Array<{ slug: string; name?: string }> }) => {
+        if (d?.items?.length) {
+          setSourceOptions([
+            { value: "all", label: "All sources" },
+            ...d.items.map((s) => ({
+              value: s.slug,
+              label: s.name || s.slug,
+            })),
+          ]);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const hasFilters =
     searchDebounced ||
@@ -428,7 +446,7 @@ export function JobsDashboard() {
               <FilterDropdown
                 value={source}
                 onChange={setSource}
-                options={SOURCE_OPTIONS}
+                options={sourceOptions}
                 searchPlaceholder="Search sources..."
               />
             </div>

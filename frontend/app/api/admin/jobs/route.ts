@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import { parseContactFromText } from "@/lib/jobs/parse-contact";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -82,7 +83,8 @@ export async function GET(request: NextRequest) {
     if (dateFrom) params.dateFrom = `${dateFrom}T00:00:00.000Z`;
     if (dateTo) params.dateTo = `${dateTo}T23:59:59.999Z`;
 
-    const fetchSlice = hasSearch ? `[0...500]` : `[$from...$to]`;
+    const fetchSize = hasSearch ? 500 : Math.min(2000, from + limit);
+    const fetchSlice = `[0...${fetchSize}]`;
     const [items, total] = await Promise.all([
       client.fetch<
         Array<{
@@ -124,7 +126,7 @@ export async function GET(request: NextRequest) {
           source->{ name, slug },
           place->{ name, displayName, country, countryCode }
         }`,
-        hasSearch ? params : { ...params, from, to }
+        params
       ),
       client.fetch<number>(`count(*[${filterStr}])`, params),
     ]);
@@ -140,10 +142,17 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    filteredItems.sort((a, b) => {
+      const aHasEmail = !!parseContactFromText(a.description).email;
+      const bHasEmail = !!parseContactFromText(b.description).email;
+      if (aHasEmail !== bHasEmail) return aHasEmail ? -1 : 1;
+      return (
+        new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime()
+      );
+    });
+
     const actualTotal = hasSearch ? filteredItems.length : total;
-    const paginated = hasSearch
-      ? filteredItems.slice(from, from + limit)
-      : filteredItems;
+    const paginated = filteredItems.slice(from, from + limit);
 
     return NextResponse.json({
       items: paginated,
