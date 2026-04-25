@@ -29,15 +29,15 @@ Browse the UI quickly below. Click any thumbnail to open the full-size image.
 
 | Screen 01 | Screen 02 | Screen 03 |
 |---|---|---|
-| [![Crooked app screenshot 01](./screenshots/1.png)](./screenshots/1.png) | [![Crooked app screenshot 02](./screenshots/2.png)](./screenshots/2.png) | [![Crooked app screenshot 03](./screenshots/3.png)](./screenshots/3.png) |
+| [![Crooked app screenshot 01](./screenshots/01.png)](./screenshots/01.png) | [![Crooked app screenshot 02](./screenshots/02.png)](./screenshots/02.png) | [![Crooked app screenshot 03](./screenshots/03.png)](./screenshots/03.png) |
 
 | Screen 04 | Screen 05 | Screen 06 |
 |---|---|---|
-| [![Crooked app screenshot 04](./screenshots/4.png)](./screenshots/4.png) | [![Crooked app screenshot 05](./screenshots/5.png)](./screenshots/5.png) | [![Crooked app screenshot 06](./screenshots/6.png)](./screenshots/6.png) |
+| [![Crooked app screenshot 04](./screenshots/04.png)](./screenshots/04.png) | [![Crooked app screenshot 05](./screenshots/05.png)](./screenshots/05.png) | [![Crooked app screenshot 06](./screenshots/06.png)](./screenshots/06.png) |
 
 | Screen 07 | Screen 08 | Screen 09 |
 |---|---|---|
-| [![Crooked app screenshot 07](./screenshots/7.png)](./screenshots/7.png) | [![Crooked app screenshot 08](./screenshots/8.png)](./screenshots/8.png) | [![Crooked app screenshot 09](./screenshots/9.png)](./screenshots/9.png) |
+| [![Crooked app screenshot 07](./screenshots/07.png)](./screenshots/07.png) | [![Crooked app screenshot 08](./screenshots/08.png)](./screenshots/08.png) | [![Crooked app screenshot 09](./screenshots/09.png)](./screenshots/09.png) |
 
 | Screen 10 | Screen 11 | Screen 12 |
 |---|---|---|
