@@ -9,23 +9,30 @@ import { Toaster } from "sonner";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
+import { StudioBodyClass } from "@/app/studio/StudioBodyClass";
+import { AnalyticsProvider } from "@/components/analytics";
 import * as demo from "@/sanity/lib/demo";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { sanityFetch } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { handleError } from "./client-utils";
+import { Analytics } from "@vercel/analytics/next"
 
 /**
  * Generate metadata for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-    // Metadata should never contain stega
-    stega: false,
-  });
+  let settings: Awaited<ReturnType<typeof sanityFetch>>["data"] = null;
+  try {
+    const result = await sanityFetch({
+      query: settingsQuery,
+      // Metadata should never contain stega
+      stega: false,
+    });
+    settings = result.data;
+  } catch {
+    // Sanity API may be unreachable (CORS, network) - use demo fallbacks
+  }
   const title = settings?.title || demo.title;
   const description = settings?.description || demo.description;
 
@@ -66,23 +73,43 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body>
-        <section className="min-h-screen pt-24">
-          {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
+        <StudioBodyClass />
+        <section className="min-h-screen">
           <Toaster />
           {isDraftMode && (
             <>
               <DraftModeToast />
-              {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
               <VisualEditing />
             </>
           )}
-          {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
-          <Header />
-          <main className="">{children}</main>
+          <AnalyticsProvider>
+            <main className="">{children}</main>
           <Footer />
+          </AnalyticsProvider>
         </section>
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>

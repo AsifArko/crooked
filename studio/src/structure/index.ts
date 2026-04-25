@@ -8,7 +8,17 @@ import pluralize from 'pluralize-esm'
  * Learn more: https://www.sanity.io/docs/structure-builder-introduction
  */
 
-const DISABLED_TYPES = ['settings', 'assist.instruction.context']
+const DISABLED_TYPES = [
+  'settings',
+  'assist.instruction.context',
+  // Analytics - system-generated, accessed via dashboards
+  'pageView',
+  'userEvent',
+  'systemMetric',
+  'errorLog',
+  'performanceMetric',
+  'resumeDownload',
+]
 
 export const structure: StructureResolver = (S: StructureBuilder) =>
   S.list()

@@ -1,0 +1,57 @@
+import { defineField, defineType } from "sanity";
+
+export default defineType({
+  name: "place",
+  title: "Place",
+  type: "document",
+  readOnly: true,
+  fields: [
+    defineField({ name: "osmType", type: "string", title: "OSM Type" }),
+    defineField({ name: "osmId", type: "string", title: "OSM ID" }),
+    defineField({ name: "placeId", type: "number", title: "Nominatim Place ID" }),
+    defineField({
+      name: "placeType",
+      type: "string",
+      title: "Place Type",
+      options: {
+        list: [
+          "country",
+          "state",
+          "city",
+          "district",
+          "suburb",
+          "town",
+          "village",
+        ],
+      },
+    }),
+    defineField({ name: "adminLevel", type: "number", title: "Admin Level" }),
+    defineField({
+      name: "parent",
+      type: "reference",
+      to: [{ type: "place" }],
+      title: "Parent Place",
+    }),
+    defineField({ name: "name", type: "string", title: "Name" }),
+    defineField({ name: "displayName", type: "string", title: "Display Name" }),
+    defineField({ name: "nameEn", type: "string", title: "Name (English)" }),
+    defineField({ name: "lat", type: "number", title: "Latitude" }),
+    defineField({ name: "lon", type: "number", title: "Longitude" }),
+    defineField({
+      name: "boundingBox",
+      type: "array",
+      of: [{ type: "number" }],
+      title: "Bounding Box",
+    }),
+    defineField({ name: "countryCode", type: "string", title: "Country Code" }),
+    defineField({ name: "country", type: "string", title: "Country Name" }),
+    defineField({ name: "state", type: "string", title: "State/Region" }),
+    defineField({ name: "stateDistrict", type: "string", title: "State District" }),
+    defineField({ name: "city", type: "string", title: "City" }),
+    defineField({ name: "district", type: "string", title: "District" }),
+    defineField({ name: "postcode", type: "string", title: "Postcode" }),
+    defineField({ name: "population", type: "number", title: "Population" }),
+    defineField({ name: "importance", type: "number", title: "Importance" }),
+    defineField({ name: "lastSyncedAt", type: "datetime", title: "Last Synced" }),
+  ],
+});

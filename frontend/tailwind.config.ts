@@ -97,6 +97,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-inter)"],
       },
+      gridTemplateColumns: {
+        "53": "repeat(53, minmax(0, 1fr))",
+      },
     },
   },
   future: {

@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "crons": [
+    { "path": "/api/cron/record-system-metrics", "schedule": "0 0 * * *" },
+    { "path": "/api/cron/crawl-jobs-locations", "schedule": "0 2 * * *" }
+  ]
+}

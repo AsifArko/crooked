@@ -28,7 +28,19 @@ export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-10-28";
 
 /**
- * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
+ * Used to configure edit intent links, Presentation Mode, and where the Studio is mounted.
+ * Set NEXT_PUBLIC_BASE_URL (and optionally NEXT_PUBLIC_SANITY_STUDIO_PATH) in production.
  */
+const studioPath =
+  process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH?.trim() &&
+  process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH !== "studio"
+    ? `/${process.env.NEXT_PUBLIC_SANITY_STUDIO_PATH.trim()}`
+    : "/studio";
+const baseUrl =
+  process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ||
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  "http://localhost:3333";
 export const studioUrl =
-  process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "http://localhost:3333";
+  baseUrl.endsWith("/")
+    ? `${baseUrl.slice(0, -1)}${studioPath}`
+    : `${baseUrl}${studioPath}`;

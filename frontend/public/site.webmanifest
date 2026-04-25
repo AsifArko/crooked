@@ -1,0 +1,8 @@
+{
+  "name": "Portfolio CMS",
+  "short_name": "Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}

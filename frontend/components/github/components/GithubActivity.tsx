@@ -1,0 +1,49 @@
+import React from "react";
+import { GitHubContributions } from "./contributions/GitHubContributions";
+import { ActivityOverview } from "./activityOverview/ActivityOverview";
+
+export const GithubActivity = () => {
+  const blackContrastColors = {
+    empty: "bg-gray-200 dark:bg-gray-700",
+    low: "bg-gray-400 dark:bg-gray-500",
+    medium: "bg-gray-600 dark:bg-gray-300",
+    high: "bg-gray-800 dark:bg-gray-100",
+    veryHigh: "bg-black dark:bg-white",
+  };
+
+  return (
+    <section id="github" className="bg-background">
+      <div className="max-w-7xl mx-auto px-6 pb-12 lg:px-8">
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary/30"></div>
+            <span className="text-xs font-medium text-primary/80 uppercase tracking-[0.25em]">
+              Github Activity
+            </span>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary/30"></div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* GitHub Contributions - full width */}
+          <div className="order-1 lg:order-1 h-full">
+            <GitHubContributions
+              username="asifarko"
+              showHeader={false}
+              showLegend={true}
+              showMonthLabels={true}
+              colorScheme="custom"
+              customColors={blackContrastColors}
+              animation={true}
+            />
+          </div>
+
+          {/* Activity Overview - full width */}
+          <div className="order-2 lg:order-2 h-full">
+            <ActivityOverview username="asifarko" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
